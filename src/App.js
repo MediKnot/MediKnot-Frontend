@@ -24,9 +24,11 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Redirect
 } from "react-router-dom";
 import Login from './screens/Login';
+import SignUp from './screens/Signup';
 
 const drawerWidth = 240;
 
@@ -36,7 +38,7 @@ function App(props) {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [flow, setFlow] = useState(0);
-  
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -68,7 +70,6 @@ function App(props) {
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;
-
   if (flow === 1) {
     return (
       <Router>
@@ -135,6 +136,9 @@ function App(props) {
   } else {
     return (
       <Router>
+        <Route path="/signup">
+          <SignUp />
+        </Route>
         <Route path="/">
           <Login />
         </Route>
@@ -145,10 +149,6 @@ function App(props) {
 }
 
 App.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
   window: PropTypes.func,
 };
 

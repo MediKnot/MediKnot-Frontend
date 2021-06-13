@@ -6,7 +6,6 @@
 .column{
     display:flex;
     flex-direction: column;
-    flex-wrap: wrap;
 }
 .ai-c{
     align-items: center;
@@ -46,11 +45,23 @@
     height: 20px;
 }
 
+.input-small{
+    border: 0;
+    padding: 20px;
+    border-radius: 10px;
+    width: 125px;
+    height: 20px;
+}
+
 .shadow {
     box-shadow: 8px 8px 50px #aaaaaa;
 }
 
 .heading{
     font-size: 60px;
-    color: #7AB6D8;
+    color: #2B6E89;
+}
+
+.font-s{
+    font-size: 15px;
 }

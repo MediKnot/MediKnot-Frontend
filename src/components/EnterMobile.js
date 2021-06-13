@@ -1,13 +1,12 @@
 import React from 'react'
 import { Button } from '@material-ui/core';
 
-
-function EnterAdhaar({setFlow}) {
+function EnterMobile({setFlow}) {
     return (
         <>
-            <h3>Adhaar No.</h3>
+            <h3>Mobile No.</h3>
             <form onSubmit={() => setFlow(1)} className="column">
-                <input type="number" maxLength={12} placeholder="Adhaar No." className="input-large shadow mv" />
+                <input type="number" maxLength={10} placeholder="Mobile Number" className="input-large shadow mv" />
                 <Button variant="contained" color="primary" type="submit">
                     Send Otp
                 </Button>
@@ -16,4 +15,4 @@ function EnterAdhaar({setFlow}) {
     )
 }
 
-export default EnterAdhaar
+export default EnterMobile
