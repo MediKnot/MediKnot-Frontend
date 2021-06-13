@@ -1,11 +1,56 @@
 .row{
     display:flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 .column{
     display:flex;
     flex-direction: column;
+    flex-wrap: wrap;
 }
 .ai-c{
     align-items: center;
+}
+
+.jc-sb{
+    justify-content: space-between;
+}
+
+.jc-se{
+    justify-content: space-evenly;
+}
+
+.jc-c{
+    justify-content: center;
+}
+
+.textalign-c{
+    text-align: center;
+}
+
+.mh{
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.mv{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.input-large{
+    border: 0;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    height: 20px;
+}
+
+.shadow {
+    box-shadow: 8px 8px 50px #aaaaaa;
+}
+
+.heading{
+    font-size: 60px;
+    color: #7AB6D8;
 }

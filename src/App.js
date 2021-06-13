@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -21,7 +21,12 @@ import TimelineIcon from '@material-ui/icons/Timeline';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import MyTimeline from './screens/Timeline';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
+import Login from './screens/Login';
 
 const drawerWidth = 240;
 
@@ -30,12 +35,13 @@ function App(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
+  const [flow, setFlow] = useState(0);
+  
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const icons = [<DashboardIcon/>, <FileCopyIcon/>, <TimelineIcon/>, <SearchIcon/>, <AccountCircleIcon/> ];
+  const icons = [<DashboardIcon />, <FileCopyIcon />, <TimelineIcon />, <SearchIcon />, <AccountCircleIcon />];
 
   const drawer = (
     <div>
@@ -51,9 +57,9 @@ function App(props) {
       </List>
       <Divider />
       <List>
-        {['Logout'].map((text, index) => (
+        {['Login/Signup'].map((text, index) => (
           <ListItem button key={text}>
-            <ListItemIcon><ExitToAppIcon/></ListItemIcon>
+            <ListItemIcon><ExitToAppIcon /></ListItemIcon>
             <ListItemText primary={text} />
           </ListItem>
         ))}
@@ -63,63 +69,79 @@ function App(props) {
 
   const container = window !== undefined ? () => window().document.body : undefined;
 
-  return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            className={classes.menuButton}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap>
-            Mediknot
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <nav className={classes.drawer} aria-label="mailbox folders">
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-        <Hidden smUp implementation="css">
-          <Drawer
-            container={container}
-            variant="temporary"
-            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-        <Hidden xsDown implementation="css">
-          <Drawer
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            variant="permanent"
-            open
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-      </nav>
-      <main className={classes.content}>
-        <div className={classes.toolbar}  />
-        <Dashboard/>
-        <MyTimeline/>
-      </main>
-    </div>
-  );
+  if (flow === 1) {
+    return (
+      <Router>
+        <div className={classes.root}>
+          <CssBaseline />
+          <AppBar position="fixed" className={classes.appBar}>
+            <Toolbar>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={handleDrawerToggle}
+                className={classes.menuButton}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography variant="h6" noWrap>
+                Mediknot
+              </Typography>
+            </Toolbar>
+          </AppBar>
+          <nav className={classes.drawer} aria-label="mailbox folders">
+            {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+            <Hidden smUp implementation="css">
+              <Drawer
+                container={container}
+                variant="temporary"
+                anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+                open={mobileOpen}
+                onClose={handleDrawerToggle}
+                classes={{
+                  paper: classes.drawerPaper,
+                }}
+                ModalProps={{
+                  keepMounted: true, // Better open performance on mobile.
+                }}
+              >
+                {drawer}
+              </Drawer>
+            </Hidden>
+            <Hidden xsDown implementation="css">
+              <Drawer
+                classes={{
+                  paper: classes.drawerPaper,
+                }}
+                variant="permanent"
+                open
+              >
+                {drawer}
+              </Drawer>
+            </Hidden>
+          </nav>
+          <main className={classes.content}>
+            <div className={classes.toolbar} />
+            <Switch>
+              <Route path="/">
+                <Dashboard />
+              </Route>
+            </Switch>
+          </main>
+        </div>
+      </Router>
+    );
+  } else {
+    return (
+      <Router>
+        <Route path="/">
+          <Login />
+        </Route>
+      </Router>
+    )
+  }
+
 }
 
 App.propTypes = {
