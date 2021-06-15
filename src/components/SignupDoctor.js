@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Button } from '@material-ui/core';
 import "../App.css"
-import { Link } from 'react-router-dom';
 
 function SignupDoctor({ setFlow }) {
     // const [degree, setDegree] = React.useState([{ name: "" }]);

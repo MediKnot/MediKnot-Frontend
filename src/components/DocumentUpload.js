@@ -25,7 +25,7 @@ function DocumentUpload({setFlow}) {
                         Upload Documents
                     </Button>
                 </form>
-                {adhaar ? <img src={adhaar} style={{ height: 100, width: 100, borderRadius: 10 }} className="mh" /> : null}
+                {adhaar ? <img alt="document_image" src={adhaar} style={{ height: 100, width: 100, borderRadius: 10 }} className="mh" /> : null}
             </div>
         </>
     )

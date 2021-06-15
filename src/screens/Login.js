@@ -15,7 +15,7 @@ function Login() {
         <div id="body" style={{ backgroundColor: '#D0EFFE', overflowY: 'scroll', height: '100vh' }} className="ai-c row jc-se">
             <div className="column ai-c">
                 <h1 className="heading textalign-c">MediKnot</h1>
-                <img src={LOGO} />
+                <img src={LOGO} alt="logo" />
             </div>
             <div className="mh">
                 <h1 className="heading-small">Login</h1>

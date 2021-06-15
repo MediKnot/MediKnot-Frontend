@@ -7,23 +7,23 @@ import TimelineConnector from '@material-ui/lab/TimelineConnector';
 import TimelineContent from '@material-ui/lab/TimelineContent';
 import TimelineOppositeContent from '@material-ui/lab/TimelineOppositeContent';
 import TimelineDot from '@material-ui/lab/TimelineDot';
-import FastfoodIcon from '@material-ui/icons/Fastfood';
-import LaptopMacIcon from '@material-ui/icons/LaptopMac';
-import HotelIcon from '@material-ui/icons/Hotel';
-import RepeatIcon from '@material-ui/icons/Repeat';
+import AddAlarm from '@material-ui/icons/AddAlarm';
+import AirlineSeatFlat from '@material-ui/icons/AirlineSeatFlat';
+import AddAlert from '@material-ui/icons/AddAlert';
+import AirlineSeatIndividualSuite from '@material-ui/icons/AirlineSeatIndividualSuite';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    padding: '6px 16px',
+    padding: '20px 20px',
   },
   secondaryTail: {
     backgroundColor: theme.palette.secondary.main,
   },
 }));
 
-export default function MyTimeline() {
+export default function CustomizedTimeline() {
   const classes = useStyles();
 
   return (
@@ -31,73 +31,73 @@ export default function MyTimeline() {
       <TimelineItem>
         <TimelineOppositeContent>
           <Typography variant="body2" color="textSecondary">
-            9:30 am
+            May 2021
           </Typography>
         </TimelineOppositeContent>
         <TimelineSeparator>
           <TimelineDot>
-            <FastfoodIcon />
+            <AddAlarm />
           </TimelineDot>
           <TimelineConnector />
         </TimelineSeparator>
         <TimelineContent>
           <Paper elevation={3} className={classes.paper}>
             <Typography variant="h6" component="h1">
-              Eat
+              COVID-19
             </Typography>
-            <Typography>Because you need strength</Typography>
+            <Typography>Basic Pneumonia and fever</Typography>
           </Paper>
         </TimelineContent>
       </TimelineItem>
       <TimelineItem>
         <TimelineOppositeContent>
           <Typography variant="body2" color="textSecondary">
-            10:00 am
+            January 2020
           </Typography>
         </TimelineOppositeContent>
         <TimelineSeparator>
           <TimelineDot color="primary">
-            <LaptopMacIcon />
+            <AirlineSeatFlat />
           </TimelineDot>
           <TimelineConnector />
         </TimelineSeparator>
         <TimelineContent>
           <Paper elevation={3} className={classes.paper}>
             <Typography variant="h6" component="h1">
-              Code
+              Root Canal 
             </Typography>
-            <Typography>Because it&apos;s awesome!</Typography>
+            <Typography>Two teeth removed</Typography>
           </Paper>
         </TimelineContent>
       </TimelineItem>
       <TimelineItem>
         <TimelineSeparator>
           <TimelineDot color="primary" variant="outlined">
-            <HotelIcon />
+            <AddAlert />
           </TimelineDot>
           <TimelineConnector className={classes.secondaryTail} />
         </TimelineSeparator>
         <TimelineContent>
           <Paper elevation={3} className={classes.paper}>
             <Typography variant="h6" component="h1">
-              Sleep
+                Laser eye surgery
             </Typography>
-            <Typography>Because you need rest</Typography>
+            <Typography>Cured vision</Typography>
           </Paper>
         </TimelineContent>
       </TimelineItem>
       <TimelineItem>
         <TimelineSeparator>
           <TimelineDot color="secondary">
-            <RepeatIcon />
+            <AirlineSeatIndividualSuite />
           </TimelineDot>
         </TimelineSeparator>
         <TimelineContent>
           <Paper elevation={3} className={classes.paper}>
             <Typography variant="h6" component="h1">
-              Repeat
+              Malaria
             </Typography>
-            <Typography>Because this is the life you love!</Typography>
+            <Typography>Low blood pressure and 10 day hospitalisation</Typography>
           </Paper>
         </TimelineContent>
       </TimelineItem>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -9,7 +9,6 @@ import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -25,10 +24,12 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect
+  Link
 } from "react-router-dom";
 import Login from './screens/Login';
 import SignUp from './screens/Signup';
+import Profile from './screens/Profile';
+import Reports from './screens/Reports';
 
 const drawerWidth = 240;
 
@@ -39,30 +40,30 @@ function App(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [flow, setFlow] = useState(0);
 
+  useEffect(() => {
+    setFlow(1);
+  }, [])
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const icons = [<DashboardIcon />, <FileCopyIcon />, <TimelineIcon />, <SearchIcon />, <AccountCircleIcon />];
+  const icons = [<DashboardIcon />, <FileCopyIcon />, <TimelineIcon />, <SearchIcon />, <AccountCircleIcon />, <ExitToAppIcon />];
+  const routes = ["/", "/reports", "/", "/find", "/profile", "/login"]
 
   const drawer = (
     <div>
       <div className={classes.toolbar} />
+
       <Divider />
       <List>
-        {['Dashboard', 'Reports', 'Report Analysis', 'Find Doctor', 'Profile'].map((text, index) => (
+        {['Dashboard', 'Reports', 'Report Analysis', 'Find Doctor', 'Profile', 'Login/Signup'].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>{icons[index]}</ListItemIcon>
-            <ListItemText primary={text} />
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List>
-        {['Login/Signup'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon><ExitToAppIcon /></ListItemIcon>
-            <ListItemText primary={text} />
+            {/* <ListItemText primary={text} className={classes.link} /> */}
+            <Link to={routes[index]} style={{ textDecoration: 'none', color: 'inherit' }}>
+              <p style={{ fontSize: 15, fontWeight: 'bold' }}>{text}</p>
+            </Link>
           </ListItem>
         ))}
       </List>
@@ -138,6 +139,9 @@ function App(props) {
           <Route path="/login">
             <Login />
           </Route>
+          <Route path="/profile">
+            <Profile />
+          </Route>
           <Route path="/">
             <Login />
           </Route>
@@ -147,13 +151,16 @@ function App(props) {
   }
   else return (
     <Router>
-      <Switch>
-        <RespDrawer>
+      <RespDrawer>
+        <Switch>
+          <Route path="/reports">
+            <Reports />
+          </Route>
           <Route path="/">
             <Dashboard />
           </Route>
-        </RespDrawer>
-      </Switch>
+        </Switch>
+      </RespDrawer>
     </Router>
   );
 
@@ -191,6 +198,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3)
   },
+  link: {
+    textDecoration: 'none'
+  }
 }));
 
 
