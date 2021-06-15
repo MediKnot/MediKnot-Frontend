@@ -1,23 +1,13 @@
 import React from 'react'
 import { Button } from '@material-ui/core';
 import "../App.css"
-import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles((theme) => ({
-    textField: {
-        marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(1),
-        width: 200,
-    },
-}));
-
-function SignupDetails() {
-    const classes = useStyles();
-    const [gender, setGender] = React.useState('');
+function SignupDetails({setFlow}) {
+    const [gender, setGender] = React.useState('male');
 
     return (
         <>
-            <form className="column">
+            <form className="column" onSubmit={() => setFlow(2)}>
                 <div className="row ai-c mv">
                     <input type="text" minLength={2} placeholder="First Name" className="input-small shadow mh" />
                     <input type="text" minLength={2} placeholder="Last Name" className="input-small shadow" />
@@ -35,7 +25,7 @@ function SignupDetails() {
                     <input type="date" placeholder="Date Of Birth" className="input-small shadow mv" style={{backgroundColor: 'white'}}/>
                 </div>
                 <Button variant="contained" color="primary" type="submit" style={{marginBottom: 10}}>
-                    SignUp
+                    Next
                 </Button>
             </form>
         </>

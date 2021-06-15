@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button } from '@material-ui/core';
 
 
-function DocumentUpload() {
+function DocumentUpload({setFlow}) {
     const [adhaar, setAdhaar] = useState(null);
     function selectFile(e) {
         if (e.target.files.length !== 0) {
@@ -15,7 +15,7 @@ function DocumentUpload() {
     return (
         <>
             <div className="row ai-c">
-                <form onSubmit={() => alert("working...")} className="column">
+                <form onSubmit={() => setFlow(3)} className="column">
                     <h3>Select Adhaar</h3>
                     <input type="file" className="input-large shadow mv" onChange={selectFile} />
 

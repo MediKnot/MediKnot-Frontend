@@ -5,7 +5,7 @@ function EnterMobile({setFlow}) {
     return (
         <>
             <h3>Mobile No.</h3>
-            <form onSubmit={() => setFlow(1)} className="column">
+            <form onSubmit={() => setFlow(2)} className="column">
                 <input type="number" maxLength={10} placeholder="Mobile Number" className="input-large shadow mv" />
                 <Button variant="contained" color="primary" type="submit">
                     Send Otp
