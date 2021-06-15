@@ -67,10 +67,25 @@
     color: #2B6E89;
 }
 
+.label{
+    font-size: 20px;
+    color:#aaaaaa
+}
+
+.font-m{
+    font-size: 20px;
+}
+
 .font-s{
     font-size: 15px;
 }
 
 .link{
     text-decoration: none;
+}
+
+.text-display{
+    background-color: white;
+    border-radius: '5%';
+    width: 100px;
 }

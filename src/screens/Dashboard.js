@@ -7,13 +7,15 @@ import '../App.css'
 
 function Dashboard() {
     return (
-        <div style={{display: 'grid', placeItems: 'ai-c'}}>
-            <Prescription/>
-            <div className='row' style={{marginTop:40,justifyContent:'space-between'}}>
-                <Vulnerabilities/>
-                <Precautions/>
-                <MyTimeline/>
+        <div className="row jc-sb">
+            <div className="column" style={{ flex: 1.5 }}>
+                <Prescription />
+                <div className="row">
+                    <Precautions />
+                    <Vulnerabilities />
+                </div>
             </div>
+            <MyTimeline />
         </div>
     )
 }

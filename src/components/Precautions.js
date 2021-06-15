@@ -11,10 +11,10 @@ function Precautions() {
         'Keep household surfaces clean.','If your child has a cold, wash his or her toys as well.',
         'Use paper towels in the kitchen and bathroom for drying hands after hand washing.'];
     return (
-        <div style={{height: 300, width: '35%', backgroundColor: '#BAEEFE', borderRadius: 15, padding: 20,marginRight:'10%'}}>
-            <div>Precautions</div>
-            {Precautions_data.map(data=><div className='row center'>
-                <FiberManualRecordIcon style={{height:'10',width:'10'}}/>
+        <div style={{ backgroundColor: '#BAEEFE', borderRadius: 15, padding: 20, marginTop: 20}}>
+            <h3>Precautions</h3>
+            {Precautions_data.map(data=><div className='row ai-c'>
+                <FiberManualRecordIcon style={{height:'10',width:'10'}} className="mh"/>
                 <div>{data}</div>
             </div>)}
         </div>

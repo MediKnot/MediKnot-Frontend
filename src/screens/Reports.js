@@ -3,12 +3,12 @@ import "../App.css"
 
 function Reports() {
     return (
-        <div className="column">
-            <div>
-
+        <div className="row jc-sb">
+            <div className="column">
+                <h1 className="heading-small">Prescriptions</h1>
             </div>
-            <div>
-                
+            <div className="column">
+                <h1 className="heading-small">Reports</h1>
             </div>
         </div>
     )

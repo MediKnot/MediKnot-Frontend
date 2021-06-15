@@ -6,12 +6,13 @@ function Vulnerabilities() {
 
     const Vulnerabilities_data=['Diabetes','High BP','Aasthma','Piles'];
     return (
-        <div style={{height: 300, width: '35%', backgroundColor: '#FFADAD', borderRadius: 15, padding: 20,marginLeft:'5%'}}>
-            <div>Vulnerabilities</div>
-            {Vulnerabilities_data.map(data=><div className='row center'>
-                <FiberManualRecordIcon style={{height:'10',width:'10'}}/>
+        <div style={{ width: '35%', backgroundColor: '#FFADAD', borderRadius: 15, padding: 20, marginTop: 20}}>
+            <h3>Vulnerabilities</h3>
+            {Vulnerabilities_data.map(data=>
+            (<div className='row ai-c'>
+                <FiberManualRecordIcon style={{height:'10',width:'10'}} className="mh"/>
                 <div>{data}</div>
-            </div>)}
+            </div>))}
         </div>
     )
 }
