@@ -6,9 +6,15 @@ import { TextField,Button } from '@material-ui/core';
 import Edit from '@material-ui/icons/Edit';
 import Done from '@material-ui/icons/Done';
 
-const styles = theme => ({
+const styles = makeStyles({
+    textField:{
+        width:'120%',
+        maxWidth:700,
+        heigth:20,
+        textColor: 'black'
+    },
     multilineColor:{
-        color:'red'
+        // color:'red'
     }
 });
 
@@ -29,22 +35,24 @@ function Profile() {
     return (
         <div className="row jc-sb">
             <div>
-                <div className="row ai-c jc-sb" style={{width:'100%',maxWidth:900}}>
+                <div className="row ai-c jc-sb mv" style={{width:'100%'}}>
                     <div className="label mr">Name: </div>
-                    <div className="row mv mr">
+                    <div className="row-no-wrap">
                         <TextField 
-                            style={{width:'90%'}}
+                            // style={{width:'90%'}}
                             multiline
+                            className={classes.textField}
                             InputProps={{
-                            className: classes.multilineColor
+                                className: classes.multilineColor
                             }}
                             id="outlined-basic" variant="outlined" defaultValue="Saniya Agrawal" disabled={nameEditOff}/>
+                    {/* </div><div> */}
                         {nameEditOff?<Button onClick={()=>setNameEditOff(!nameEditOff)}><Edit/></Button>:<Button onClick={()=>setNameEditOff(!nameEditOff)}><Done/></Button>}
                     </div>
                 </div>
                 <div className="row ai-c jc-sb" style={{width:'100%',maxWidth:500}}>
                     <div className="label mr">Email: </div>
-                    <div className="row mv mr">
+                    <div className="row mv">
                         <TextField 
                             multiline
                             InputProps={{
@@ -56,7 +64,7 @@ function Profile() {
                 </div>
                 <div className="row ai-c jc-sb" style={{width:'100%',maxWidth:500}}>
                     <div className="label mr">Mobile: </div>
-                    <div className="row mv mr">
+                    <div className="row mv">
                         <TextField 
                             multiline
                             InputProps={{
@@ -68,7 +76,7 @@ function Profile() {
                 </div>
                 <div className="row ai-c jc-sb" style={{width:'100%',maxWidth:500}}>
                     <div className="label mr">Address: </div>
-                    <div className="row mv mr">
+                    <div className="row mv">
                     <TextField 
                         multiline
                         InputProps={{

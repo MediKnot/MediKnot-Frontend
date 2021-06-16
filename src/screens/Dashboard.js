@@ -4,6 +4,7 @@ import Precautions from '../components/Precautions'
 import Vulnerabilities from '../components/Vulnerabilities'
 import MyTimeline from './Timeline';
 import '../App.css'
+import MedicalEvent from '../screens/MedicalEvent';
 
 function Dashboard() {
     return (
@@ -16,6 +17,7 @@ function Dashboard() {
                 </div>
             </div>
             <MyTimeline />
+            <MedicalEvent/>
         </div>
     )
 }

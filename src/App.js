@@ -41,7 +41,7 @@ function App(props) {
   const [flow, setFlow] = useState(0);
 
   useEffect(() => {
-    setFlow(0);
+    setFlow(1);
   }, [flow])
 
   const handleDrawerToggle = () => {
