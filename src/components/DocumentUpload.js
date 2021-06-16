@@ -21,11 +21,16 @@ function DocumentUpload({setFlow}) {
 
                     <h3>Select Pan Card</h3>
                     <input type="file" className="input-large shadow mv" onChange={selectFile} />
-                    <Button variant="contained" color="primary" type="submit">
-                        Upload Documents
-                    </Button>
+                    <div className="row jc-sb">
+                        <Button variant="contained" color="primary" onClick={() => setFlow(1)} style={{marginBottom: 10, width: '45%'}}>
+                            Back
+                        </Button>
+                        <Button variant="contained" color="primary" type="submit" style={{marginBottom: 10, width: '45%'}}>
+                            Upload
+                        </Button>
+                    </div>
                 </form>
-                {adhaar ? <img alt="document_image" src={adhaar} style={{ height: 100, width: 100, borderRadius: 10 }} className="mh" /> : null}
+                {/* {adhaar ? <img alt="document_image" src={adhaar} style={{ height: 100, width: 100, borderRadius: 10 }} className="mh" /> : null} */}
             </div>
         </>
     )

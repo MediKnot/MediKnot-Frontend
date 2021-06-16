@@ -2,7 +2,7 @@ import React from 'react'
 import { Button } from '@material-ui/core';
 import "../App.css"
 
-function SignupDoctor({ setFlow }) {
+function SignupDoctor({ setFlow, setUser }) {
     // const [degree, setDegree] = React.useState([{ name: "" }]);
     // const [clinic, setClinic] = useState([{ name: "" }]);
 
@@ -42,9 +42,14 @@ function SignupDoctor({ setFlow }) {
                 })} */}
 
                 <input type="string" placeholder="Registration No." className="input-large shadow mv" />
-                <Button variant="contained" color="primary" type="submit" style={{ marginBottom: 10 }}>
-                    Next
-                </Button>
+                <div className="row jc-sb">
+                    <Button variant="contained" color="primary" onClick={() => (setFlow(-1), setUser(null))} style={{marginBottom: 10, width: '45%'}}>
+                        Back
+                    </Button>
+                    <Button variant="contained" color="primary" type="submit" style={{marginBottom: 10, width: '45%'}}>
+                        Next
+                    </Button>
+                </div>
             </form>
         </>
     )

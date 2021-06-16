@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { Button } from '@material-ui/core';
 import "../App.css"
 
-function SignupDetails({setFlow}) {
+function SignupDetails({setFlow, user, setUser, setData}) {
     const [gender, setGender] = useState('male');
     const [fname, setfname] = useState("");
     const [lname, setLname] = useState("");
@@ -12,9 +12,23 @@ function SignupDetails({setFlow}) {
     const [address, setAddress] = useState("");
     const [dob, setDob] = useState("");
 
+    const handleChange = (event) => {
+        event.preventDefault();
+        const obj = {
+            "aadharNumber": adhaar,
+            "dateOfBirth": dob,
+            "emailId": email,
+            "gender": gender,
+            "name": fname+" "+lname,
+            "phoneNumber": phone,
+        }
+        setData(obj);
+        setFlow(2);
+    }
+
     return (
         <>
-            <form className="column" onSubmit={() => setFlow(2)}>
+            <form className="column" onSubmit={handleChange}>
                 <div className="row ai-c mv">{console.log(fname)}
                     <input type="text" value={fname} onChange={(e) => setfname(e.target.value)} minLength={2} placeholder="First Name" className="input-small shadow mh" />
                     <input type="text" value={lname} onChange={(e) => setLname(e.target.value)} minLength={2} placeholder="Last Name" className="input-small shadow" />
@@ -29,11 +43,16 @@ function SignupDetails({setFlow}) {
                         <option value="female">Female</option>
                         <option value="other">Other</option>
                     </select>
-                    <input type="date" value={dob} onChange={(e) => setDob(e.target.value)} placeholder="Date Of Birth" className="input-small shadow mv" style={{backgroundColor: 'white'}}/>
+                    <input type="date" value={dob} onChange={(e) => setDob(e.target.value)} placeholder="dd-mm-yyyy" className="input-small shadow mv" style={{backgroundColor: 'white'}}/>
                 </div>
-                <Button variant="contained" color="primary" type="submit" style={{marginBottom: 10}}>
-                    Next
-                </Button>
+                <div className="row jc-sb">
+                    <Button variant="contained" color="primary" onClick={() => user==='doctor' ? setFlow(0): (setFlow(-1), setUser(null))} style={{marginBottom: 10, width: '45%'}}>
+                        Back
+                    </Button>
+                    <Button variant="contained" color="primary" type="submit" style={{marginBottom: 10, width: '45%'}}>
+                        Next
+                    </Button>
+                </div>
             </form>
         </>
     )
