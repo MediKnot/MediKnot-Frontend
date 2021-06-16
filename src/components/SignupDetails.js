@@ -2,8 +2,8 @@ import React, {useState} from 'react'
 import { Button } from '@material-ui/core';
 import "../App.css"
 
-function SignupDetails({setFlow, user, setUser, setData}) {
-    const [gender, setGender] = useState('male');
+function SignupDetails({setFlow, user, setUser, setData, data, flow}) {
+    const [gender, setGender] = useState('MALE');
     const [fname, setfname] = useState("");
     const [lname, setLname] = useState("");
     const [email, setEmail] = useState("");
@@ -18,12 +18,15 @@ function SignupDetails({setFlow, user, setUser, setData}) {
             "aadharNumber": adhaar,
             "dateOfBirth": dob,
             "emailId": email,
-            "gender": gender,
+            "gender": gender.toUpperCase(),
             "name": fname+" "+lname,
             "phoneNumber": phone,
         }
+        if(user==='doctor'){
+            obj['registrationNumber'] = data.registrationNumber;
+        }
         setData(obj);
-        setFlow(2);
+        setFlow(flow+1);
     }
 
     return (
@@ -46,7 +49,7 @@ function SignupDetails({setFlow, user, setUser, setData}) {
                     <input type="date" value={dob} onChange={(e) => setDob(e.target.value)} placeholder="dd-mm-yyyy" className="input-small shadow mv" style={{backgroundColor: 'white'}}/>
                 </div>
                 <div className="row jc-sb">
-                    <Button variant="contained" color="primary" onClick={() => user==='doctor' ? setFlow(0): (setFlow(-1), setUser(null))} style={{marginBottom: 10, width: '45%'}}>
+                    <Button variant="contained" color="primary" onClick={() => user==='doctor' ? setFlow(flow-1): (setFlow(flow-2), setUser(null))} style={{marginBottom: 10, width: '45%'}}>
                         Back
                     </Button>
                     <Button variant="contained" color="primary" type="submit" style={{marginBottom: 10, width: '45%'}}>

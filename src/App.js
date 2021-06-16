@@ -20,16 +20,12 @@ import TimelineIcon from '@material-ui/icons/Timeline';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 import Login from './screens/Login';
 import SignUp from './screens/Signup';
 import Profile from './screens/Profile';
 import Reports from './screens/Reports';
+import BG from './assets/images/bg.jpg'
 
 const drawerWidth = 240;
 
@@ -41,12 +37,22 @@ function App(props) {
   const [flow, setFlow] = useState(0);
 
   useEffect(() => {
-    setFlow(0);
-  }, [flow])
+    try {
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (user) {
+        setFlow(1);
+      } else setFlow(0);
+    } catch (e) { console.log(e); }
+  }, [])
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const logout = () => {
+    localStorage.removeItem("user");
+    setFlow(0);
+  }
 
   const icons = [<DashboardIcon />, <FileCopyIcon />, <TimelineIcon />, <SearchIcon />, <AccountCircleIcon />, <ExitToAppIcon />];
   const routes = ["/", "/reports", "/", "/find", "/profile", "/login"]
@@ -54,18 +60,20 @@ function App(props) {
   const drawer = (
     <div>
       <div className={classes.toolbar} />
-
       <Divider />
       <List>
-        {['Dashboard', 'Reports', 'Report Analysis', 'Find Doctor', 'Profile', 'Logout'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{icons[index]}</ListItemIcon>
-            {/* <ListItemText primary={text} className={classes.link} /> */}
-            <Link to={routes[index]} style={{ textDecoration: 'none', color: 'inherit' }}>
-              <p style={{ fontSize: 15, fontWeight: 'bold' }}>{text}</p>
+        {['Dashboard', 'Reports', 'Report Analysis', 'Find Doctor', 'Profile', 'Logout'].map((text, index) => {
+          return (
+            <Link to={routes[index]} style={{ textDecoration: 'none', color: 'inherit' }} onClick={text==="Logout" ? logout : null}>
+              <ListItem button key={text}>
+                <ListItemIcon>{icons[index]}</ListItemIcon>
+                {/* <ListItemText primary={text} className={classes.link} /> */}
+                <p style={{ fontSize: 15, fontWeight: 'bold' }}>{text}</p>
+              </ListItem>
             </Link>
-          </ListItem>
-        ))}
+
+          )
+        })}
       </List>
     </div>
   );
@@ -120,7 +128,7 @@ function App(props) {
             </Drawer>
           </Hidden>
         </nav>
-        <main className={classes.content}>
+        <main className={classes.content} style={{}}>
           <div className={classes.toolbar} />
           {children}
         </main>
@@ -137,11 +145,9 @@ function App(props) {
             <SignUp />
           </Route>
           <Route path="/login">
-            <Login />
+            <Login setFlow={setFlow} />
           </Route>
-          <Route path="/">
-            <Login />
-          </Route>
+          <Redirect to="/login" />
         </Switch>
       </Router>
     )
@@ -156,9 +162,10 @@ function App(props) {
           <Route path="/profile">
             <Profile />
           </Route>
-          <Route path="/">
+          <Route path="/home">
             <Dashboard />
           </Route>
+          <Redirect to="/home" />
         </Switch>
       </RespDrawer>
     </Router>

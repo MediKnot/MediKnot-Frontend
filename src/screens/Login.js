@@ -6,11 +6,12 @@ import EnterMobile from '../components/EnterMobile';
 import Otp from '../components/Otp';
 import { Link } from 'react-router-dom'
 import SelectUserType from '../components/SelectUserType';
-import SignupDoctor from '../components/SignupDoctor';
 
-function Login() {
-    const [flow, setFlow] = useState(0);
+function Login({setFlow}) {
+    const [screen, setScreen] = useState(-1);
     const [user, setUser] = useState(null);
+    const [data, setData] = useState("");
+
     return (
         <div id="body" style={{ backgroundColor: '#D0EFFE', overflowY: 'scroll', height: '100vh' }} className="ai-c row jc-se">
             <div className="column ai-c">
@@ -19,14 +20,13 @@ function Login() {
             </div>
             <div className="mh">
                 <h1 className="heading-small">Login</h1>
-                {!user ? 
+                {screen===-1 ? 
                     <div>
-                        <SelectUserType setUser={setUser} setFlow={setFlow} />
+                        <SelectUserType setUser={setUser} setFlow={setScreen} />
                         <Link to="/signup" className="font-s mv">Don't have an account?</Link>
                     </div> :
-                        flow === 0 ? <SignupDoctor setFlow={setFlow}/> :
-                            flow === 1 ? <EnterMobile setFlow={setFlow} />
-                            : <Otp />}
+                        screen === 0 ? <EnterMobile login flow={screen} setFlow={setScreen} setData={setData} user={user} setUser={setUser}/>
+                            : <Otp login flow={screen} setFlow={setScreen} data={data} user={user} setAppFlow={setFlow} />}
             </div>
         </div>
     )
