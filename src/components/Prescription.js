@@ -4,12 +4,12 @@ import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 import EventIcon from '@material-ui/icons/Event';
 import PersonIcon from '@material-ui/icons/Person';
 
-function Prescription() {
+function Prescription({active}) {
     return (
-        <div style={{ width: '100%', backgroundColor: '#DBF5DC', borderRadius: 15, padding: 20, minWidth: 320 }}>
+        <div style={{ width: '100%', backgroundColor: active ? '#DBF5DC' : '#FFADAD', borderRadius: 15, padding: 20, minWidth: 320, maxWidth: 600}} className="mv mh"> 
             <div className="row jc-sb">
                 <div>
-                    <h2>Active Prescriptions: </h2>
+                    <h2>{active ? 'Active' : 'Past'} Prescription: </h2>
                     <div className="row" style={{ justifyContent: 'space-between' }}>
                         <div>
                             <h3 className="row ai-c"><LocalHospitalIcon />Medicines:</h3>

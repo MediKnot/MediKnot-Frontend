@@ -41,8 +41,8 @@ function App(props) {
   const [flow, setFlow] = useState(0);
 
   useEffect(() => {
-    setFlow(1);
-  }, [])
+    setFlow(0);
+  }, [flow])
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);

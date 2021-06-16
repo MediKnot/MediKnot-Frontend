@@ -9,7 +9,7 @@ function Dashboard() {
     return (
         <div className="row jc-sb">
             <div className="column" style={{ flex: 1.5 }}>
-                <Prescription />
+                <Prescription active/>
                 <div className="row">
                     <Precautions />
                     <Vulnerabilities />
