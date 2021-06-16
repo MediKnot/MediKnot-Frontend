@@ -41,8 +41,8 @@ function App(props) {
   const [flow, setFlow] = useState(0);
 
   useEffect(() => {
-    setFlow(1);
-  }, [])
+    setFlow(0);
+  }, [flow])
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -57,7 +57,7 @@ function App(props) {
 
       <Divider />
       <List>
-        {['Dashboard', 'Reports', 'Report Analysis', 'Find Doctor', 'Profile', 'Login/Signup'].map((text, index) => (
+        {['Dashboard', 'Reports', 'Report Analysis', 'Find Doctor', 'Profile', 'Logout'].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>{icons[index]}</ListItemIcon>
             {/* <ListItemText primary={text} className={classes.link} /> */}
@@ -139,9 +139,6 @@ function App(props) {
           <Route path="/login">
             <Login />
           </Route>
-          <Route path="/profile">
-            <Profile />
-          </Route>
           <Route path="/">
             <Login />
           </Route>
@@ -155,6 +152,9 @@ function App(props) {
         <Switch>
           <Route path="/reports">
             <Reports />
+          </Route>
+          <Route path="/profile">
+            <Profile />
           </Route>
           <Route path="/">
             <Dashboard />

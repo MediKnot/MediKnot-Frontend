@@ -11,8 +11,9 @@ import { Link } from 'react-router-dom';
 
 
 function Signup() {
-    const [flow, setFlow] = useState(0);
+    const [flow, setFlow] = useState(-1);
     const [user, setUser] = useState(null);
+    const [data, setData] = useState(null);
     return (
         <div id="body" style={{ backgroundColor: '#D0EFFE', overflowY: 'scroll', height: '100vh' }} className="ai-c row jc-se">
             <div className="column ai-c">
@@ -22,21 +23,20 @@ function Signup() {
             <div>
                 <div className="mh">
                     <h1 className="heading-small">Signup</h1>
-                    {!user ?
+                    {flow===-1 ?
                         <div>
                             <SelectUserType setUser={setUser} setFlow={setFlow} />
                             <Link to="/login" className="font-s mv jc-c">Already have an account ?</Link>
                         </div> :
-
                         flow === 0 ?
-                            <SignupDoctor setFlow={setFlow} />
+                            <SignupDoctor setFlow={setFlow} setUser={setUser} />
                             : flow === 1 ?
-                                <SignupDetails setFlow={setFlow} />
+                                <SignupDetails setFlow={setFlow} user={user} setUser={setUser} setData={setData} />
                                 :
                                 flow === 2 ?
                                     <DocumentUpload setFlow={setFlow} />
                                     :
-                                    <Otp setFlow={setFlow} />
+                                    <Otp setFlow={setFlow} user={user} data={data}/>
 
                     }           
                 </div>

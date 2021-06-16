@@ -91,6 +91,7 @@ export default function CustomizedTimeline() {
           <TimelineDot color="secondary">
             <AirlineSeatIndividualSuite />
           </TimelineDot>
+          <TimelineConnector className={classes.secondaryTail} />
         </TimelineSeparator>
         <TimelineContent>
           <Paper elevation={3} className={classes.paper}>
@@ -101,6 +102,28 @@ export default function CustomizedTimeline() {
           </Paper>
         </TimelineContent>
       </TimelineItem>
+      <TimelineItem>
+        <TimelineOppositeContent>
+          <Typography variant="body2" color="textSecondary">
+            January 2020
+          </Typography>
+        </TimelineOppositeContent>
+        <TimelineSeparator>
+          <TimelineDot color="primary">
+            <AirlineSeatFlat />
+          </TimelineDot>
+        </TimelineSeparator>
+        <TimelineContent>
+          <Paper elevation={3} className={classes.paper}>
+            <Typography variant="h6" component="h1">
+              Root Canal 
+            </Typography>
+            <Typography>Two teeth removed</Typography>
+          </Paper>
+        </TimelineContent>
+      </TimelineItem>
     </Timeline>
   );
 }
+
+
