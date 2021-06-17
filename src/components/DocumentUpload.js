@@ -9,9 +9,11 @@ function DocumentUpload({setFlow, flow}) {
             const file = e.target.files[0];
             if (URL) setAdhaar(URL.createObjectURL(file));
             else setAdhaar(null);
+            console.log(adhaar);    
         }
         else setAdhaar(null);
     }
+
     return (
         <>
             <div className="row ai-c">

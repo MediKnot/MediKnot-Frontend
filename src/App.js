@@ -25,7 +25,7 @@ import Login from './screens/Login';
 import SignUp from './screens/Signup';
 import Profile from './screens/Profile';
 import Reports from './screens/Reports';
-import BG from './assets/images/bg.jpg'
+// import BG from './assets/images/bg.jpg'
 
 const drawerWidth = 240;
 

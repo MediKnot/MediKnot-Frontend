@@ -96,7 +96,7 @@ function Otp({ setFlow, data, user, flow, login, setAppFlow}) {
                     </Button>
                 </div>
             </form>
-            {message.length != 0 ? <Popup message={message} error={error} /> : null}
+            {message.length !== 0 ? <Popup message={message} error={error} /> : null}
         </>
     )
 }

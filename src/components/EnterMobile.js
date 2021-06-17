@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Button } from '@material-ui/core';
 import Popup from './Popup';
-import axios from '../utils/BaseUrl';
 
 function EnterMobile({ setFlow, setData, user, flow, setUser}) {
     const [mob, setMob] = useState("");
@@ -24,7 +23,7 @@ function EnterMobile({ setFlow, setData, user, flow, setUser}) {
             <form onSubmit={handleChange} className="column">
                 <input value={mob} onChange={(e) => setMob(e.target.value)} type="number" maxLength={10} placeholder="Mobile Number" className="input-large shadow mv" />
                 <div className="row jc-sb">
-                    <Button variant="contained" color="primary" onClick={() => (setFlow(flow-1), setUser(null))} style={{ marginBottom: 10, width: '45%' }}>
+                    <Button variant="contained" color="primary" onClick={() => {setFlow(flow-1); setUser(null)}} style={{ marginBottom: 10, width: '45%' }}>
                         Back
                     </Button>
                     <Button variant="contained" color="primary" type="submit" style={{ marginBottom: 10, width: '45%' }}>

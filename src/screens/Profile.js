@@ -1,5 +1,5 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles';
+// import { makeStyles } from '@material-ui/core/styles';
 import '../App.css'
 import ProfileImage from "../assets/images/dummyprofile.jpeg";
 import { TextField,Button } from '@material-ui/core';
@@ -19,12 +19,12 @@ function Profile() {
     const [addressEditOff,setAddressEditOff]=React.useState('true');
 
     const classes = styles();
-    const user_data={
-        "name":"Saniya Agrawal",
-        "mobile_no":"9876543219",
-        "email":"snaiya@gmail.com",
-        "address":"Gali No. 5, Sch.No. 20, Indore, Madhya Pradesh"
-    }
+    // const user_data={
+    //     "name":"Saniya Agrawal",
+    //     "mobile_no":"9876543219",
+    //     "email":"snaiya@gmail.com",
+    //     "address":"Gali No. 5, Sch.No. 20, Indore, Madhya Pradesh"
+    // }
 
     return (
         <div className="row jc-sb">
