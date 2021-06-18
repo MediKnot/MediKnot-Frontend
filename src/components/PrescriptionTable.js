@@ -19,17 +19,15 @@ const useStyles = makeStyles(
           backgroundColor: `rgb(126,10,15, ${isDark ? 0 : 0.1})`,
           color: isDark ? '#ff4343' : '#750f0f',
         },
+        backgroundColor: '#DBF5DC',
+        '& .MuiDataGrid-columnHeader': {
+          backgroundColor: '#9BBB59'
+        }
       },
     };
   },
   { defaultTheme },
 );
-
-function validateEmail(email) {
-  const re =
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(String(email).toLowerCase());
-}
 
 export default function PrescriptionTable() {
   const classes = useStyles();
@@ -56,7 +54,9 @@ const columns = [
     type: 'date',
     width: 180,
     editable: true,
-  }
+  },
+  { field: 'attachments', headerName: 'Attachments', width: 180, editable: true },
+
 ];
 
 const rows = [

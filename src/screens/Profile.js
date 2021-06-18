@@ -1,5 +1,5 @@
-import React,{useEffect} from 'react'
-import { makeStyles } from '@material-ui/core/styles';
+import React from 'react'
+// import { makeStyles } from '@material-ui/core/styles';
 import '../App.css'
 import ProfileImage from "../assets/images/profile.jpeg";
 import { TextField,Button } from '@material-ui/core';
@@ -34,7 +34,6 @@ function Profile() {
     const [allergiesEditOff,setAllergiesEditOff]=React.useState(true);
 
     const classes = styles();
-    
 
     // const handleAllergy = (e) => {
     //     var x=allergies;console.log(x);
@@ -58,6 +57,14 @@ function Profile() {
             
         }
     }, [])
+
+    // const user_data={
+    //     "name":"Saniya Agrawal",
+    //     "mobile_no":"9876543219",
+    //     "email":"snaiya@gmail.com",
+    //     "address":"Gali No. 5, Sch.No. 20, Indore, Madhya Pradesh"
+    // }
+
 
     return (
         <div>

@@ -6,7 +6,7 @@ import PersonIcon from '@material-ui/icons/Person';
 
 function Prescription({active}) {
     return (
-        <div style={{ width: '100%', backgroundColor: active ? '#DBF5DC' : '#FFADAD', borderRadius: 15, padding: 20, minWidth: 320, maxWidth: 600}} className="mv mh"> 
+        <div style={{ width: '100%', backgroundColor: active ? '#DBF5DC' : '#FFADAD', borderRadius: 15, padding: 20, minWidth: 320, }} className="mv mh shadow"> 
             <div className="row jc-sb">
                 <div>
                     <h2>{active ? 'Active' : 'Past'} Prescription: </h2>

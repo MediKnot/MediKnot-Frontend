@@ -2,27 +2,29 @@ import React, { useState } from 'react'
 import { Button } from '@material-ui/core';
 
 
-function DocumentUpload({setFlow}) {
+function DocumentUpload({setFlow, flow}) {
     const [adhaar, setAdhaar] = useState(null);
     function selectFile(e) {
         if (e.target.files.length !== 0) {
             const file = e.target.files[0];
             if (URL) setAdhaar(URL.createObjectURL(file));
             else setAdhaar(null);
+            console.log(adhaar);    
         }
         else setAdhaar(null);
     }
+
     return (
         <>
             <div className="row ai-c">
-                <form onSubmit={() => setFlow(3)} className="column">
+                <form onSubmit={() => setFlow(flow+1)} className="column">
                     <h3>Select Adhaar</h3>
                     <input type="file" className="input-large shadow mv" onChange={selectFile} />
 
                     <h3>Select Pan Card</h3>
                     <input type="file" className="input-large shadow mv" onChange={selectFile} />
                     <div className="row jc-sb">
-                        <Button variant="contained" color="primary" onClick={() => setFlow(1)} style={{marginBottom: 10, width: '45%'}}>
+                        <Button variant="contained" color="primary" onClick={() => setFlow(flow-1)} style={{marginBottom: 10, width: '45%'}}>
                             Back
                         </Button>
                         <Button variant="contained" color="primary" type="submit" style={{marginBottom: 10, width: '45%'}}>

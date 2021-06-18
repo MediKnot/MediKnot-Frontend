@@ -25,18 +25,18 @@ function Signup() {
                     <h1 className="heading-small">Signup</h1>
                     {flow===-1 ?
                         <div>
-                            <SelectUserType setUser={setUser} setFlow={setFlow} />
+                            <SelectUserType setUser={setUser} setFlow={setFlow} signup />
                             <Link to="/login" className="font-s mv jc-c">Already have an account ?</Link>
                         </div> :
                         flow === 0 ?
-                            <SignupDoctor setFlow={setFlow} setUser={setUser} />
+                            <SignupDoctor flow={flow} setFlow={setFlow} setUser={setUser} setData={setData} />
                             : flow === 1 ?
-                                <SignupDetails setFlow={setFlow} user={user} setUser={setUser} setData={setData} />
+                                <SignupDetails flow={flow} setFlow={setFlow} user={user} setUser={setUser} setData={setData} data={data}/>
                                 :
                                 flow === 2 ?
-                                    <DocumentUpload setFlow={setFlow} />
+                                    <DocumentUpload flow={flow} setFlow={setFlow} />
                                     :
-                                    <Otp setFlow={setFlow} user={user} data={data}/>
+                                    <Otp flow={flow} setFlow={setFlow} user={user} data={data} />
 
                     }           
                 </div>

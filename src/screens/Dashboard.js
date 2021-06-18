@@ -5,11 +5,12 @@ import Vulnerabilities from '../components/Vulnerabilities'
 import MyTimeline from './Timeline';
 import '../App.css'
 
+
 function Dashboard() {
     return (
         <div className="row jc-sb">
             <div className="column" style={{ flex: 1.5 }}>
-                <Prescription active/>
+                <Prescription active />
                 <div className="row">
                     <Precautions />
                     <Vulnerabilities />

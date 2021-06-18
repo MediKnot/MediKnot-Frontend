@@ -3,7 +3,6 @@ import "../App.css"
 import Prescription from '../components/Prescription';
 import CardComponent from '../components/CardComponent';
 import PrescriptionTable from '../components/PrescriptionTable';
-import BloodReport from '../components/reports/BloodReport';
 
 function Reports() {
     return (
@@ -18,7 +17,6 @@ function Reports() {
             <div className="column mh-2">
                 <h1 className="heading-small">Reports</h1>
                 <div className="row">
-                <BloodReport/><BloodReport/><BloodReport/>
                 <CardComponent/>
                     <CardComponent/>
                 </div>

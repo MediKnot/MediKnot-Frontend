@@ -6,7 +6,7 @@ function Vulnerabilities() {
 
     const Vulnerabilities_data=['Diabetes','High BP','Aasthma','Piles'];
     return (
-        <div style={{ width: '35%', backgroundColor: '#FFADAD', borderRadius: 15, padding: 20, marginTop: 20, minWidth: 200}}>
+        <div style={{ width: '35%', backgroundColor: '#FFADAD', borderRadius: 15, padding: 20, marginTop: 20, minWidth: 200}} className="shadow">
             <h3>Vulnerabilities</h3>
             {Vulnerabilities_data.map(data=>
             (<div className='row ai-c'>

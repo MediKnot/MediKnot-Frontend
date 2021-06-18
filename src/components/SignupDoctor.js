@@ -1,14 +1,15 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Button } from '@material-ui/core';
 import "../App.css"
 
-function SignupDoctor({ setFlow, setUser }) {
+function SignupDoctor({ setFlow, setUser, setData, flow}) {
     // const [degree, setDegree] = React.useState([{ name: "" }]);
     // const [clinic, setClinic] = useState([{ name: "" }]);
+    const [reg, setReg] = useState("");
 
     return (
         <>
-            <form className="column" onSubmit={() => setFlow(1)}>
+            <form className="column" onSubmit={() => {setFlow(flow+1); setData({registrationNumber: reg})}}>
                 {/* <div>
                     <select id="gender" name="gender" className="input-small shadow mh mv" style={{ backgroundColor: 'white', height: 60, width: 165 }} placeholder="Degree" >
                         <option value="mbbs">MBBS</option>
@@ -41,9 +42,9 @@ function SignupDoctor({ setFlow, setUser }) {
                     );
                 })} */}
 
-                <input type="string" placeholder="Registration No." className="input-large shadow mv" />
+                <input value={reg} onChange={(e) => setReg(e.target.value)} type="string" placeholder="Registration No." className="input-large shadow mv" />
                 <div className="row jc-sb">
-                    <Button variant="contained" color="primary" onClick={() => (setFlow(-1), setUser(null))} style={{marginBottom: 10, width: '45%'}}>
+                    <Button variant="contained" color="primary" onClick={() => {setFlow(flow-1); setUser(null)}} style={{marginBottom: 10, width: '45%'}}>
                         Back
                     </Button>
                     <Button variant="contained" color="primary" type="submit" style={{marginBottom: 10, width: '45%'}}>
