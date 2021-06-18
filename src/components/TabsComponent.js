@@ -10,6 +10,8 @@ import PersonPinIcon from '@material-ui/icons/PersonPin';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import UpdateConsultation from './UpdateConsultation';
+import AddPrescription from './AddPrescription';
+import AddTreatment from './AddTreatment';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -82,10 +84,10 @@ export default function TabsComponent({isMobile}) {
         <UpdateConsultation/>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Item Two
+        <AddPrescription />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Item Three
+        <AddTreatment/>
       </TabPanel>
     </div>
   );
