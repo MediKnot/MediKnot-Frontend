@@ -2,6 +2,9 @@
     display:flex;
     flex-direction: row;
 }
+.df{
+    display: flex;
+}
 .f-1{
     flex: 1;
 }
@@ -51,12 +54,20 @@
 }
 
 .mv-2{
-    margin-top: 10%;
-    margin-bottom: 10%;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .mr {
     margin-right: 20px;
+}
+
+.ml {
+    margin-left: 2%;
+}
+
+.mt{
+    margin-top: 5%;
 }
 
 .input-large{

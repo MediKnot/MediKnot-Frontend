@@ -30,6 +30,7 @@ import Login from './screens/Login';
 import SignUp from './screens/Signup';
 import Profile from './screens/Profile';
 import Reports from './screens/Reports';
+import FindDoctor from './screens/FindDoctor';
 
 const drawerWidth = 240;
 
@@ -155,6 +156,9 @@ function App(props) {
           </Route>
           <Route path="/profile">
             <Profile />
+          </Route>
+          <Route path="/find">
+            <FindDoctor />
           </Route>
           <Route path="/">
             <Dashboard />

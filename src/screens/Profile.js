@@ -1,98 +1,180 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import '../App.css'
-import ProfileImage from "../assets/images/dummyprofile.jpeg";
+import ProfileImage from "../assets/images/profile.jpeg";
 import { TextField,Button } from '@material-ui/core';
 import Edit from '@material-ui/icons/Edit';
 import Done from '@material-ui/icons/Done';
+import MedicalEvent from '../screens/MedicalEvent';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 const styles = makeStyles({
     textField:{
-        width:'120%',
-        maxWidth:700,
+        width:500,
+        maxWidth:500,
         heigth:20,
-        textColor: 'black'
+        textColor: 'black',
+        fontColor:'black'
     },
     multilineColor:{
-        // color:'red'
-    }
+        
+    },
 });
 
 function Profile() {
-    const [nameEditOff,setNameEditOff]=React.useState('true');
-    const [mobileEditOff,setMobileEditOff]=React.useState('true');
-    const [emailEditOff,setEmailEditOff]=React.useState('true');
-    const [addressEditOff,setAddressEditOff]=React.useState('true');
+    const [name,setName]=React.useState('');
+    const [mobile,setMobile]=React.useState('');
+    const [email,setEmail]=React.useState('');
+    const [address,setAddress]=React.useState('');
+    const [allergies,setAllergies]=React.useState([]);
+    const [nameEditOff,setNameEditOff]=React.useState(true);
+    const [mobileEditOff,setMobileEditOff]=React.useState(true);
+    const [emailEditOff,setEmailEditOff]=React.useState(true);
+    const [addressEditOff,setAddressEditOff]=React.useState(true);
+    const [allergiesEditOff,setAllergiesEditOff]=React.useState(true);
 
     const classes = styles();
-    const user_data={
-        "name":"Saniya Agrawal",
-        "mobile_no":"9876543219",
-        "email":"snaiya@gmail.com",
-        "address":"Gali No. 5, Sch.No. 20, Indore, Madhya Pradesh"
-    }
+    
+
+    // const handleAllergy = (e) => {
+    //     var x=allergies;console.log(x);
+    //     setAllergies(x.push(e.target.value))
+    //     console.log(x);
+    // }
+    useEffect(() => {
+        const user_data={
+            "name":"Saniya Agrawal",
+            "phoneNumber":"9876543219",
+            "emailId":"snaiya@gmail.com",
+            "address":"Gali No. 5, Sch.No. 20, Indore, Madhya Pradesh",
+            "allergies":["Abc","cde"]
+        }
+        setName(user_data.name);
+        setEmail(user_data.emailId);
+        setMobile(user_data.phoneNumber);
+        setAddress(user_data.address);
+        setAllergies(user_data.allergies);
+        return () => {
+            
+        }
+    }, [])
 
     return (
-        <div className="row jc-sb">
-            <div>
-                <div className="row ai-c jc-sb mv" style={{width:'100%'}}>
-                    <div className="label mr">Name: </div>
+        <div>
+            <div className='heading' style={{textAlign:'center'}}>Profile</div>
+            <img src={ProfileImage} alt="Profile" style={{display:'block',marginLeft:'auto',marginRight:'auto',heigth:'8%',width:'12%',borderRadius:'50%'}}/>
+            <div className="ml mv-2">
+                <div className="df f-1 jc-sb row ai-c mv-2" style={{width:'100%',maxWidth:700}}>
+                    <div className="label">Name: </div>
                     <div className="row-no-wrap">
-                        <TextField 
-                            // style={{width:'90%'}}
+                    <TextField 
                             multiline
                             className={classes.textField}
                             InputProps={{
                                 className: classes.multilineColor
                             }}
-                            id="outlined-basic" variant="outlined" defaultValue="Saniya Agrawal" disabled={nameEditOff}/>
-                    {/* </div><div> */}
-                        {nameEditOff?<Button onClick={()=>setNameEditOff(!nameEditOff)}><Edit/></Button>:<Button onClick={()=>setNameEditOff(!nameEditOff)}><Done/></Button>}
+                            value={name}
+                            onChange={(e)=>setName(e.target.value)}
+                            id="outlined-basic" variant="outlined" disabled={nameEditOff}/>
+                        {nameEditOff?<Button onClick={()=>setNameEditOff(!nameEditOff)}><Edit style={{color:'gray'}}/></Button>:<Button onClick={()=>setNameEditOff(!nameEditOff)}><Done style={{color:'gray'}}/></Button>}
                     </div>
                 </div>
-                <div className="row ai-c jc-sb" style={{width:'100%',maxWidth:500}}>
-                    <div className="label mr">Email: </div>
-                    <div className="row mv">
+                <div className="df f-1 jc-sb row ai-c mv-2" style={{width:'100%',maxWidth:700}}>
+                    <div className="label">Email: </div>
+                    <div className="row-no-wrap">
                         <TextField 
                             multiline
+                            className={classes.textField}
+                            InputProps={{
+                                className: classes.multilineColor
+                            }}
+                            value={email}
+                            onChange={(e)=>setEmail(e.target.value)}
+                            id="outlined-basic" variant="outlined" disabled={emailEditOff}/>
+                        {emailEditOff?<Button onClick={()=>setEmailEditOff(!emailEditOff)}><Edit style={{color:'gray'}}/></Button>:<Button className="icon" onClick={()=>setEmailEditOff(!emailEditOff)}><Done style={{color:'gray'}}/></Button>}
+                    </div>
+                </div>
+                <div className="df f-1 jc-sb row ai-c mv-2" style={{width:'100%',maxWidth:700}}>
+                    <div className="label">Mobile: </div>
+                    <div className="row-no-wrap">
+                        <TextField 
+                            multiline
+                            className={classes.textField}
                             InputProps={{
                             className: classes.multilineColor
                             }}
-                            id="outlined-basic" variant="outlined" defaultValue="snaiya@gmail.com" disabled={emailEditOff}/>
-                        {emailEditOff?<Button onClick={()=>setEmailEditOff(!emailEditOff)}><Edit/></Button>:<Button className="icon" onClick={()=>setEmailEditOff(!emailEditOff)}><Done/></Button>}
+                            value={mobile}
+                            onChange={(e)=>setMobile(e.target.value)}
+                            id="outlined-basic" variant="outlined" disabled={mobileEditOff}/>
+                        {mobileEditOff?<Button onClick={()=>setMobileEditOff(!mobileEditOff)}><Edit style={{color:'gray'}}/></Button>:<Button className="icon" onClick={()=>setMobileEditOff(!mobileEditOff)}><Done style={{color:'gray'}}/></Button>}
                     </div>
                 </div>
-                <div className="row ai-c jc-sb" style={{width:'100%',maxWidth:500}}>
-                    <div className="label mr">Mobile: </div>
-                    <div className="row mv">
+                <div className="df f-1 jc-sb row ai-c mv-2" style={{width:'100%',maxWidth:700}}>
+                    <div className="label">Address: </div>
+                    <div className="row-no-wrap">
+                        {/* <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="input-large shadow mh mv" /> */}
                         <TextField 
                             multiline
+                            className={classes.textField}
                             InputProps={{
                             className: classes.multilineColor
                             }}
-                            id="outlined-basic" variant="outlined" defaultValue="9876543219" disabled={mobileEditOff}/>
-                        {mobileEditOff?<Button onClick={()=>setMobileEditOff(!mobileEditOff)}><Edit/></Button>:<Button className="icon" onClick={()=>setMobileEditOff(!mobileEditOff)}><Done/></Button>}
+                            value={address}
+                            onChange={(e)=>setAddress(e.target.value)}
+                            id="outlined-basic" variant="outlined" disabled={addressEditOff}/>
+                    {addressEditOff?<Button onClick={()=>setAddressEditOff(!addressEditOff)}><Edit style={{color:'gray'}}/></Button>:<Button onClick={()=>setAddressEditOff(!addressEditOff)}><Done style={{color:'gray'}}/></Button>}
                     </div>
                 </div>
-                <div className="row ai-c jc-sb" style={{width:'100%',maxWidth:500}}>
-                    <div className="label mr">Address: </div>
-                    <div className="row mv">
-                    <TextField 
-                        multiline
-                        InputProps={{
-                        className: classes.multilineColor
-                        }}
-                        id="outlined-basic" variant="outlined" defaultValue="Gali No. 5, Sch.No. 20, Indore, Madhya Pradesh" disabled={addressEditOff}/>
-                    {addressEditOff?<Button onClick={()=>setAddressEditOff(!addressEditOff)}><Edit/></Button>:<Button onClick={()=>setAddressEditOff(!addressEditOff)}><Done/></Button>}
+                <div className="df f-1 jc-sb row ai-c mv-2" style={{width:'100%',maxWidth:700}}>
+                    <div className="label">Allergies: </div>
+                    <div className="row-no-wrap">
+                        <Autocomplete
+                            multiple
+                            disabled={allergiesEditOff}
+                            id="tags-outlined"
+                            options={top100Films}
+                            getOptionLabel={(option) => option}
+                            defaultValue={allergies}
+                            // onChange={handleAllergy}
+                            // filterSelectedOptions
+                            renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                variant="outlined"
+                                placeholder="Favorites"
+                                className={classes.textField}
+                            />
+                            )}
+                        />
+                        {allergiesEditOff?<Button onClick={()=>setAllergiesEditOff(!allergiesEditOff)}><Edit style={{color:'gray'}}/></Button>:<Button onClick={()=>setAllergiesEditOff(!allergiesEditOff)}><Done style={{color:'gray'}}/></Button>}
                     </div>
                 </div>
-                <Button variant="contained" color="primary" type="submit" style={{marginBottom: 10,marginTop:20,marginLeft:'5%'}}>
+                <Button variant="contained" color="primary" type="submit" style={{marginBottom: 10,marginTop:20}}>
                     Update
                 </Button>
+                <MedicalEvent/>
             </div>
-            <div clasName="mv mh"><img src={ProfileImage} alt="Profile" /></div>
+            
         </div>
     )
 }
 
 export default Profile
+//       <Autocomplete
+//         multiple
+//         id="tags-outlined"
+//         options={top100Films}
+//         getOptionLabel={(option) => option.title}
+//         defaultValue={[top100Films[13]]}
+//         filterSelectedOptions
+//         renderInput={(params) => (
+//           <TextField
+//             {...params}
+//             variant="outlined"
+//             label="filterSelectedOptions"
+//             placeholder="Favorites"
+//           />
+//         )}
+//       />
+
+const top100Films = ["ABC","Abc","cde","d2"];

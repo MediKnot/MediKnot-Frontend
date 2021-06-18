@@ -7,6 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Chip from '@material-ui/core/Chip';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     formControl: {
@@ -50,10 +51,10 @@ const useStyles = makeStyles((theme) => ({
     'Kelly Snyder',
   ];
   
-  function getStyles(name, personName, theme) {
+  function getStyles(name, diseases, theme) {
     return {
       fontWeight:
-        personName.indexOf(name) === -1
+        diseases.indexOf(name) === -1
           ? theme.typography.fontWeightRegular
           : theme.typography.fontWeightMedium,
     };
@@ -74,9 +75,9 @@ function MedicalEventModal() {
     const [date, setdate] = useState("");
 
     return (
-        <div style={{backgroundColor:'white'}}>
-            <form className="column">
-                <FormControl className={classes.formControl}>
+        <>
+            <form className="column ai-c">
+                <FormControl className={classes.formControl} style={{ backgroundColor: 'white', width: 300 }}>
                     <InputLabel id="demo-mutiple-chip-label">Diseases</InputLabel>
                     <Select
                     labelId="demo-mutiple-chip-label"
@@ -101,26 +102,34 @@ function MedicalEventModal() {
                     ))}
                     </Select>
                 </FormControl>
-                <input type="text" value={location} onChange={(e) => setlocation(e.target.value)} placeholder="Location" className="input-large shadow mh mv" />
-                <div classname="row ai-c">
-                    <InputLabel id="demo-mutiple-chip-label" className='mh-2 mv'>Critical</InputLabel>
-                    <select id="critical" value={critical} onChange={(e) => setcritical(e.target.value)} name="critical" className="input-small shadow mh" style={{ backgroundColor: 'white', height: 60, width: 165 }} placeholder="Critical" >
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                    </select>
-                    <InputLabel id="demo-mutiple-chip-label" className='mh-2 mv'>Active</InputLabel>
-                    <select id="active" value={active} onChange={(e) => setactive(e.target.value)} name="gender" className="input-small shadow mh" style={{ backgroundColor: 'white', height: 60, width: 165 }} placeholder="Active" >
-                        <option value="yes">Yes</option>
-                        <option value="no">No</option>
-                    </select>
+                <input type="text" value={location} onChange={(e) => setlocation(e.target.value)} placeholder="Location" className="input-large shadow mh mv" style={{ backgroundColor: 'white', height: 55, width: 300 }} />
+                <div className="row-no-wrap">
+                  <div className="mv mh mr font-s" style={{ width: 140 }}>Critical</div>
+                  <div className="mv font-s" style={{ width: 140 }}>Active</div>
+                </div>
+                <div className="row ai-c">
+                      <select id="critical" value={critical} onChange={(e) => setcritical(e.target.value)} name="critical" className="input-small shadow mh mr" style={{ backgroundColor: 'white', height: 55, width: 140 }} placeholder="Critical" >
+                          <option value="yes">Yes</option>
+                          <option value="no">No</option>
+                      </select>
+                      <select id="active" value={active} onChange={(e) => setactive(e.target.value)} name="gender" className="input-small shadow" style={{ backgroundColor: 'white', height: 55, width: 140 }} placeholder="Active" >
+                          <option value="yes">Yes</option>
+                          <option value="no">No</option>
+                      </select>
                 </div>
                 <div>
-                    <div>Reports</div>
-                    <input type="file" className="input-large shadow mv"/>
+                    <div className="mv font-s mh-2 mr">Reports</div>
+                    <input type="file" className="input-large shadow mh" style={{ backgroundColor: 'white', height: 55, width: 300 }}/>
                 </div>
-                <input type="date" value={date} onChange={(e) => setdate(e.target.value)} placeholder="dd-mm-yyyy" className="input-large shadow mv" style={{backgroundColor: 'white'}}/>
+                <div>
+                  <div className="mv font-s mh mr">Date of Event</div>
+                  <input type="date" value={date} onChange={(e) => setdate(e.target.value)} placeholder="dd-mm-yyyy" className="input-large shadow" style={{backgroundColor: 'white'}}/>
+                </div>
+                <Button variant="contained" color="primary" type="submit" style={{marginTop: 30, width: '45%',marginBottom:20}}>
+                        Next
+                </Button >
             </form>
-        </div>
+        </>
     )
 }
 
