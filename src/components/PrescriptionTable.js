@@ -19,6 +19,10 @@ const useStyles = makeStyles(
           backgroundColor: `rgb(126,10,15, ${isDark ? 0 : 0.1})`,
           color: isDark ? '#ff4343' : '#750f0f',
         },
+        backgroundColor: '#DBF5DC',
+        '& .MuiDataGrid-columnHeader': {
+          backgroundColor: '#9BBB59'
+        }
       },
     };
   },
@@ -50,7 +54,9 @@ const columns = [
     type: 'date',
     width: 180,
     editable: true,
-  }
+  },
+  { field: 'attachments', headerName: 'Attachments', width: 180, editable: true },
+
 ];
 
 const rows = [
