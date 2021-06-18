@@ -14,7 +14,9 @@ const styles = makeStyles({
         maxWidth:500,
         heigth:20,
         textColor: 'black',
-        fontColor:'black'
+        fontColor:'black',
+        // border:'none',
+        borderWidth:'0'
     },
     multilineColor:{
         
@@ -40,7 +42,10 @@ function Profile() {
     //     setAllergies(x.push(e.target.value))
     //     console.log(x);
     // }
+    
     useEffect(() => {
+        // var user_data=window.localStorage.getItem("user")
+        // console.log(user_data)
         const user_data={
             "name":"Saniya Agrawal",
             "phoneNumber":"9876543219",
@@ -53,18 +58,7 @@ function Profile() {
         setMobile(user_data.phoneNumber);
         setAddress(user_data.address);
         setAllergies(user_data.allergies);
-        return () => {
-            
-        }
     }, [])
-
-    // const user_data={
-    //     "name":"Saniya Agrawal",
-    //     "mobile_no":"9876543219",
-    //     "email":"snaiya@gmail.com",
-    //     "address":"Gali No. 5, Sch.No. 20, Indore, Madhya Pradesh"
-    // }
-
 
     return (
         <div>
@@ -74,61 +68,32 @@ function Profile() {
                 <div className="df f-1 jc-sb row ai-c mv-2" style={{width:'100%',maxWidth:700}}>
                     <div className="label">Name: </div>
                     <div className="row-no-wrap">
-                    <TextField 
-                            multiline
-                            className={classes.textField}
-                            InputProps={{
-                                className: classes.multilineColor
-                            }}
-                            value={name}
-                            onChange={(e)=>setName(e.target.value)}
-                            id="outlined-basic" variant="outlined" disabled={nameEditOff}/>
+                    {nameEditOff?<div className="input-profile shadow df f-1 ai-c"><div className="ml">{name}</div></div>:
+                        <input type="email" value={name} onChange={(e) => setName(e.target.value)} className="input-profile shadow" />}
                         {nameEditOff?<Button onClick={()=>setNameEditOff(!nameEditOff)}><Edit style={{color:'gray'}}/></Button>:<Button onClick={()=>setNameEditOff(!nameEditOff)}><Done style={{color:'gray'}}/></Button>}
                     </div>
                 </div>
                 <div className="df f-1 jc-sb row ai-c mv-2" style={{width:'100%',maxWidth:700}}>
                     <div className="label">Email: </div>
                     <div className="row-no-wrap">
-                        <TextField 
-                            multiline
-                            className={classes.textField}
-                            InputProps={{
-                                className: classes.multilineColor
-                            }}
-                            value={email}
-                            onChange={(e)=>setEmail(e.target.value)}
-                            id="outlined-basic" variant="outlined" disabled={emailEditOff}/>
+                    {emailEditOff?<div className="input-profile shadow df f-1 ai-c"><div className="ml">{email}</div></div>:
+                        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="input-profile shadow" />}
                         {emailEditOff?<Button onClick={()=>setEmailEditOff(!emailEditOff)}><Edit style={{color:'gray'}}/></Button>:<Button className="icon" onClick={()=>setEmailEditOff(!emailEditOff)}><Done style={{color:'gray'}}/></Button>}
                     </div>
                 </div>
                 <div className="df f-1 jc-sb row ai-c mv-2" style={{width:'100%',maxWidth:700}}>
                     <div className="label">Mobile: </div>
                     <div className="row-no-wrap">
-                        <TextField 
-                            multiline
-                            className={classes.textField}
-                            InputProps={{
-                            className: classes.multilineColor
-                            }}
-                            value={mobile}
-                            onChange={(e)=>setMobile(e.target.value)}
-                            id="outlined-basic" variant="outlined" disabled={mobileEditOff}/>
+                    {mobileEditOff?<div className="input-profile shadow df f-1 ai-c"><div className="ml">{mobile}</div></div>:
+                        <input type="email" value={mobile} onChange={(e) => setMobile(e.target.value)} className="input-profile shadow" />}
                         {mobileEditOff?<Button onClick={()=>setMobileEditOff(!mobileEditOff)}><Edit style={{color:'gray'}}/></Button>:<Button className="icon" onClick={()=>setMobileEditOff(!mobileEditOff)}><Done style={{color:'gray'}}/></Button>}
                     </div>
                 </div>
                 <div className="df f-1 jc-sb row ai-c mv-2" style={{width:'100%',maxWidth:700}}>
                     <div className="label">Address: </div>
                     <div className="row-no-wrap">
-                        {/* <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" className="input-large shadow mh mv" /> */}
-                        <TextField 
-                            multiline
-                            className={classes.textField}
-                            InputProps={{
-                            className: classes.multilineColor
-                            }}
-                            value={address}
-                            onChange={(e)=>setAddress(e.target.value)}
-                            id="outlined-basic" variant="outlined" disabled={addressEditOff}/>
+                        {addressEditOff?<div className="input-profile shadow df f-1 ai-c"><div className="ml">{address}</div></div>:
+                        <input type="email" value={address} onChange={(e) => setAddress(e.target.value)} className="input-profile shadow" />}
                     {addressEditOff?<Button onClick={()=>setAddressEditOff(!addressEditOff)}><Edit style={{color:'gray'}}/></Button>:<Button onClick={()=>setAddressEditOff(!addressEditOff)}><Done style={{color:'gray'}}/></Button>}
                     </div>
                 </div>
@@ -148,7 +113,7 @@ function Profile() {
                             <TextField
                                 {...params}
                                 variant="outlined"
-                                placeholder="Favorites"
+                                placeholder="Add allergies"
                                 className={classes.textField}
                             />
                             )}

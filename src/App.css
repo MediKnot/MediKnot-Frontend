@@ -85,6 +85,14 @@
     width: 125px;
     height: 20px;
 }
+.input-profile{
+    border: 0;
+    width:500px;
+    max-width : 500px;
+    height:40px;
+    border-radius: 10px;
+    background-color: white;
+}
 
 .shadow {
     box-shadow: 8px 8px 50px #aaaaaa;
