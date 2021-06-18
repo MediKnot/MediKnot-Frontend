@@ -23,6 +23,7 @@ import TimelineIcon from '@material-ui/icons/Timeline';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import AddBoxIcon from '@material-ui/icons/AddBox';
 import { BrowserRouter as Router, Switch, Route, Link, Redirect } from "react-router-dom";
 import Login from './screens/Login';
 import SignUp from './screens/Signup';
@@ -32,6 +33,7 @@ import FindDoctor from './screens/FindDoctor';
 import BG from './assets/images/bg.png'
 import Fab from '@material-ui/core/Fab';
 import SearchResults from './components/SearchResults';
+import AddReport from './screens/AddReport';
 
 
 
@@ -64,17 +66,18 @@ function App(props) {
   }
 
 
-  const icons = [<DashboardIcon />, <FileCopyIcon />, <TimelineIcon />, <SearchIcon />, <AccountCircleIcon />, <ExitToAppIcon />];
-  const routes = ["/", "/reports", "/", "/find", "/profile", "/login"]
+  const icons = [<DashboardIcon />, <FileCopyIcon />, <TimelineIcon />, <SearchIcon />, <AccountCircleIcon />, <AddBoxIcon/>, <ExitToAppIcon />];
+  const routes = ["/", "/reports", "/", "/find", "/profile", "/add", "/login"]
 
   const drawer = (
     <div>
       <div className={classes.toolbar} />
       <Divider />
       <List>
-        {['Dashboard', 'Reports', 'Report Analysis', 'Find Doctor', 'Profile', 'Logout'].map((text, index) => {
+        {['Dashboard', 'Reports', 'Report Analysis', 'Find Doctor', 'Profile', 'Add Report', 'Logout'].map((text, index) => {
           return (
             <Link to={routes[index]} style={{ textDecoration: 'none', color: 'inherit' }} onClick={text === "Logout" ? logout : null}>
+              {text==='Logout' ? <Divider/> : null}
               <ListItem button key={text}>
                 <ListItemIcon>{icons[index]}</ListItemIcon>
                 <p style={{ fontSize: 15, fontWeight: 'bold' }}>{text}</p>
@@ -109,20 +112,6 @@ function App(props) {
               <Fab color="secondary" aria-label="add" className={classes.margin} size="small" onClick={() => setShow(true)}>
                 <SearchIcon/>
               </Fab>
-              {/* <div className={classes.search}>
-                <div className={classes.searchIcon}>
-                  <SearchIcon />
-                </div>
-                <InputBase
-                  value={keyword}
-                  onChange={handleSearch}
-                  placeholder="Search from symptoms"
-                  classes={{
-                    root: classes.inputRoot,
-                    input: classes.inputInput,
-                  }}
-                />
-              </div> */}
             </div>
           </Toolbar>
           {show ? <SearchResults setShow={setShow}/> : null}
@@ -191,11 +180,14 @@ function App(props) {
               <Route path="/profile">
                 <Profile />
               </Route>
-              <Route path="/find">
+              {/* <Route path="/find">
                 <FindDoctor />
-              </Route>
+              </Route> */}
               <Route path="/home">
                 <Dashboard />
+              </Route>
+              <Route path="/add">
+                <AddReport />
               </Route>
               <Redirect to="/home" />
             </Switch>

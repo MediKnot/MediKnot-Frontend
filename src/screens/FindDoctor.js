@@ -1,22 +1,27 @@
 import React from 'react'
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
-import '../styles/finddoctor.css'
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
 
 function FindDoctor() {
 
+    function MyComponent() {
+        const map = useMap()
+        console.log('map center:', map.getCenter())
+        return null
+    }
+    const position = [51.505, -0.09]
     return (
-        <div style={{ display: 'flex', height: '100%', marginTop:'50px', position:'fixed',top:0, right:0,left:0, bottom:0 }}>
-            <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
-                <TileLayer
+        <div style={{ height: '100%', overflow: 'hidden'}}>
+            <MapContainer center={position} zoom={13} scrollWheelZoom={false}>
+                {/* <TileLayer
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <Marker position={[51.505, -0.09]}>
+                <Marker position={position}>
                     <Popup>
-                    A pretty CSS3 popup. <br /> Easily customizable.
+                        A pretty CSS3 popup. <br /> Easily customizable.
                     </Popup>
-                </Marker>
-            </MapContainer>
+                </Marker> */}
+            </MapContainer>,
         </div>
     )
 }
