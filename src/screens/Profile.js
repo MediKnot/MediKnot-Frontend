@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+import React, { useEffect } from 'react'
+=======
 import React,{useEffect} from 'react'
+>>>>>>> 0601e99042e9d6ceeb53218964a7831c9957795b
 import { makeStyles } from '@material-ui/core/styles';
 import '../App.css'
 import ProfileImage from "../assets/images/profile.jpeg";
