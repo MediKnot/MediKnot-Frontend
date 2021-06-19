@@ -25,8 +25,9 @@ function AddPrescription() {
             </Button>
             {open?<div>
                 <form className="column" >
-                    <input type="date" className="input-large shadow mh mv"  style={{backgroundColor: 'white'}}/>
-                    {count.map((data,i) => {return(<div className="row">
+                    <label className="mh-2 font-s gray">Date</label>
+                    <input type="date" className="input-large shadow mh mb"  style={{backgroundColor: 'white'}}/>
+                    {count.map((data,i) => {return(<div className="row ai-c">
                             <input type="string" placeholder="Medicine" className="input-large shadow mh mv" name="medicine"
                                 onChange={e => handleInputChange(e, i)}
                                 value={data.medicine}
@@ -43,9 +44,9 @@ function AddPrescription() {
                                 onChange={e => handleInputChange(e, i)}
                                 value={data.reason}
                             />
-                            {count.length - 1 === i &&<Button variant="contained" color="primary" onClick={()=>handleAdd()}>
+                            {count.length - 1 === i &&<button variant="contained" color="primary" onClick={()=>handleAdd()} className='button-round'>
                                 +
-                            </Button>}
+                            </button>}
                         </div>
                     )})
                     }

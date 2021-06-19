@@ -7,6 +7,7 @@ import Edit from '@material-ui/icons/Edit';
 import Done from '@material-ui/icons/Done';
 import MedicalEvent from '../screens/MedicalEvent';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import axios from '../utils/BaseUrl';
 
 const styles = makeStyles({
     textField:{
@@ -24,23 +25,38 @@ function Profile() {
     const [mobile,setMobile]=React.useState('');
     const [email,setEmail]=React.useState('');
     const [address,setAddress]=React.useState('');
-    const [allergies,setAllergies]=React.useState([]);
+    const [allergies,setAllergies]=React.useState(['']);
     const [nameEditOff,setNameEditOff]=React.useState(true);
     const [mobileEditOff,setMobileEditOff]=React.useState(true);
     const [emailEditOff,setEmailEditOff]=React.useState(true);
     const [addressEditOff,setAddressEditOff]=React.useState(true);
     const [allergiesEditOff,setAllergiesEditOff]=React.useState(true);
-
+    // var user_data;
     const classes = styles();
 
-    // const handleAllergy = (e) => {
-    //     var x=allergies;console.log(x);
-    //     setAllergies(x.push(e.target.value))
-    //     console.log(x);
-    // }
+    const handleAllergy = (e,value) => {
+        setAllergies(value)
+    }
+
+    const handleUpdate = async (e) => {
+        e.preventDefault();
+        var user_data=JSON.parse(localStorage.getItem("user"));
+        await axios.put(`/patient/add/allergies/${user_data.id}`,allergies)
+                    .then(res => {
+                        if(res.status === 200){
+                            console.log('posted')
+                        }else{
+                            console.log("**")
+                        }
+                    })
+                    .catch(e => {
+                        console.log(e);
+                    })
+    }
     
     useEffect(() => {
         var user_data=JSON.parse(localStorage.getItem("user"));
+        console.log(user_data.id)
         setName(user_data.name);
         setEmail(user_data.emailId);
         setMobile(user_data.phoneNumber);
@@ -94,8 +110,8 @@ function Profile() {
                             id="tags-outlined"
                             options={top100Films}
                             getOptionLabel={(option) => option}
-                            defaultValue={allergies}
-                            // onChange={handleAllergy}
+                            value={allergies}
+                            onChange={handleAllergy}
                             filterSelectedOptions
                             renderInput={(params) => (
                             <TextField
@@ -103,13 +119,14 @@ function Profile() {
                                 variant="outlined"
                                 placeholder="Add allergies"
                                 className={classes.textField}
+                                style={{backgroundColor:'white'}}
                             />
                             )}
                         />
                         {allergiesEditOff?<Button onClick={()=>setAllergiesEditOff(!allergiesEditOff)}><Edit style={{color:'gray'}}/></Button>:<Button onClick={()=>setAllergiesEditOff(!allergiesEditOff)}><Done style={{color:'gray'}}/></Button>}
                     </div>
                 </div>
-                <Button variant="contained" color="primary" type="submit" style={{marginBottom: 10,marginTop:20}}>
+                <Button variant="contained" color="primary" onClick={handleUpdate} style={{marginBottom: 10,marginTop:20}}>
                     Update
                 </Button>
                 <MedicalEvent/>

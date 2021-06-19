@@ -16,10 +16,12 @@ function AddTreatment() {
                 <form className="row ai-c" >
                     <div className="column">
                         <input type="text" placeholder="Name" className="input-large shadow mh mv"  style={{width:'13rem'}}/>
-                        <input type="date" className="input-large shadow mh mv" style={{backgroundColor: 'white',width:'13rem'}} />
-                        <input type="date" className="input-large shadow mh mv" style={{backgroundColor: 'white',width:'13rem'}} />
+                            <label className="mh-2 font-s gray">Start date</label>
+                        <input type="date" className="input-large shadow mh mb" style={{backgroundColor: 'white',width:'13rem'}} />
+                            <label className="mh-2 font-s gray">End date</label>
+                        <input type="date" className="input-large shadow mh" style={{backgroundColor: 'white',width:'13rem'}} />
                     </div>
-                    <textarea type="textarea" placeholder="Description" className="input-large shadow mh mv" style={{height:'10rem',minWidth:'13rem',width:'20rem'}}/>
+                    <textarea type="textarea" placeholder="Description" className="input-large shadow mh mv" style={{height:'11rem',minWidth:'13rem',width:'20rem'}}/>
                     <Button variant="contained" color="primary" type="submit" style={{marginBottom: 10, width: '10%',height:'10%'}}>
                         Add
                     </Button>
