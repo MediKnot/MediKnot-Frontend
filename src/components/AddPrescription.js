@@ -2,32 +2,52 @@ import React, { useState } from 'react'
 import PrescriptionTable from './PrescriptionTable'
 import { Button } from '@material-ui/core'
 import '../App.css'
+import axios from '../utils/BaseUrl';
 
 function AddPrescription() {
     const [open,setOpen]=useState(false)
-    const [count,setCount] =useState([{"medicine":""}])
+    const [dosage,setDosage] =useState([{"medicine":"","duration":"","frequency":"","reason":""}])
+    const [date, setDate] = useState("");
 
     const handleInputChange = (e, index) => {
         const { name, value } = e.target;
         console.log(value)
-        const list = [...count];
+        const list = [...dosage];
         list[index][name] = value;
-        setCount(list);
+        setDosage(list);
       };
 
     const handleAdd = () => {
-        setCount([...count,{"medicine":"","duration":"","frequency":"","reason":""}])
+        setDosage([...dosage,{"medicine":"","duration":"","frequency":"","reason":""}])
     }
+
+    // const handleSubmit = async (event) => {
+    //     event.preventDefault();
+    //     const data={
+    //         date,
+    //         dosage
+    //     }
+    //     await axios.post(`/prescription/${consultationId}`, data)
+    //         .then(res => {
+    //             if (res.status === 200) {
+    //                 console.log('Prescription added')
+    //             }
+    //         })
+    //         .catch(e => {
+    //             console.log(e)
+    //         })
+    // }
+
     return (
         <div>
             <Button variant="contained" color="primary" style={{marginBottom: 10, marginRight: 10}} onClick={()=>setOpen(!open)}>
                 + New Prescription
             </Button>
             {open?<div>
-                <form className="column" >
+                <form className="column">
                     <label className="mh-2 font-s gray">Date</label>
                     <input type="date" className="input-large shadow mh mb"  style={{backgroundColor: 'white'}}/>
-                    {count.map((data,i) => {return(<div className="row ai-c">
+                    {dosage.map((data,i) => {return(<div className="row ai-c">
                             <input type="string" placeholder="Medicine" className="input-large shadow mh mv" name="medicine"
                                 onChange={e => handleInputChange(e, i)}
                                 value={data.medicine}
@@ -44,7 +64,7 @@ function AddPrescription() {
                                 onChange={e => handleInputChange(e, i)}
                                 value={data.reason}
                             />
-                            {count.length - 1 === i &&<button variant="contained" color="primary" onClick={()=>handleAdd()} className='button-round'>
+                            {dosage.length - 1 === i &&<button variant="contained" color="primary" onClick={()=>handleAdd()} className='button-round'>
                                 +
                             </button>}
                         </div>
