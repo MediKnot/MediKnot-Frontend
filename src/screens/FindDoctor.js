@@ -12,7 +12,7 @@ function FindDoctor() {
     return (
         <div style={{ height: '100%', overflow: 'hidden'}}>
             <MapContainer center={position} zoom={13} scrollWheelZoom={false}>
-                {/* <TileLayer
+                <TileLayer
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
@@ -20,7 +20,7 @@ function FindDoctor() {
                     <Popup>
                         A pretty CSS3 popup. <br /> Easily customizable.
                     </Popup>
-                </Marker> */}
+                </Marker>
             </MapContainer>,
         </div>
     )

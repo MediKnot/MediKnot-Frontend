@@ -5,30 +5,49 @@ import '../App.css'
 
 function AddPrescription() {
     const [open,setOpen]=useState(false)
-    const [count,setCount] =useState([{}])
+    const [count,setCount] =useState([{"medicine":""}])
+
+    const handleInputChange = (e, index) => {
+        const { name, value } = e.target;
+        console.log(value)
+        const list = [...count];
+        list[index][name] = value;
+        setCount(list);
+      };
 
     const handleAdd = () => {
-        
+        setCount([...count,{"medicine":"","duration":"","frequency":"","reason":""}])
     }
-
     return (
         <div>
-            <Button variant="contained" color="primary" style={{marginBottom: 10, marginRight: 10}} onClick={()=>setOpen(true)}>
+            <Button variant="contained" color="primary" style={{marginBottom: 10, marginRight: 10}} onClick={()=>setOpen(!open)}>
                 + New Prescription
             </Button>
             {open?<div>
                 <form className="column" >
                     <input type="date" className="input-large shadow mh mv"  style={{backgroundColor: 'white'}}/>
-                    {count.map(() => 
-                        <div className="row">
-                            <input type="string" placeholder="Medicine" className="input-large shadow mh mv" />
-                            <input type="string" placeholder="Dose" className="input-small shadow mh mv" />
-                            <input type="string" placeholder="Frequency" className="input-small shadow mh mv" />
-                            <Button variant="contained" color="primary" type="submit" onClick={()=>handleAdd()}>
-                                Add
-                            </Button>
+                    {count.map((data,i) => {return(<div className="row">
+                            <input type="string" placeholder="Medicine" className="input-large shadow mh mv" name="medicine"
+                                onChange={e => handleInputChange(e, i)}
+                                value={data.medicine}
+                            />
+                            <input type="string" placeholder="Duration" className="input-small shadow mh-2 mv" name="duration"
+                                onChange={e => handleInputChange(e, i)}
+                                value={data.duration}
+                            />
+                            <input type="string" placeholder="Frequency" className="input-small shadow mh-2 mv" name="frequency"
+                                onChange={e => handleInputChange(e, i)}
+                                value={data.frequency}
+                            />
+                            <input type="string" placeholder="Reason" className="input-small shadow mh-2 mv" name="reason"
+                                onChange={e => handleInputChange(e, i)}
+                                value={data.reason}
+                            />
+                            {count.length - 1 === i &&<Button variant="contained" color="primary" onClick={()=>handleAdd()}>
+                                +
+                            </Button>}
                         </div>
-                    )
+                    )})
                     }
                     <Button variant="contained" color="primary" type="submit" style={{marginBottom: 10, width: '10%'}}>
                         Add

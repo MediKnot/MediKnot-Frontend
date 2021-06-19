@@ -15,12 +15,8 @@ const styles = makeStyles({
         heigth:20,
         textColor: 'black',
         fontColor:'black',
-        // border:'none',
         borderWidth:'0'
-    },
-    multilineColor:{
-        
-    },
+    }
 });
 
 function Profile() {
@@ -45,14 +41,6 @@ function Profile() {
     
     useEffect(() => {
         var user_data=JSON.parse(localStorage.getItem("user"));
-        console.log(user_data)
-        // const user_data={
-        //     "name":"Saniya Agrawal",
-        //     "phoneNumber":"9876543219",
-        //     "emailId":"snaiya@gmail.com",
-        //     "address":"Gali No. 5, Sch.No. 20, Indore, Madhya Pradesh",
-        //     "allergies":["Abc","cde"]
-        // }
         setName(user_data.name);
         setEmail(user_data.emailId);
         setMobile(user_data.phoneNumber);
@@ -108,7 +96,7 @@ function Profile() {
                             getOptionLabel={(option) => option}
                             defaultValue={allergies}
                             // onChange={handleAllergy}
-                            // filterSelectedOptions
+                            filterSelectedOptions
                             renderInput={(params) => (
                             <TextField
                                 {...params}
@@ -132,21 +120,5 @@ function Profile() {
 }
 
 export default Profile
-//       <Autocomplete
-//         multiple
-//         id="tags-outlined"
-//         options={top100Films}
-//         getOptionLabel={(option) => option.title}
-//         defaultValue={[top100Films[13]]}
-//         filterSelectedOptions
-//         renderInput={(params) => (
-//           <TextField
-//             {...params}
-//             variant="outlined"
-//             label="filterSelectedOptions"
-//             placeholder="Favorites"
-//           />
-//         )}
-//       />
 
 const top100Films = ["ABC","Abc","cde","d2"];

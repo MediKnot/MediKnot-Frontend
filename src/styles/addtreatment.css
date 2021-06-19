@@ -1,0 +1,10 @@
+@media only screen and (max-width: 800px) {
+    #body{
+        overflow: hidden;
+        
+    }
+    input{
+        height: 60%;
+        width: 60%;
+    }
+  }
