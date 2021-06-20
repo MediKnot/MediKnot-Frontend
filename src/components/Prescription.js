@@ -4,7 +4,7 @@ import LocalHospitalIcon from '@material-ui/icons/LocalHospital';
 import EventIcon from '@material-ui/icons/Event';
 import PersonIcon from '@material-ui/icons/Person';
 
-function Prescription({active}) {
+function Prescription({active, date, doctordetails, notes}) {
 
     return (
         <div style={{ width: '100%', backgroundColor: active ? '#DBF5DC' : '#FFADAD', borderRadius: 15, padding: 20, minWidth: 320, cursor: 'pointer'}} 
@@ -26,12 +26,12 @@ function Prescription({active}) {
                 </div>
                 <div>
                     <div className="row"><h2>Treatment for: </h2> <h2 style={{ color: 'red', marginLeft: 10 }}> Cough and Cold</h2></div>
-                    <h3 className="row ai-c"><EventIcon />Date: </h3> 29 May 2021
-                    <h3 className="row ai-c"><PersonIcon />Doctor: </h3> Dr. Krishnam Rathi
+                    <h3 className="row ai-c"><EventIcon />Date: </h3> {date}
+                    <h3 className="row ai-c"><PersonIcon />Doctor: </h3> Dr. {doctordetails ? doctordetails.name : ""}
                 </div>
             </div>
             <h4>Note:</h4>
-            <p>Avoid touching your face, especially the nose, mouth, and eye areas.</p>
+            <p>{notes ? notes[0] : ""}</p>
         </div>
     )
 }

@@ -45,7 +45,7 @@ function App(props) {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [flow, setFlow] = useState(0);
-  const [show, setShow] = useState("");
+  const [showSearch, setShowSearch] = useState("");
 
   useEffect(() => {
     try {
@@ -109,12 +109,12 @@ function App(props) {
               <Typography variant="h6" noWrap>
                 Mediknot
               </Typography>
-              <Fab color="secondary" aria-label="add" className={classes.margin} size="small" onClick={() => setShow(true)}>
+              <Fab color="secondary" aria-label="add" className={classes.margin} size="small" onClick={() => setShowSearch(true)}>
                 <SearchIcon/>
               </Fab>
             </div>
           </Toolbar>
-          {show ? <SearchResults setShow={setShow}/> : null}
+          <SearchResults show={showSearch} setShow={setShowSearch}/>
         </AppBar>
           <nav className={classes.drawer} aria-label="mailbox folders">
             <Hidden smUp implementation="css">

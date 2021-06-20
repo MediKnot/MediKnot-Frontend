@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SearchResults({ setShow }) {
+export default function SearchResults({ setShow, show }) {
   const classes = useStyles();
   const handleClose = () => {
     setShow(false);
@@ -52,7 +52,7 @@ export default function SearchResults({ setShow }) {
   return (
     <div>
       <Modal
-        open={true}
+        open={show}
         onClose={handleClose}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
