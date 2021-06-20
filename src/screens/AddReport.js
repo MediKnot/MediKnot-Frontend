@@ -1,37 +1,57 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import Prescription from '../components/Prescription'
 import axios from '../utils/BaseUrl';
 import ConsultationModel from '../components/ConsultationModel';
+import { Button } from '@material-ui/core';
+
 
 function AddReport() {
-    const [consultations, setConsultations] = useState([]);
-    const [show, setShow] = useState(true);
-    
+    const [consultations, setConsultations] = useState(null);
+    const [show, setShow] = useState(false);
+    const [i, setI] = useState(-1);
+
     useEffect(() => {
-        var userId = JSON.parse(localStorage.getItem('user'));
-        if(userId) userId = userId.id;
-        console.log(userId);
-        getConsultations(userId);
+        const user = JSON.parse(localStorage.getItem("user"))
+        getConsultations(user.id);
+        console.log(consultations);
     }, [])
 
-    const getConsultations = async (userId) => {
-        await axios.get(`/consultation/list/${userId}`)
+    const getConsultations = async (id) => {
+        axios.get(`/consultation/list/${id}`)
             .then(res => {
-                if(res.status === 200) setConsultations(res.data);
+                if (res.status === 200) setConsultations(res.data.content);
             })
-            .catch(e => console.log(e));
+            .catch(e => console.error(e));
     }
 
-    return (
-        <div>
-            <div className="row">{console.log(consultations)}
-                <Prescription active />
-                <Prescription />
-                <Prescription />
+    if (!consultations) return <h1>Loading ...</h1>
+    else
+        return (
+            <div>
+                <Button variant="contained" color="primary" onClick={() => setShow(true)} style={{}}>
+                    Add Consultaton
+                </Button>{console.log(consultations[0])}
+                {consultations.map((con, i) => (
+                    <div key={con.id} onClick={() => {setI(i); setShow(true)}}>
+                        <Prescription
+                            date={con.consultationDate}
+                            doctordetails={con.doctor}
+                            notes={con.notes}
+                        />
+                    </div>
+                ))}
+                {i === -1 ?
+                    <ConsultationModel
+                        setShow={setShow}
+                        show={show}
+                    />
+                    : <ConsultationModel
+                        setShow={setShow}
+                        show={show}
+                        details={consultations[i]}
+                    />}
             </div>
-            {show ? <ConsultationModel setShow={setShow}/> :null}
-        </div>
-    )
+        )
 }
 
 export default AddReport

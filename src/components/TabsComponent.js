@@ -9,7 +9,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import PersonPinIcon from '@material-ui/icons/PersonPin';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import UpdateConsultation from './UpdateConsultation';
+import EditConsultation from './EditConsultation';
 import AddPrescription from './AddPrescription';
 import AddTreatment from './AddTreatment';
 
@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TabsComponent({isMobile}) {
+export default function TabsComponent({details}) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -81,7 +81,7 @@ export default function TabsComponent({isMobile}) {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <UpdateConsultation/>
+        <EditConsultation details={details}/>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <AddPrescription />
