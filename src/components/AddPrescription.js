@@ -4,7 +4,7 @@ import { Button } from '@material-ui/core'
 import '../App.css'
 import axios from '../utils/BaseUrl';
 
-function AddPrescription() {
+function AddPrescription({details}) {
     const [open,setOpen]=useState(false)
     const [dosage,setDosage] =useState([{"medicine":"","duration":"","frequency":"","reason":""}])
     const [date, setDate] = useState("");

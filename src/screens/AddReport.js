@@ -13,7 +13,6 @@ function AddReport() {
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("user"))
         getConsultations(user.id);
-        console.log(consultations);
     }, [])
 
     const getConsultations = async (id) => {
@@ -39,16 +38,18 @@ function AddReport() {
                             notes={con.notes}
                         />
                     </div>
-                ))}
+                ))}{console.log(i)}
                 {i === -1 ?
                     <ConsultationModel
                         setShow={setShow}
                         show={show}
+                        setI={setI}
                     />
                     : <ConsultationModel
                         setShow={setShow}
                         show={show}
                         details={consultations[i]}
+                        setI={setI}
                     />}
             </div>
         )

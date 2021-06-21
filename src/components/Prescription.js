@@ -31,7 +31,7 @@ function Prescription({active, date, doctordetails, notes}) {
                 </div>
             </div>
             <h4>Note:</h4>
-            <p>{notes ? notes[0] : ""}</p>
+            <div>{notes ? (notes.map(note => <p>{note}</p>)) : ""}</div>
         </div>
     )
 }

@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TabsComponent({details}) {
+export default function TabsComponent({ details }) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -73,21 +73,22 @@ export default function TabsComponent({details}) {
           indicatorColor="primary"
           textColor="primary"
           aria-label="scrollable force tabs example"
-          style={{justifyContent: 'space-evenly', display: 'flex'}}
+          style={{ justifyContent: 'space-evenly', display: 'flex', flex: 1 }}
         >
           <Tab label="Consultation" icon={<PhoneIcon />} {...a11yProps(0)} />
           <Tab label="Prescription" icon={<FavoriteIcon />} {...a11yProps(1)} />
           <Tab label="Treatment" icon={<PersonPinIcon />} {...a11yProps(2)} />
+
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <EditConsultation details={details}/>
+        <EditConsultation details={details} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <AddPrescription />
+        <AddPrescription details={details} />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <AddTreatment/>
+        <AddTreatment details={details} />
       </TabPanel>
     </div>
   );

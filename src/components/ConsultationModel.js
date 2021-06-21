@@ -18,10 +18,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ConsultationModel({ setShow, show, details }) {
+export default function ConsultationModel({ setShow, show, details, setI }) {
   const classes = useStyles();
   const handleClose = () => {
     setShow(false);
+    setI(-1);
   };
 
   const body = (
