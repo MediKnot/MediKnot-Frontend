@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import '../App.css';
 import { Button, Chip } from '@material-ui/core';
-import Edit from '@material-ui/icons/Edit';
-import Done from '@material-ui/icons/Done';
 import AutoComplete from './AutoComplete';
 import Loader from './Loader'
 import axios from '../utils/BaseUrl';
 import Popup from './Popup';
 
 function EditConsultation({ details }) {
-    const [edit, setEdit] = useState(false);
-    const [name, setName] = useState("");
     const [value, setValue] = useState("");
-    const [medicines, setMedicines] = useState([]);
     const [patient, setPatient] = useState(null);
     const [doctor, setDoctor] = useState([]);
     const [diseases, setDiseases] = useState([]);
@@ -114,7 +109,7 @@ function EditConsultation({ details }) {
                                     value={value}
                                     setValue={setValue}
                                     suggest={["name"]}
-                                    placeHolder="Search Doctor"
+                                    placeholder="Search Doctor"
                                     list={doctor}
                                     setList={setDoctor}
                                 /> : <div>{details.doctor.name}</div>}
@@ -147,7 +142,7 @@ function EditConsultation({ details }) {
                                     value={value}
                                     setValue={setValue}
                                     suggest={["name"]}
-                                    placeHolder="Search Diseases"
+                                    placeholder="Search Diseases"
                                     list={diseases}
                                     setList={setDiseases}
                                     multiple
