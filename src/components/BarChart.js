@@ -29,11 +29,9 @@ function BarChart({ data }) {
             const idx = parseInt(con.consultationDate?.substring(5, 7));
             arr[idx - 1] = arr[idx-1]+1;
         })
-        console.log(colors);
         return arr;
     }
     React.useEffect(() => {
-        console.log(data);
         setChartData(chartData());
     }, [])
 
