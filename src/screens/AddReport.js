@@ -16,7 +16,7 @@ function AddReport() {
     }, [])
 
     const getConsultations = async (id) => {
-        axios.get(`/consultation/list/${id}`)
+        await axios.get(`/consultation/list/${id}`)
             .then(res => {
                 if (res.status === 200) setConsultations(res.data.content);
             })
