@@ -3,6 +3,7 @@ import Prescription from '../components/Prescription'
 import axios from '../utils/BaseUrl';
 import ConsultationModel from '../components/ConsultationModel';
 import { Button } from '@material-ui/core';
+import MedicalEventCard from '../components/MedicalEventCard';
 
 
 function AddReport() {
@@ -30,6 +31,7 @@ function AddReport() {
                 <Button variant="contained" color="primary" onClick={() => setShow(true)} style={{}}>
                     Add Consultaton
                 </Button>{console.log(consultations[0])}
+                <MedicalEventCard/>
                 {consultations.map((con, i) => (
                     <div key={con.id} onClick={() => {setI(i); setShow(true)}}>
                         <Prescription
