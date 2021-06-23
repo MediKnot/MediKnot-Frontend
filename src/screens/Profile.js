@@ -5,7 +5,7 @@ import ProfileImage from "../assets/images/profile.jpeg";
 import { TextField, Button, Chip } from '@material-ui/core';
 import Edit from '@material-ui/icons/Edit';
 import Done from '@material-ui/icons/Done';
-import MedicalEvent from '../screens/MedicalEvent';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import axios from '../utils/BaseUrl';
 import AutoComplete from '../components/AutoComplete';
 import Popup from '../components/Popup';

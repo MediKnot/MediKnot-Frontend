@@ -1,134 +1,113 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import '../App.css'
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
+import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import { Button } from '@material-ui/core';
-
-const useStyles = makeStyles((theme) => ({
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: 120,
-      maxWidth: 300,
-    },
-    chips: {
-      display: 'flex',
-      flexWrap: 'wrap',
-    },
-    chip: {
-      margin: 2,
-    },
-    noLabel: {
-      marginTop: theme.spacing(3),
-    },
-  }));
+import AutoComplete from './AutoComplete';
+import axios from '../utils/BaseUrl';
+import Popup from './Popup';
   
-  const ITEM_HEIGHT = 48;
-  const ITEM_PADDING_TOP = 8;
-  const MenuProps = {
-    PaperProps: {
-      style: {
-        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-        width: 250,
-      },
-    },
-  };
-  
-  const names = [
-    'Oliver Hansen',
-    'Van Henry',
-    'April Tucker',
-    'Ralph Hubbard',
-    'Omar Alexander',
-    'Carlos Abbott',
-    'Miriam Wagner',
-    'Bradley Wilkerson',
-    'Virginia Andrews',
-    'Kelly Snyder',
-  ];
-  
-  function getStyles(name, diseases, theme) {
-    return {
-      fontWeight:
-        diseases.indexOf(name) === -1
-          ? theme.typography.fontWeightRegular
-          : theme.typography.fontWeightMedium,
-    };
-  }
 
 function MedicalEventModal() {
-    const classes = useStyles();
-    const theme = useTheme();
 
-    const changeDiseases = (event) => {
-        setdiseases(event.target.value);
-    };
-
-    const [critical, setcritical] = useState('no');
-    const [active, setactive] = useState('no');
+    const [critical, setcritical] = useState("HOSPITALISATION");
+    const [active, setactive] = useState(false);
     const [diseases, setdiseases] = useState([]);
-    const [location, setlocation] = useState("");
+    const [value, setValue] = useState("");
+    const [description, setdescription] = useState("");
     const [date, setdate] = useState("");
+    const [mess, setMess] = useState("");
+    const [error, setError] = useState(false);
 
+    const handleDelete = (id) => {
+      setdiseases(diseases.filter(dis => dis.id !== id));
+    }
+
+    const addEvent = async () => {
+      for(var i=0;i<diseases.length;i++){
+        delete diseases[i].links;
+      }
+
+      const data={
+        critical,
+        isActive:active,
+        description,
+        startDate:date
+      }
+      var user_data=JSON.parse(localStorage.getItem("user"));
+      // console.log(data,user_data.id)
+      await axios.post(`/medicalEvent/${user_data.id}`,data)
+          .then(res => {
+              if (res.status === 200) {
+                  setError(false);
+                  setMess("Medical Event created successfully !!");
+
+                  axios.put(`/medicalEvent/add/disease/${res.data.id}/${diseases[0].id}`)
+                  .then(res => {
+                      if (res.status === 200) {
+                          setError(false);
+                      }
+                  })
+                  .catch(e => {
+                      setError(true);
+                  })
+              } else {
+                  setError(true);
+                  setMess("Medical Event creation failed !!");
+              }
+          })
+          .catch(e => {
+              setError(true);
+              setMess("Something went wrong. Try again !!");
+          })
+  }
     return (
         <>
-            <form className="column ai-c">
-                <FormControl className={classes.formControl} style={{ backgroundColor: 'white', width: 300 }}>
-                    <InputLabel id="demo-mutiple-chip-label">Diseases</InputLabel>
-                    <Select
-                    labelId="demo-mutiple-chip-label"
-                    id="demo-mutiple-chip"
-                    multiple
-                    value={diseases}
-                    onChange={changeDiseases}
-                    input={<Input id="select-multiple-chip" />}
-                    renderValue={(selected) => (
-                        <div className={classes.chips}>
-                        {selected.map((value) => (
-                            <Chip key={value} label={value} className={classes.chip} />
-                        ))}
-                        </div>
-                    )}
-                    MenuProps={MenuProps}
-                    >
-                    {names.map((name) => (
-                        <MenuItem key={name} value={name} style={getStyles(name, diseases, theme)}>
-                        {name}
-                        </MenuItem>
-                    ))}
-                    </Select>
-                </FormControl>
-                <input type="text" value={location} onChange={(e) => setlocation(e.target.value)} placeholder="Location" className="input-large shadow mh mv" style={{ backgroundColor: 'white', height: 55, width: 300 }} />
+            <div className="column ai-c mt">
+                <AutoComplete large
+                                    endpoint="/disease/search?name="
+                                    value={value}
+                                    setValue={setValue}
+                                    suggest={["name"]}
+                                    placeholder="Search Diseases"
+                                    list={diseases}
+                                    setList={setdiseases}
+                                />
+                                <div className='font-s mv'>
+                                    {diseases.map((disease, i) => (
+                                        <Chip
+                                            key={disease.id}
+                                            label={disease.name}
+                                            onDelete={() => handleDelete(disease.id)}
+                                            color="secondary"
+                                            style={{ marginRight: 10,marginTop:10 }}
+                                        />
+                                    ))}
+                                </div>
+                <input type="text" value={description} onChange={(e) => setdescription(e.target.value)} placeholder="Description" className="input-large shadow mh mv" style={{ backgroundColor: 'white', height: 55, width: 300 }} />
                 <div className="row-no-wrap">
-                  <div className="mv mh mr font-s" style={{ width: 140 }}>Critical</div>
+                  <div className="mv mh mr font-s" style={{ width: 140 }}>Type</div>
                   <div className="mv font-s" style={{ width: 140 }}>Active</div>
                 </div>
                 <div className="row ai-c">
-                      <select id="critical" value={critical} onChange={(e) => setcritical(e.target.value)} name="critical" className="input-small shadow mh mr" style={{ backgroundColor: 'white', height: 55, width: 140 }} placeholder="Critical" >
-                          <option value="yes">Yes</option>
-                          <option value="no">No</option>
+                      <select id="critical" value={critical} onChange={(e) => setcritical(e.target.value)} name="critical" className="input-small shadow mh mr" style={{ backgroundColor: 'white', height: 55, width: 140 }} placeholder="Type" >
+                          <option value="HOSPITALISATION">Hospitalisation</option>
+                          <option value="CLINIC_VISIT">Clinic Visit</option>
                       </select>
                       <select id="active" value={active} onChange={(e) => setactive(e.target.value)} name="gender" className="input-small shadow" style={{ backgroundColor: 'white', height: 55, width: 140 }} placeholder="Active" >
-                          <option value="yes">Yes</option>
-                          <option value="no">No</option>
+                          <option value={Boolean("true")}>Yes</option>
+                          <option value={Boolean("false")}>No</option>
                       </select>
-                </div>
-                <div>
-                    <div className="mv font-s mh-2 mr">Reports</div>
-                    <input type="file" className="input-large shadow mh" style={{ backgroundColor: 'white', height: 55, width: 300 }}/>
                 </div>
                 <div>
                   <div className="mv font-s mh mr">Date of Event</div>
                   <input type="date" value={date} onChange={(e) => setdate(e.target.value)} placeholder="dd-mm-yyyy" className="input-large shadow" style={{backgroundColor: 'white'}}/>
                 </div>
-                <Button variant="contained" color="primary" type="submit" style={{marginTop: 30, width: '45%',marginBottom:20}}>
-                        Next
+                <Button variant="contained" color="primary" style={{marginTop: 30, width: '45%',marginBottom:10}}  onClick={addEvent}>
+                  Create
                 </Button >
-            </form>
+                {mess.length !== 0 ? error ? <Popup error message={mess} /> : <Popup message={mess} /> : null}
+            </div>
         </>
     )
 }
