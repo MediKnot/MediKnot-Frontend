@@ -19,6 +19,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Dashboard from './screens/Dashboard';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
+import AssessmentIcon from '@material-ui/icons/Assessment';
 import TimelineIcon from '@material-ui/icons/Timeline';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -34,6 +35,7 @@ import BG from './assets/images/bg.png'
 import Fab from '@material-ui/core/Fab';
 import SearchResults from './components/SearchResults';
 import AddReport from './screens/AddReport';
+import SelfAnalysis from './screens/SelfAnalysis';
 
 
 
@@ -66,15 +68,15 @@ function App(props) {
   }
 
 
-  const icons = [<DashboardIcon />, <FileCopyIcon />, <TimelineIcon />, <SearchIcon />, <AccountCircleIcon />, <AddBoxIcon/>, <ExitToAppIcon />];
-  const routes = ["/", "/reports", "/", "/find", "/profile", "/add", "/login"]
+  const icons = [<DashboardIcon />, <AssessmentIcon />, <FileCopyIcon />, <TimelineIcon />, <SearchIcon />, <AccountCircleIcon />, <AddBoxIcon/>, <ExitToAppIcon />];
+  const routes = ["/", "/self-analysis", "/reports", "/", "/find", "/profile", "/add", "/login"]
 
   const drawer = (
     <div>
       <div className={classes.toolbar} />
       <Divider />
       <List>
-        {['Dashboard', 'Reports', 'Report Analysis', 'Find Doctor', 'Profile', 'Add Report', 'Logout'].map((text, index) => {
+        {['Dashboard', 'Self Analysis', 'Reports', 'Report Analysis', 'Find Doctor', 'Profile', 'Add Report', 'Logout'].map((text, index) => {
           return (
             <Link to={routes[index]} style={{ textDecoration: 'none', color: 'inherit' }} onClick={text === "Logout" ? logout : null}>
               {text==='Logout' ? <Divider/> : null}
@@ -185,6 +187,9 @@ function App(props) {
               </Route> */}
               <Route path="/home">
                 <Dashboard />
+              </Route>
+              <Route path="/self-analysis">
+                <SelfAnalysis />
               </Route>
               <Route path="/add">
                 <AddReport />
