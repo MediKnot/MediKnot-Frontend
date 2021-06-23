@@ -36,12 +36,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function MedicalEventCard() {
+function MedicalEventCard({details}) {
     const classes = useStyles();
     const theme = useTheme();
+    // console.log(details)
 
   return (
-    <Card className="">
+    <Card className="mv-2">
         <div className="row jc-sb mh-2">
             <div className={classes.details}>
                 <CardContent className={classes.content}>
@@ -49,25 +50,26 @@ function MedicalEventCard() {
                         COVID-19
                     </Typography>
                     <Typography variant="subtitle1" color="textSecondary">
-                        15 Nov - 29 Nov 2020
+                        {details.startDate}
                     </Typography>
                 </CardContent>
                 <div className={classes.content}>
                     <div className="row ai-c">
-                        <div className="label">Critical: </div>
-                        <div className="mh font-s">Yes</div>
+                        <div className="label">Condition: </div>
+                        <div className="mh font-s">{details.critical}</div>
                     </div>
                     <div className="row ai-c">
                         <div className="label">Is Active: </div>
-                        <div className="mh font-s">No</div>
+                        <div className="mh font-s">{details.isActive==true?"Yes":"No"}</div>
                     </div>
                     <div className="row ai-c">
-                        <div className="label">Location: </div>
-                        <div className="mh font-s">11, Central Jail Road, Indore</div>
+                        <div className="label">Description: </div>
+                        <div className="mh font-s">{details.description}</div>
                     </div>
                     <div className="row ai-c">
                         <div className="label">Diseases: </div>
-                        <div className="mh font-s">Heart Attack, Cancer</div>
+                        {/* <div className="mh font-s">{details.diseases[0].name}</div> */}
+                        <div className="mh font-s">Cancer</div> 
                     </div>
                 </div>
             </div>
@@ -92,7 +94,7 @@ function MedicalEventCard() {
                     <div className='row ai-c'>
                         <SupervisedUserCircle/>
                         <Typography component="h5" variant="h5" className="mh">
-                        CONSULTATION
+                            CONSULTATION
                         </Typography>
                     </div>
                 </CardContent>

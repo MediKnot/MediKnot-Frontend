@@ -1,12 +1,13 @@
 import React from 'react'
-import MedicalEventModal from '../components/MedicalEventModal'
+import MedicalEventModal from './MedicalEventModal'
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: 'absolute',
-    width: '90%',
+    width: '80%',
     height:'70%',
     maxWidth:500,
     backgroundColor: theme.palette.background.paper,
@@ -17,7 +18,8 @@ const useStyles = makeStyles((theme) => ({
     left: 0, 
     right: 0, 
     bottom: 0, 
-    top: 0
+    top: 0,
+    borderRadius:15
   },
 }));
 
@@ -35,9 +37,9 @@ function MedicalEvent() {
 
     return (
         <div >
-            <button type="button" onClick={handleOpen}>
-                Open Modal
-            </button>
+            <Button variant="contained" color="primary" onClick={handleOpen} style={{position:'fixed',right:10,top:80}}>
+                    Add Medical Event
+            </Button>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -45,7 +47,7 @@ function MedicalEvent() {
                 aria-describedby="simple-modal-description"
             >
                 <div className={classes.paper}>
-                    <h2 id="simple-modal-title">Medical Event</h2>
+                    <h2 id="simple-modal-title" className='label mv-2 ai-c'>Medical Event</h2>
                     <div id="simple-modal-description">
                     <MedicalEventModal />
                     </div>
