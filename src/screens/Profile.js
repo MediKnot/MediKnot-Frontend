@@ -5,7 +5,6 @@ import ProfileImage from "../assets/images/profile.jpeg";
 import { TextField,Button } from '@material-ui/core';
 import Edit from '@material-ui/icons/Edit';
 import Done from '@material-ui/icons/Done';
-import MedicalEvent from '../screens/MedicalEvent';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import axios from '../utils/BaseUrl';
 
@@ -129,7 +128,6 @@ function Profile() {
                 <Button variant="contained" color="primary" onClick={handleUpdate} style={{marginBottom: 10,marginTop:20}}>
                     Update
                 </Button>
-                <MedicalEvent/>
             </div>
             
         </div>
