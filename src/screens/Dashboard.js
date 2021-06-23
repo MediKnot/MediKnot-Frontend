@@ -11,14 +11,16 @@ import HeartBeatComponent from '../components/HeartBeatComponent';
 import BloodPressureComponent from '../components/BloodPressureComponent';
 import SugarLevelComponent from '../components/SugarLevelComponent';
 import HaemoglobinComponent from '../components/HaemoglobinComponent';
+import Loader from '../components/Loader';
 
 
 function Dashboard() {
     const [consultations, setConsultations] = useState([]);
-
+    const [user, setUser] = useState({});
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("user"))
         getConsultations(user.id);
+        getUser(user.id);
     }, [])
 
     const getConsultations = async (id) => {
@@ -31,40 +33,56 @@ function Dashboard() {
             .catch(e => console.error(e));
     }
 
-    return (
-        <div>
-            <div className="row jc-sb">
-                <div className="column" style={{ maxWidth: '40%' }}>
-                    {/* <Prescription active /> */}
-                    {consultations.length !== 0 ?
-                        <div >
-                            <BarChart data={consultations} />
-                            {/* <DoughnutChart data={consultations} /> */}
+    const getUser = async (id) => {
+        await axios.get(`/patient/${id}`)
+            .then(res => {
+                if (res.status === 200) {
+                    setUser(res.data);
+                    localStorage.setItem("user", JSON.stringify(res.data));
+                }
+            })
+            .catch(e => console.log(e))
+    }
 
-                        </div> : null}
-                    <div className="row">
-                        <Precautions />
-                        <Vulnerabilities />
-                    </div>
-                </div>
-
-                <div className="column f-1 mh-2">
-                    <div className="row jc-se mv-2">
-                        <HeartBeatComponent heartbeat="72" />
-                        <BloodPressureComponent bp={'100'} />
-                        <SugarLevelComponent value='30' />
-                        <HaemoglobinComponent value='30' />
-                    </div>
-                    {consultations.length !== 0 ?
-                        <div style={{ width: '80%', alignSelf: 'center' }}>
-                            <DoughnutChart data={consultations} />
-                        </div> : null}
-                </div>
-            </div>
-
-            <MyTimeline />
+    if (!user.id) return (
+        <div style={{ height: '100vh', overflow: 'hidden' }} className="row ai-c jc-c">
+            <Loader />
         </div>
     )
+    else
+        return (
+            <div>
+                <div className="row jc-sb">
+                    <div className="column" style={{ maxWidth: '40%' }}>
+                        {/* <Prescription active /> */}
+                        {consultations.length !== 0 ?
+                            <div >
+                                <BarChart data={consultations} />
+                                {/* <DoughnutChart data={consultations} /> */}
+
+                            </div> : null}
+                        <div className="row">
+                            <Precautions />
+                            <Vulnerabilities />
+                        </div>
+                    </div>
+
+                    <div className="column f-1 mh-2">
+                        <div className="row jc-se mv-2">
+                            <HeartBeatComponent heartbeat="72" />
+                            <BloodPressureComponent bp={'100'} />
+                            <SugarLevelComponent value='30' />
+                            <HaemoglobinComponent value='30' />
+                        </div>
+                        {consultations.length !== 0 ?
+                            <div style={{ width: '80%', alignSelf: 'center' }}>
+                                <DoughnutChart data={consultations} />
+                            </div> : null}
+                    </div>
+                </div>
+                <MyTimeline data={user.timeline} />
+            </div>
+        )
 }
 
 export default Dashboard
