@@ -93,7 +93,16 @@
 }
 .input-profile{
     border: 0;
-    width: 500px;
+    width: 300px;
+    max-width : 500px;
+    height:40px;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.input-profile-small{
+    border: 0;
+    width: 150px;
     max-width : 500px;
     height:40px;
     border-radius: 10px;
