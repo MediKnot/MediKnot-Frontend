@@ -147,7 +147,7 @@ function App(props) {
               </Drawer>
             </Hidden>
           </nav>
-          <main className={classes.content} style={{ backgroundImage: `url(${BG})` }}>
+          <main className={classes.content} style={{ backgroundColor:'#e4ecfc' }}>
             <div className={classes.toolbar} />
             {children}
           </main>
