@@ -1,11 +1,8 @@
 import React, { useState } from 'react'
-import PrescriptionTable from './PrescriptionTable'
 import { Button } from '@material-ui/core'
 import '../App.css'
 import axios from '../utils/BaseUrl';
-import Loader from './Loader'
 import Popup from './Popup';
-import AutoComplete from './AutoComplete';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/styles';
 import { DataGrid, getThemePaletteMode } from '@material-ui/data-grid';
@@ -53,7 +50,7 @@ function AddPrescription({ details }) {
     };
 
     const handleMedicineChange = (e, index) => {
-        const { name, value } = e.target;
+        const { value } = e.target;
         console.log(value)
         const list = [...dosage];
         list[index]["medicine"]["medicineName"] = value;
@@ -76,10 +73,17 @@ function AddPrescription({ details }) {
             .then(res => {
                 if (res.status === 200) {
                     console.log('Prescription added')
+                    setMess("Prescription added successfully !!");
+                }
+                else{
+                  setError(true);
+                  setMess("Adding prescription failed !!");
                 }
             })
             .catch(e => {
                 console.log(e)
+                setError(true);
+                setMess("Something went wrong. Try again !!");
             })
     }
 

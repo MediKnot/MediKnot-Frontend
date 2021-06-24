@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import Prescription from '../components/Prescription'
+// import Prescription from '../components/Prescription'
 import Precautions from '../components/Precautions'
 import Vulnerabilities from '../components/Vulnerabilities'
 import MyTimeline from './Timeline';

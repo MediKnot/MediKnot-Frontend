@@ -29,8 +29,8 @@ import Login from './screens/Login';
 import SignUp from './screens/Signup';
 import Profile from './screens/Profile';
 import Reports from './screens/Reports';
-import FindDoctor from './screens/FindDoctor';
-import BG from './assets/images/bg.png'
+// import FindDoctor from './screens/FindDoctor';
+// import BG from './assets/images/bg.png'
 import Fab from '@material-ui/core/Fab';
 import SearchResults from './components/SearchResults';
 import AddReport from './screens/AddReport';

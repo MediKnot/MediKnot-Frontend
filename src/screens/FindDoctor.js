@@ -1,13 +1,13 @@
 import React from 'react'
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet'
 
 function FindDoctor() {
 
-    function MyComponent() {
-        const map = useMap()
-        console.log('map center:', map.getCenter())
-        return null
-    }
+    // function MyComponent() {
+    //     const map = useMap()
+    //     console.log('map center:', map.getCenter())
+    //     return null
+    // } 
     const position = [51.505, -0.09]
     return (
         <div style={{ height: '100%', overflow: 'hidden'}}>
