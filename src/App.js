@@ -34,6 +34,7 @@ import BG from './assets/images/bg.png'
 import Fab from '@material-ui/core/Fab';
 import SearchResults from './components/SearchResults';
 import AddReport from './screens/AddReport';
+import ReportAnalysis from './screens/ReportAnalysis';
 
 
 
@@ -67,7 +68,7 @@ function App(props) {
 
 
   const icons = [<DashboardIcon />, <FileCopyIcon />, <TimelineIcon />, <SearchIcon />, <AccountCircleIcon />, <AddBoxIcon/>, <ExitToAppIcon />];
-  const routes = ["/", "/reports", "/", "/find", "/profile", "/add", "/login"]
+  const routes = ["/", "/reports", "/analysis", "/find", "/profile", "/add", "/login"]
 
   const drawer = (
     <div>
@@ -188,6 +189,9 @@ function App(props) {
               </Route>
               <Route path="/add">
                 <AddReport />
+              </Route>
+              <Route path="/analysis">
+                <ReportAnalysis />
               </Route>
               <Redirect to="/home" />
             </Switch>
