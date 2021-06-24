@@ -28,7 +28,7 @@ function DocumentUpload({setFlow, flow}) {
                             Back
                         </Button>
                         <Button variant="contained" color="primary" type="submit" style={{marginBottom: 10, width: '45%'}}>
-                            Upload
+                            Verify
                         </Button>
                     </div>
                 </form>
