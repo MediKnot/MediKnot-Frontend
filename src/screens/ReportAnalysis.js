@@ -4,12 +4,13 @@ import '../App.css';
 import axios from '../utils/BaseUrl';
 import Loader from '../components/Loader';
 
-function ReportAnalysis() {
+function ReportAnalysis({patientref}) {
     const [user, setUser] = React.useState({});
 
     React.useEffect(() => {
         const user = JSON.parse(localStorage.getItem("user"))
-        getUser(user.id);
+        if(patientref) setUser(patientref);
+        else  getUser(user.id);
     }, [])
 
     const getUser = async (id) => {

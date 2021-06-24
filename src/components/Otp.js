@@ -51,6 +51,7 @@ function Otp({ setFlow, data, user, flow, login, setAppFlow}) {
                     .then(res => {
                         if(res.status === 200){
                             window.localStorage.setItem("user", JSON.stringify(res.data));
+                            window.localStorage.setItem("user_type", 'patient');
                             setAppFlow(1);
                         }else{
                             console.log("**")
@@ -68,7 +69,8 @@ function Otp({ setFlow, data, user, flow, login, setAppFlow}) {
                     .then(res => {
                         if(res.status === 200){
                             window.localStorage.setItem("user", JSON.stringify(res.data));
-                            setAppFlow(1);
+                            window.localStorage.setItem("user_type", 'doctor');
+                            setAppFlow(2);
                         }
                     })
                     .catch(e => {
