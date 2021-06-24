@@ -13,6 +13,9 @@ import AddAlert from '@material-ui/icons/AddAlert';
 import AirlineSeatIndividualSuite from '@material-ui/icons/AirlineSeatIndividualSuite';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import getDate from '../utils/dateConvert';
+import HealingIcon from '@material-ui/icons/Healing';
+import FavoriteIcon from '@material-ui/icons/Favorite';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -23,105 +26,38 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function CustomizedTimeline() {
+export default function CustomizedTimeline({ data }) {
   const classes = useStyles();
 
   return (
     <Timeline align="alternate">
-      <TimelineItem>
-        <TimelineOppositeContent>
-          <Typography variant="body2" color="textSecondary">
-            May 2021
-          </Typography>
-        </TimelineOppositeContent>
-        <TimelineSeparator>
-          <TimelineDot>
-            <AddAlarm />
-          </TimelineDot>
-          <TimelineConnector />
-        </TimelineSeparator>
-        <TimelineContent>
-          <Paper elevation={3} className={classes.paper}>
-            <Typography variant="h6" component="h1">
-              COVID-19
-            </Typography>
-            <Typography>Basic Pneumonia and fever</Typography>
-          </Paper>
-        </TimelineContent>
-      </TimelineItem>
-      <TimelineItem>
-        <TimelineOppositeContent>
-          <Typography variant="body2" color="textSecondary">
-            January 2020
-          </Typography>
-        </TimelineOppositeContent>
-        <TimelineSeparator>
-          <TimelineDot color="primary">
-            <AirlineSeatFlat />
-          </TimelineDot>
-          <TimelineConnector />
-        </TimelineSeparator>
-        <TimelineContent>
-          <Paper elevation={3} className={classes.paper}>
-            <Typography variant="h6" component="h1">
-              Root Canal 
-            </Typography>
-            <Typography>Two teeth removed</Typography>
-          </Paper>
-        </TimelineContent>
-      </TimelineItem>
-      <TimelineItem>
-        <TimelineSeparator>
-          <TimelineDot color="primary" variant="outlined">
-            <AddAlert />
-          </TimelineDot>
-          <TimelineConnector className={classes.secondaryTail} />
-        </TimelineSeparator>
-        <TimelineContent>
-          <Paper elevation={3} className={classes.paper}>
-            <Typography variant="h6" component="h1">
-                Laser eye surgery
-            </Typography>
-            <Typography>Cured vision</Typography>
-          </Paper>
-        </TimelineContent>
-      </TimelineItem>
-      <TimelineItem>
-        <TimelineSeparator>
-          <TimelineDot color="secondary">
-            <AirlineSeatIndividualSuite />
-          </TimelineDot>
-          <TimelineConnector className={classes.secondaryTail} />
-        </TimelineSeparator>
-        <TimelineContent>
-          <Paper elevation={3} className={classes.paper}>
-            <Typography variant="h6" component="h1">
-              Malaria
-            </Typography>
-            <Typography>Low blood pressure and 10 day hospitalisation</Typography>
-          </Paper>
-        </TimelineContent>
-      </TimelineItem>
-      <TimelineItem>
-        <TimelineOppositeContent>
-          <Typography variant="body2" color="textSecondary">
-            January 2020
-          </Typography>
-        </TimelineOppositeContent>
-        <TimelineSeparator>
-          <TimelineDot color="primary">
-            <AirlineSeatFlat />
-          </TimelineDot>
-        </TimelineSeparator>
-        <TimelineContent>
-          <Paper elevation={3} className={classes.paper}>
-            <Typography variant="h6" component="h1">
-              Root Canal 
-            </Typography>
-            <Typography>Two teeth removed</Typography>
-          </Paper>
-        </TimelineContent>
-      </TimelineItem>
+      {data.map((content, i) => {
+        return (
+          <TimelineItem>
+            <TimelineOppositeContent>
+              <Typography variant="body2" color="textSecondary">
+                {getDate(content.startDate)}
+              </Typography>
+            </TimelineOppositeContent>
+            <TimelineSeparator>
+              <TimelineDot color="primary">
+                {i % 3 === 0 ? <AirlineSeatFlat /> :
+                  i % 3 === 1 ? <HealingIcon /> :
+                    <FavoriteIcon color="secondary" />}
+              </TimelineDot>
+              {i !== data.length - 1 ? <TimelineConnector className={classes.secondaryTail} /> : null}
+            </TimelineSeparator>
+            <TimelineContent>
+              <Paper elevation={3} className={classes.paper}>
+                <Typography variant="h6" component="h1">
+                  Root Canal
+                </Typography>
+                <Typography>{content.description}</Typography>
+              </Paper>
+            </TimelineContent>
+          </TimelineItem>
+        )
+      })}
     </Timeline>
   );
 }
