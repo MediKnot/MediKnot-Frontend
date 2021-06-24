@@ -45,7 +45,7 @@ function MedicalEventCard({details}) {
             <div className={classes.details}>
                 <CardContent className={classes.content}>
                     <Typography component="h5" variant="h5">
-                        COVID-19
+                        {details.diseases.length>0?details.diseases[0].name:"Cancer"}
                     </Typography>
                     <Typography variant="subtitle1" color="textSecondary">
                         {details.startDate}
@@ -66,8 +66,7 @@ function MedicalEventCard({details}) {
                     </div>
                     <div className="row ai-c">
                         <div className="label">Diseases: </div>
-                        {/* <div className="mh font-s">{details.diseases[0].name}</div> */}
-                        <div className="mh font-s">Cancer</div> 
+                        <div className="mh font-s">{details.diseases.length>0?details.diseases[0].name:"Cancer"}</div>
                     </div>
                 </div>
             </div>
@@ -101,6 +100,10 @@ function MedicalEventCard({details}) {
                         <AlarmOn />
                         <div className='ml'>{val.name}</div>
                     </div>)}
+                    {/* {details.consultationList.map((val)=><div className='row ai-c mv'>
+                        <AlarmOn />
+                        <div className='ml'>{val.doctorName}</div>
+                    </div>)} */}
                 </CardContent>
             </div>
         </div>
