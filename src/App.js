@@ -30,10 +30,12 @@ import SignUp from './screens/Signup';
 import Profile from './screens/Profile';
 import Reports from './screens/Reports';
 import FindDoctor from './screens/FindDoctor';
+import Chatbot from './screens/Chatbot';
 import BG from './assets/images/bg.png'
 import Fab from '@material-ui/core/Fab';
 import SearchResults from './components/SearchResults';
 import AddReport from './screens/AddReport';
+import { ChatBubbleRounded } from '@material-ui/icons';
 
 
 
@@ -66,15 +68,15 @@ function App(props) {
   }
 
 
-  const icons = [<DashboardIcon />, <FileCopyIcon />, <TimelineIcon />, <SearchIcon />, <AccountCircleIcon />, <AddBoxIcon/>, <ExitToAppIcon />];
-  const routes = ["/", "/reports", "/", "/find", "/profile", "/add", "/login"]
+  const icons = [<DashboardIcon />, <FileCopyIcon />, <TimelineIcon />, <ChatBubbleRounded/>, <SearchIcon />, <AccountCircleIcon />, <AddBoxIcon/>, <ExitToAppIcon />];
+  const routes = ["/", "/reports", "/", "/chatbot", "/find", "/profile", "/add", "/login"]
 
   const drawer = (
     <div>
       <div className={classes.toolbar} />
       <Divider />
       <List>
-        {['Dashboard', 'Reports', 'Report Analysis', 'Find Doctor', 'Profile', 'Add Report', 'Logout'].map((text, index) => {
+        {['Dashboard', 'Reports', 'Report Analysis', 'Chatbot', 'Find Doctor', 'Profile', 'Add Report', 'Logout'].map((text, index) => {
           return (
             <Link to={routes[index]} style={{ textDecoration: 'none', color: 'inherit' }} onClick={text === "Logout" ? logout : null}>
               {text==='Logout' ? <Divider/> : null}
@@ -188,6 +190,9 @@ function App(props) {
               </Route>
               <Route path="/add">
                 <AddReport />
+              </Route>
+              <Route path="/chatbot">
+                <Chatbot />
               </Route>
               <Redirect to="/home" />
             </Switch>
