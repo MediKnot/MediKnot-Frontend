@@ -68,14 +68,14 @@ function App(props) {
 
 
   const icons = [<DashboardIcon />, <FileCopyIcon />, <TimelineIcon />, <SearchIcon />, <AccountCircleIcon />, <AddBoxIcon/>, <ExitToAppIcon />];
-  const routes = ["/", "/reports", "/analysis", "/find", "/profile", "/add", "/login"]
+  const routes = ["/", "/reports", "/analysis", "/find", "/profile", "/events", "/login"]
 
   const drawer = (
     <div>
       <div className={classes.toolbar} />
       <Divider />
       <List>
-        {['Dashboard', 'Reports', 'Report Analysis', 'Find Doctor', 'Profile', 'Add Report', 'Logout'].map((text, index) => {
+        {['Dashboard', 'Reports', 'Report Analysis', 'Find Doctor', 'Profile', 'Medical Events', 'Logout'].map((text, index) => {
           return (
             <Link to={routes[index]} style={{ textDecoration: 'none', color: 'inherit' }} onClick={text === "Logout" ? logout : null}>
               {text==='Logout' ? <Divider/> : null}
@@ -187,7 +187,7 @@ function App(props) {
               <Route path="/home">
                 <Dashboard />
               </Route>
-              <Route path="/add">
+              <Route path="/events">
                 <AddReport />
               </Route>
               <Route path="/analysis">

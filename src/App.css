@@ -69,6 +69,14 @@
     margin-left: 2%;
 }
 
+.ml-2 {
+    margin-left: 20px;
+}
+
+.ml-3 {
+    margin-left: 40px;
+}
+
 .mt{
     margin-top: 5%;
 }

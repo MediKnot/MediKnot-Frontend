@@ -39,7 +39,7 @@ function AddReport() {
             .catch(e => console.error(e));
     }
 
-    if (!consultations || !timeline) return <h1>Loading ...</h1>
+    if (!consultations || !timeline) return <h1>No events yet</h1>
     else
         return (
             <div>
@@ -48,7 +48,7 @@ function AddReport() {
                 </Button>
                 <MedicalEvent/>
                 {timeline?.map((val)=><MedicalEventCard details={val} setId={setId} />)}
-                {consultations.map((con, i) => (
+                {/* {consultations.map((con, i) => (
                     <div key={con.id} onClick={() => {setI(i); setShow(true)}}>
                         <Prescription
                             date={con.consultationDate}
@@ -56,7 +56,7 @@ function AddReport() {
                             notes={con.notes}
                         />
                     </div>
-                ))}{console.log(i)}
+                ))}{console.log(i)} */}
                 {i === -1 ?
                     <ConsultationModel
                         setShow={setShow}

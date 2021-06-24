@@ -11,37 +11,39 @@ import '../App.css';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 300,
+    width:550
   },
   media: {
     height: 140,
   },
 });
 
-export default function CardComponent() {
+export default function ConsultationCard({details}) {
   const classes = useStyles();
 
   return (
     <Card className={`${classes.root} mh mv`}>
       <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          image="https://cdn1.poz.com/6598_Chem-Screen-Test.png_8a8e10d9-46bd-41c7-b230-37d851203941.png"
-          title="Contemplative Reptile"
-        />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            Blood Test
-          </Typography>
+          <div className="row ai-c jc-sb">
+            <Typography gutterBottom variant="h5" component="h2">
+              {details.concerns[0]}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="h4">
+              {details.consultationDate}
+            </Typography>
+          </div>
+          <Typography variant="body2" color="textSecondary" component="h4" style={{marginTop:-10,marginBottom:10}}>
+              {details.doctor.name}
+            </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-          Blood tests help doctors check for certain diseases and conditions. 
-          They also help check the function of your organs and show how well treatments are working. 
-          </Typography>
+            {details.notes[0]}
+            </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
-          View Report
+        <Button size="small" color="primary" >
+          View Consultation
         </Button>
       </CardActions>
     </Card>
