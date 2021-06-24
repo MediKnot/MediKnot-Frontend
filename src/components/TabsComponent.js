@@ -76,20 +76,19 @@ export default function TabsComponent({ details }) {
           style={{ justifyContent: 'space-evenly', display: 'flex', flex: 1 }}
         >
           <Tab label="Consultation" icon={<PhoneIcon />} {...a11yProps(0)} />
-          {details?<Tab label="Prescription" icon={<FavoriteIcon />} {...a11yProps(1)} />:null}
-          {details?<Tab label="Treatment" icon={<PersonPinIcon />} {...a11yProps(2)} />:null}
-
+          <Tab label="Prescription" icon={<FavoriteIcon />} {...a11yProps(1)} disabled={!details} />
+          <Tab label="Treatment" icon={<PersonPinIcon />} {...a11yProps(2)} disabled={!details} />
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
         <EditConsultation details={details} />
       </TabPanel>
-      {details?<TabPanel value={value} index={1}>
+      <TabPanel value={value} index={1}>
         <AddPrescription details={details} />
-      </TabPanel>:null}
-      {details?<TabPanel value={value} index={2}>
+      </TabPanel>
+      <TabPanel value={value} index={2}>
         <AddTreatment details={details} />
-      </TabPanel>:null}
+      </TabPanel>
     </div>
   );
 }

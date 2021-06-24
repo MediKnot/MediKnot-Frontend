@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button } from '@material-ui/core'
 import '../App.css'
 import axios from '../utils/BaseUrl';
@@ -6,6 +6,8 @@ import Popup from './Popup';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/styles';
 import { DataGrid, getThemePaletteMode } from '@material-ui/data-grid';
+import Prescription from '../components/Prescription';
+import Loader from '../components/Loader'
 
 const defaultTheme = createMuiTheme();
 const useStyles = makeStyles(
@@ -41,6 +43,10 @@ function AddPrescription({ details }) {
     const [error, setError] = useState(false);
     const classes = useStyles();
 
+    useEffect(() => {
+      console.log(details)
+    }, [])
+
     const handleInputChange = (e, index) => {
         const { name, value } = e.target;
         console.log(value)
@@ -69,6 +75,7 @@ function AddPrescription({ details }) {
             dosageList:dosage
         }
         console.log(data, consultationId);
+
         await axios.post(`/prescription/${consultationId}`, data)
             .then(res => {
                 if (res.status === 200) {
@@ -85,8 +92,9 @@ function AddPrescription({ details }) {
                 setError(true);
                 setMess("Something went wrong. Try again !!");
             })
-    }
-
+        setDate("");
+        setDosage(([{ "medicine": {"medicineName":""}, "duration": "", "frequency": "", "reason": "" }]));
+    } 
     return (
         <div>
             <Button variant="contained" color="primary" style={{ marginBottom: 10, marginRight: 10 }} onClick={() => setOpen(!open)}>
@@ -127,13 +135,18 @@ function AddPrescription({ details }) {
                     </Button>
                 </form>
             </div> : null}
-            <div style={{ height: 400, width: '100%'}} className="mv">
+            <div className="row">
+              {details.prescriptionList.map(p => (
+                  <Prescription doctordetails={details.doctor} dosageList={p.dosageList} date={p.date} notes={details.notes} disease={details.concerns}/>
+              ))}
+            </div>
+            {/* <div style={{ height: 400, width: '100%'}} className="mv">
                 <DataGrid
                     className={classes.root}
                     rows={rows}
                     columns={columns}
                 />
-            </div>
+            </div> */}
             {mess.length !== 0 ? error ? <Popup error message={mess} /> : <Popup message={mess} /> : null}
         </div>
     )

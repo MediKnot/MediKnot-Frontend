@@ -41,6 +41,8 @@ function AddTreatment({details}) {
     const [mess, setMess] = useState("");
     const [error, setError] = useState(false);
     const classes = useStyles();
+    const [mess, setMess] = useState("");
+    const [error, setError] = useState(false);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -55,14 +57,22 @@ function AddTreatment({details}) {
             .then(res => {
                 if (res.status === 200) {
                     console.log('Treatment added')
+                    setError(false);
                     setMess("Treatment added successfully !!");
+                }else{
+                    setError(true);
+                    setMess("Adding treatment failed !!");
                 }
             })
             .catch(e => {
                 console.log(e)
                 setError(true);
                 setMess("Something went wrong. Try again !!");
-            })
+            });
+        setEndTime('');
+        setStartTime('');
+        setDescription('');
+        setTreatmentName('');
     }
 
     return (
