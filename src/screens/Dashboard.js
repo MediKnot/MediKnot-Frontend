@@ -12,6 +12,7 @@ import BloodPressureComponent from '../components/BloodPressureComponent';
 import SugarLevelComponent from '../components/SugarLevelComponent';
 import HaemoglobinComponent from '../components/HaemoglobinComponent';
 import Loader from '../components/Loader';
+import LineChart from '../components/LineChart';
 
 
 function Dashboard() {
@@ -63,7 +64,7 @@ function Dashboard() {
                             </div> : null}
                         <div className="row">
                             <Precautions />
-                            <Vulnerabilities />
+                            <Vulnerabilities data={user.allergies} />
                         </div>
                     </div>
 

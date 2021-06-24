@@ -50,7 +50,7 @@ export default function CustomizedTimeline({ data }) {
             <TimelineContent>
               <Paper elevation={3} className={classes.paper}>
                 <Typography variant="h6" component="h1">
-                  Root Canal
+                  {content.critical}
                 </Typography>
                 <Typography>{content.description}</Typography>
               </Paper>

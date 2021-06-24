@@ -212,7 +212,7 @@ function Profile() {
                         <Button variant="contained" color="primary" onClick={handleAdd} className="mv" style={{ maxWidth: 100, alignSelf: 'flex-end', marginRight: 20 }}>
                             Add
                         </Button>
-                        <div style={{ maxWidth: 200 }}>
+                        <div style={{ maxWidth: 300 }}>
                             {allergies.map((allergy, i) => (
                                 <Chip
                                     key={i}
