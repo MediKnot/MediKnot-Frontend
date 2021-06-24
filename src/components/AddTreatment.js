@@ -109,7 +109,7 @@ function AddTreatment({details}) {
 export default AddTreatment
 const columns = [
     { field: 'treatmentName', headerName: 'Treatment Name', width: 230, editable: true },
-    { field: 'description', headerName: 'Description', width: 450, editable: true },
-    { field: 'startTime', headerName: 'Start Time', width: 230, editable: true },
-    { field: 'endTime', headerName: 'End Time', width: 230, editable: true }
+    { field: 'description', headerName: 'Description', width: 460, editable: true },
+    { field: 'startTime', headerName: 'Start Time', width: 240, editable: true },
+    { field: 'endTime', headerName: 'End Time', width: 240, editable: true }
   ];

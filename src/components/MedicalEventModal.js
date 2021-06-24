@@ -44,11 +44,11 @@ function MedicalEventModal() {
                   axios.put(`/medicalEvent/add/disease/${res.data.id}/${diseases[0].id}`)
                   .then(res => {
                       if (res.status === 200) {
-                          setError(false);
+                        //   setError(false);
                       }
                   })
                   .catch(e => {
-                      setError(true);
+                    //   setError(true);
                   })
               } else {
                   setError(true);
@@ -94,8 +94,8 @@ function MedicalEventModal() {
                           <option value="CLINIC_VISIT">Clinic Visit</option>
                       </select>
                       <select id="active" value={active} onChange={(e) => setactive(e.target.value)} name="gender" className="input-small shadow" style={{ backgroundColor: 'white', height: 55, width: 140 }} placeholder="Active" >
-                          <option value={Boolean("true")}>Yes</option>
-                          <option value={Boolean("false")}>No</option>
+                          <option value={Boolean(true)}>Yes</option>
+                          <option value={Boolean(false)}>No</option>
                       </select>
                 </div>
                 <div>

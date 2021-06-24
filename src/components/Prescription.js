@@ -27,7 +27,7 @@ function Prescription({active, date, doctordetails, notes, dosageList, disease})
                 <div>
                     <div className="row"><h2>Treatment for: </h2> <h2 style={{ color: 'red', marginLeft: 10 }}> {disease?.toString()} {!disease || disease.length===0 ? 'Cough and Cold' : null}</h2></div>
                     <h3 className="row ai-c"><EventIcon />Date: </h3> {date}
-                    <h3 className="row ai-c"><PersonIcon />Doctor: </h3> Dr. {doctordetails ? doctordetails.name : ""}
+                    <h3 className="row ai-c"><PersonIcon />Doctor: </h3> {doctordetails ? doctordetails.name : ""}
                 </div>
             </div>
             <h4>Note:</h4>

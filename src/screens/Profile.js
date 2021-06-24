@@ -126,8 +126,8 @@ function Profile() {
     else 
     return (
         <div>
-            <div className='heading' style={{ textAlign: 'center' }}>Profile</div>
-            <img src={ProfileImage} alt="Profile" style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', heigth: '8%', width: '12%', borderRadius: '50%' }} />
+            <h1 className="heading-small" style={{ textAlign: 'center' }}>Profile</h1>
+            <img src={ProfileImage} alt="Profile" class='profile_image' style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto' }} />
             <div className="row jc-sb">
                 <div className="ml mv-2" style={{ maxWidth: 500 }}>
                     <h1 className="label">Basic Details</h1>

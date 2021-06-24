@@ -8,6 +8,7 @@ import Popup from './Popup';
 
 function EditConsultation({ details }) {
     const [value, setValue] = useState("");
+    const [value2, setValue2] = useState("");
     const [patient, setPatient] = useState(null);
     const [doctor, setDoctor] = useState([]);
     const [diseases, setDiseases] = useState([]);
@@ -78,7 +79,7 @@ function EditConsultation({ details }) {
     if (patient)
         return (
             <div>
-                <div className='row jc-sb'>
+                <div className='row jc-sb mr-2'>
                     <div>
                         <div className='row ai-c mv'>
                             <div className='label mr'>Patient's Name:</div>
@@ -104,7 +105,7 @@ function EditConsultation({ details }) {
                         <div className='row ai-c'>
                             <div className='label mr'>Doctor's Name:</div>
                             {!details ? doctor.length !== 0 ? <div onDoubleClick={() => setDoctor([])} className='font -s' style={{ cursor: 'pointer' }}>{doctor[0].name}</div> :
-                                <AutoComplete small
+                                <AutoComplete 
                                     endpoint="/doctor/search?name="
                                     value={value}
                                     setValue={setValue}
@@ -132,15 +133,15 @@ function EditConsultation({ details }) {
                             : null}
                     </div>
                 </div>
-                <div className='mt'>
+                <div>
                     <div className="row jc-sb">
                         <div id="diseases">
                             <div className='label mr'>Disease/Problems:</div>
                             {!details ? <>
                                 <AutoComplete large
                                     endpoint="/disease/search?name="
-                                    value={value}
-                                    setValue={setValue}
+                                    value={value2}
+                                    setValue={setValue2}
                                     suggest={["name"]}
                                     placeholder="Search Diseases"
                                     list={diseases}

@@ -38,6 +38,7 @@ import ReportAnalysis from './screens/ReportAnalysis';
 import ReferPatient from './screens/ReferPatient';
 import DoctorProfile from './screens/DoctorProfile';
 import Loader from './components/Loader';
+import Popup from './components/Popup'
 
 
 const drawerWidth = 240;
@@ -78,8 +79,8 @@ function App(props) {
       setLabels(["Patient\'s Dashboard", "Reports", "Report Analysis", "Refer Other Patient"]);
     } else {
       setIcons([<DashboardIcon />, <FileCopyIcon />, <TimelineIcon />, <SearchIcon />, <AccountCircleIcon />, <AddBoxIcon />, <ExitToAppIcon />]);
-      setRoutes(["/", "/reports", "/analysis", "/find", "/profile", "/add", "/login"]);
-      setLabels(['Dashboard', 'Reports', 'Report Analysis', 'Find Doctor', 'Profile', 'Add Report', 'Logout']);
+      setRoutes(["/", "/reports", "/analysis", "/find", "/profile", "/events", "/login"]);
+      setLabels(['Dashboard', 'Reports', 'Report Analysis', 'Find Doctor', 'Profile', 'Medical Events', 'Logout']);
     }
   }, [flow])
 
@@ -88,6 +89,7 @@ function App(props) {
   };
 
   const logout = () => {
+    <Popup message="Successfully logged out!!" />
     localStorage.removeItem("user");
     localStorage.removeItem("user_type");
     setFlow(0);
@@ -242,7 +244,7 @@ function App(props) {
           <Route path="/home">
             <Dashboard patientref={patientref} />
           </Route>
-          <Route path="/add">
+          <Route path="/events">
             <AddReport />
           </Route>
           <Route path="/analysis">

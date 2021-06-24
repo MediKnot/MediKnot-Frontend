@@ -65,6 +65,10 @@
     margin-right: 20px;
 }
 
+.mr-2 {
+    margin-right: 120px;
+}
+
 .ml {
     margin-left: 2%;
 }
@@ -79,6 +83,10 @@
 
 .mt{
     margin-top: 5%;
+}
+
+.mt-2{
+    margin-top: 45px;
 }
 
 .mb{
@@ -170,4 +178,13 @@
   overflow: hidden;
   transition: .4s;
   border: none;
+}
+
+.profile_image{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+  
+    object-fit: cover;
+    object-position: center right;
 }
