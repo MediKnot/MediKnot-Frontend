@@ -38,9 +38,9 @@ function AddTreatment({details}) {
     const [startTime,setStartTime]=useState('')
     const [description,setDescription]=useState('')
     const [treatmentName,setTreatmentName]=useState('')
-    const classes = useStyles();
     const [mess, setMess] = useState("");
     const [error, setError] = useState(false);
+    const classes = useStyles();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -102,7 +102,6 @@ function AddTreatment({details}) {
                 />
             </div>
             {mess.length !== 0 ? error ? <Popup error message={mess} /> : <Popup message={mess} /> : null}
-
         </div>
     )
 }

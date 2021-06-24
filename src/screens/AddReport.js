@@ -30,25 +30,26 @@ function AddReport() {
     }
 
     const getTimeline = async (id) => {
-        await axios.get(`/patient/${id}`)
+        await axios.get(`/medicalEvent/all/${id}`)
             .then(res => {
                 if (res.status === 200) {
-                    setTimeline(res.data.timeline);
+                    setTimeline(res.data.content);
                 }
             })
             .catch(e => console.error(e));
     }
 
-    if (!consultations || !timeline) return <h1>Loading ...</h1>
+    if (!consultations || !timeline) return <h1>No events yet</h1>
     else
         return (
             <div>
-                <Button variant="contained" color="primary" onClick={() => setShow(true)} style={{}}>
+                {/* <Button variant="contained" color="primary" onClick={() => setShow(true)} style={{}}>
                     Add Consultaton
-                </Button>
+                </Button> */}
+                <h1 className="heading-small">Medical Events</h1>
                 <MedicalEvent/>
                 {timeline?.map((val)=><MedicalEventCard details={val} setId={setId} />)}
-                {consultations.map((con, i) => (
+                {/* {consultations.map((con, i) => (
                     <div key={con.id} onClick={() => {setI(i); setShow(true)}}>
                         <Prescription
                             date={con.consultationDate}
@@ -56,7 +57,7 @@ function AddReport() {
                             notes={con.notes}
                         />
                     </div>
-                ))}{console.log(i)}
+                ))}{console.log(i)} */}
                 {i === -1 ?
                     <ConsultationModel
                         setShow={setShow}

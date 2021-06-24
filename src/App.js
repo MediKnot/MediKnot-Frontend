@@ -106,13 +106,22 @@ function App(props) {
     }
   }
 
+<<<<<<< HEAD
+=======
+  const icons = [<DashboardIcon />, <FileCopyIcon />, <TimelineIcon />, <SearchIcon />, <AccountCircleIcon />, <AddBoxIcon/>, <ExitToAppIcon />];
+  const routes = ["/", "/reports", "/analysis", "/find", "/profile", "/events", "/login"]
+>>>>>>> 80ff2a9b424e5c41ea3c37ac051d2e2f8cbba898
 
   const drawer = (
     <div>
       <div className={classes.toolbar} />
       <Divider />
       <List>
+<<<<<<< HEAD
         {labels.map((text, index) => {
+=======
+        {['Dashboard', 'Reports', 'Report Analysis', 'Find Doctor', 'Profile', 'Medical Events', 'Logout'].map((text, index) => {
+>>>>>>> 80ff2a9b424e5c41ea3c37ac051d2e2f8cbba898
           return (
             <Link to={routes[index]} style={{ textDecoration: 'none', color: 'inherit' }} onClick={() => actionSelector(text)}>
               {text === 'Logout' ? <Divider /> : null}
@@ -239,6 +248,7 @@ function App(props) {
           {/* <Route path="/find">
                 <FindDoctor />
               </Route> */}
+<<<<<<< HEAD
           <Route path="/home">
             <Dashboard patientref={patientref} />
           </Route>
@@ -253,6 +263,22 @@ function App(props) {
       </RespDrawer>
     </Router>
   );
+=======
+              <Route path="/home">
+                <Dashboard />
+              </Route>
+              <Route path="/events">
+                <AddReport />
+              </Route>
+              <Route path="/analysis">
+                <ReportAnalysis />
+              </Route>
+              <Redirect to="/home" />
+            </Switch>
+          </RespDrawer>
+        </Router>
+        );
+>>>>>>> 80ff2a9b424e5c41ea3c37ac051d2e2f8cbba898
 
 }
 
