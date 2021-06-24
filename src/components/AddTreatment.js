@@ -1,8 +1,6 @@
 import React,{useState} from 'react'
-import PrescriptionTable from './PrescriptionTable'
 import { Button } from '@material-ui/core'
 import '../App.css'
-import '../styles/addtreatment.css'
 import axios from '../utils/BaseUrl';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/styles';
@@ -84,7 +82,7 @@ function AddTreatment({details}) {
             <div style={{ height: 400, width: '100%'}} className="mv">
                 <DataGrid
                     className={classes.root}
-                    rows={details.treatmentList}
+                    rows={details?.treatmentList}
                     columns={columns}
                     getRowId={(row)=>row.description+row.startTime}
                 />

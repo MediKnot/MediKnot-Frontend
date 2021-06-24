@@ -5,7 +5,7 @@ import ConsultationModel from '../components/ConsultationModel';
 import { Button } from '@material-ui/core';
 import MedicalEventCard from '../components/MedicalEventCard';
 import MedicalEvent from '../components/MedicalEvent';
-import HaemoglobinComponent from '../components/HaemoglobinComponent';
+// import HaemoglobinComponent from '../components/HaemoglobinComponent';
 
 
 function AddReport() {

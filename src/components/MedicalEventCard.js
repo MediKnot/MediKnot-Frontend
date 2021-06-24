@@ -1,10 +1,9 @@
 import React from 'react';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import AlarmOn from '@material-ui/icons/AlarmOn';
-import Today from '@material-ui/icons/Today';
 import Attachment from '@material-ui/icons/Attachment';
 import Folder from '@material-ui/icons/Folder';
 import SupervisedUserCircle from '@material-ui/icons/SupervisedUserCircle';
@@ -38,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
 
 function MedicalEventCard({details}) {
     const classes = useStyles();
-    const theme = useTheme();
     // console.log(details)
 
   return (
@@ -60,7 +58,7 @@ function MedicalEventCard({details}) {
                     </div>
                     <div className="row ai-c">
                         <div className="label">Is Active: </div>
-                        <div className="mh font-s">{details.isActive==true?"Yes":"No"}</div>
+                        <div className="mh font-s">{details.isActive===true?"Yes":"No"}</div>
                     </div>
                     <div className="row ai-c">
                         <div className="label">Description: </div>

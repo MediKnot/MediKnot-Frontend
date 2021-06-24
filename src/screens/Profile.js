@@ -1,26 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { makeStyles } from '@material-ui/core/styles';
 import '../App.css'
 import ProfileImage from "../assets/images/profile.jpeg";
-import { TextField, Button, Chip } from '@material-ui/core';
-import Edit from '@material-ui/icons/Edit';
-import Done from '@material-ui/icons/Done';
-import Autocomplete from '@material-ui/lab/Autocomplete';
+import { Button, Chip } from '@material-ui/core';
 import axios from '../utils/BaseUrl';
-import AutoComplete from '../components/AutoComplete';
 import Popup from '../components/Popup';
 import Loader from '../components/Loader';
-
-const styles = makeStyles({
-    textField: {
-        width: 500,
-        maxWidth: 500,
-        heigth: 20,
-        textColor: 'black',
-        fontColor: 'black',
-        borderWidth: '0'
-    }
-});
 
 function Profile() {
     const [name, setName] = useState('');
@@ -42,7 +26,7 @@ function Profile() {
     const [haemoglobin, setHaemoglobin] = useState([]);
     const [mess, setMess] = useState("");
     const [error, setError] = useState(false);
-    const [user, setUser] = useState({});
+    // const [user, setUser] = useState({});
     const [edit, setEdit] = useState(false);
     
     const d = new Date();

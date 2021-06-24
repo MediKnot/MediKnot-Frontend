@@ -1,6 +1,5 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState} from 'react'
 import '../App.css'
-import { makeStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
 import { Button } from '@material-ui/core';
 import AutoComplete from './AutoComplete';

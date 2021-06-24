@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import HeartBeat from '../assets/images/heartbeat.png';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 

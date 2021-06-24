@@ -1,9 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import '../App.css';
-import DiseaseCard from './DiseaseCard';
-import axios from '../utils/BaseUrl'
 import TabsComponent from './TabsComponent';
 
 
