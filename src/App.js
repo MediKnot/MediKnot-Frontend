@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { 
-  AppBar, 
-  CssBaseline, 
-  Divider, 
-  Drawer, 
+import {
+  AppBar,
+  CssBaseline,
+  Divider,
+  Drawer,
   Hidden,
   IconButton,
   List,
@@ -35,7 +35,9 @@ import Fab from '@material-ui/core/Fab';
 import SearchResults from './components/SearchResults';
 import AddReport from './screens/AddReport';
 import ReportAnalysis from './screens/ReportAnalysis';
-
+import ReferPatient from './screens/ReferPatient';
+import DoctorProfile from './screens/DoctorProfile';
+import Loader from './components/Loader';
 
 
 const drawerWidth = 240;
@@ -45,17 +47,41 @@ function App(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [flow, setFlow] = useState(0);
+  const [flow, setFlow] = useState();
   const [showSearch, setShowSearch] = useState("");
+  const [isDoc, setIsDoc] = useState(false);
+  const [patientref, setPatientref] = useState('');
+  const [icons, setIcons] = useState([]);
+  const [routes, setRoutes] = useState([]);
+  const [labels, setLabels] = useState([]);
 
   useEffect(() => {
     try {
       const user = JSON.parse(localStorage.getItem("user"));
-      if (user) {
-        setFlow(1);
+      const user_type = localStorage.getItem("user_type")
+
+      if (user && user_type) {
+        if (user_type === "doctor") {
+          setFlow(2);
+          setIsDoc(true);
+        }
+        else setFlow(1);
       } else setFlow(0);
     } catch (e) { console.log(e); }
   }, [])
+
+  useEffect(() => {
+    console.log(isDoc);
+    if (isDoc) {
+      setIcons([<DashboardIcon />, <FileCopyIcon />, <TimelineIcon />, <AccountCircleIcon />]);
+      setRoutes(["/", "/reports", "analysis", "/"]);
+      setLabels(["Patient\'s Dashboard", "Reports", "Report Analysis", "Refer Other Patient"]);
+    } else {
+      setIcons([<DashboardIcon />, <FileCopyIcon />, <TimelineIcon />, <SearchIcon />, <AccountCircleIcon />, <AddBoxIcon />, <ExitToAppIcon />]);
+      setRoutes(["/", "/reports", "/analysis", "/find", "/profile", "/add", "/login"]);
+      setLabels(['Dashboard', 'Reports', 'Report Analysis', 'Find Doctor', 'Profile', 'Add Report', 'Logout']);
+    }
+  }, [flow])
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -63,22 +89,42 @@ function App(props) {
 
   const logout = () => {
     localStorage.removeItem("user");
+    localStorage.removeItem("user_type");
     setFlow(0);
+    setIsDoc(false);
+    setPatientref('');
   }
 
+  const actionSelector = (label) => {
+    switch (label) {
+      case 'Logout':
+        return logout();
+      case 'Refer Other Patient':
+        return referOther();
+      default:
+        return null;
+    }
+  }
 
+<<<<<<< HEAD
+=======
   const icons = [<DashboardIcon />, <FileCopyIcon />, <TimelineIcon />, <SearchIcon />, <AccountCircleIcon />, <AddBoxIcon/>, <ExitToAppIcon />];
   const routes = ["/", "/reports", "/analysis", "/find", "/profile", "/events", "/login"]
+>>>>>>> 80ff2a9b424e5c41ea3c37ac051d2e2f8cbba898
 
   const drawer = (
     <div>
       <div className={classes.toolbar} />
       <Divider />
       <List>
+<<<<<<< HEAD
+        {labels.map((text, index) => {
+=======
         {['Dashboard', 'Reports', 'Report Analysis', 'Find Doctor', 'Profile', 'Medical Events', 'Logout'].map((text, index) => {
+>>>>>>> 80ff2a9b424e5c41ea3c37ac051d2e2f8cbba898
           return (
-            <Link to={routes[index]} style={{ textDecoration: 'none', color: 'inherit' }} onClick={text === "Logout" ? logout : null}>
-              {text==='Logout' ? <Divider/> : null}
+            <Link to={routes[index]} style={{ textDecoration: 'none', color: 'inherit' }} onClick={() => actionSelector(text)}>
+              {text === 'Logout' ? <Divider /> : null}
               <ListItem button key={text}>
                 <ListItemIcon>{icons[index]}</ListItemIcon>
                 <p style={{ fontSize: 15, fontWeight: 'bold' }}>{text}</p>
@@ -90,6 +136,11 @@ function App(props) {
       </List>
     </div>
   );
+
+  const referOther = () => {
+    setFlow(2);
+    setPatientref("");
+  }
 
   function RespDrawer({ children }) {
     return (
@@ -106,84 +157,113 @@ function App(props) {
             >
               <MenuIcon />
             </IconButton>
-            <div style={{ display: 'flex', flexGrow: 1, justifyContent: 'space-between', alignItems: 'center'}}>
+            <div style={{ display: 'flex', flexGrow: 1, justifyContent: 'space-between', alignItems: 'center' }}>
               <Typography variant="h6" noWrap>
                 Mediknot
               </Typography>
               <Fab color="secondary" aria-label="add" className={classes.margin} size="small" onClick={() => setShowSearch(true)}>
-                <SearchIcon/>
+                <SearchIcon />
               </Fab>
             </div>
           </Toolbar>
-          <SearchResults show={showSearch} setShow={setShowSearch}/>
+          <SearchResults show={showSearch} setShow={setShowSearch} />
         </AppBar>
-          <nav className={classes.drawer} aria-label="mailbox folders">
-            <Hidden smUp implementation="css">
-              <Drawer
-                container={container}
-                variant="temporary"
-                anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-                open={mobileOpen}
-                onClose={handleDrawerToggle}
-                classes={{
-                  paper: classes.drawerPaper,
-                }}
-                ModalProps={{
-                  keepMounted: true,
-                }}
-              >
-                {drawer}
-              </Drawer>
-            </Hidden>
-            <Hidden xsDown implementation="css">
-              <Drawer
-                classes={{
-                  paper: classes.drawerPaper,
-                }}
-                variant="permanent"
-                open
-              >
-                {drawer}
-              </Drawer>
-            </Hidden>
-          </nav>
-          <main className={classes.content} style={{ backgroundColor:'#e4ecfc' }}>
-            <div className={classes.toolbar} />
-            {children}
-          </main>
+        <nav className={classes.drawer} aria-label="mailbox folders">
+          <Hidden smUp implementation="css">
+            <Drawer
+              container={container}
+              variant="temporary"
+              anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+              open={mobileOpen}
+              onClose={handleDrawerToggle}
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+              ModalProps={{
+                keepMounted: true,
+              }}
+            >
+              {drawer}
+            </Drawer>
+          </Hidden>
+          <Hidden xsDown implementation="css">
+            <Drawer
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+              variant="permanent"
+              open
+            >
+              {drawer}
+            </Drawer>
+          </Hidden>
+        </nav>
+        <main className={classes.content} style={{ backgroundColor: '#e4ecfc' }}>
+          <div className={classes.toolbar} />
+          {children}
+        </main>
       </div>
-        )
+    )
   }
 
   const container = window !== undefined ? () => window().document.body : undefined;
-        if (flow === 0) {
+
+  if (flow === undefined) {
     return (
-        <Router>
-          <Switch>
-            <Route path="/signup">
-              <SignUp />
-            </Route>
-            <Route path="/login">
-              <Login setFlow={setFlow} />
-            </Route>
-            <Redirect to="/login" />
-          </Switch>
-        </Router>
-        )
+      <div style={{ height: '100vh', overflow: 'hidden' }} className="row ai-c jc-c">
+        <Loader />
+      </div>
+    )
   }
-        else return (
-        <Router>
-          <RespDrawer>
-            <Switch>
-              <Route path="/reports">
-                <Reports />
-              </Route>
-              <Route path="/profile">
-                <Profile />
-              </Route>
-              {/* <Route path="/find">
+  else if (flow === 0) {
+    return (
+      <Router>
+        <Switch>
+          <Route path="/signup">
+            <SignUp />
+          </Route>
+          <Route path="/login">
+            <Login setFlow={setFlow} />
+          </Route>
+          <Redirect to="/login" />
+        </Switch>
+      </Router>
+    )
+  }
+  else if (flow === 2) {
+    return (
+      <ReferPatient setFlow={setFlow} setPatientref={setPatientref} logout={logout} setIsDoc={setIsDoc}/>
+    );
+  }
+  else return (
+    <Router>
+      <RespDrawer>
+        <Switch>
+          <Route path="/reports">
+            <Reports />
+          </Route>
+          <Route path="/profile">
+            <Profile />
+          </Route>
+          {/* <Route path="/find">
                 <FindDoctor />
               </Route> */}
+<<<<<<< HEAD
+          <Route path="/home">
+            <Dashboard patientref={patientref} />
+          </Route>
+          <Route path="/add">
+            <AddReport />
+          </Route>
+          <Route path="/analysis">
+            <ReportAnalysis patientref={patientref} />
+          </Route>
+          <Redirect to="/home" />
+        </Switch>
+      </RespDrawer>
+    </Router>
+  );
+=======
               <Route path="/home">
                 <Dashboard />
               </Route>
@@ -198,44 +278,45 @@ function App(props) {
           </RespDrawer>
         </Router>
         );
+>>>>>>> 80ff2a9b424e5c41ea3c37ac051d2e2f8cbba898
 
 }
 
-        App.propTypes = {
-          window: PropTypes.func,
+App.propTypes = {
+  window: PropTypes.func,
 };
 
 const useStyles = makeStyles((theme) => ({
-          root: {
-          display: 'flex',
+  root: {
+    display: 'flex',
   },
-        drawer: {
-          [theme.breakpoints.up('sm')]: {
-          width: drawerWidth,
-        flexShrink: 0,
+  drawer: {
+    [theme.breakpoints.up('sm')]: {
+      width: drawerWidth,
+      flexShrink: 0,
     },
   },
-        appBar: {
-          zIndex: theme.zIndex.drawer + 1
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1
   },
-        menuButton: {
-          marginRight: theme.spacing(2),
-        [theme.breakpoints.up('sm')]: {
-          display: 'none',
+  menuButton: {
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up('sm')]: {
+      display: 'none',
     },
   },
-        toolbar: theme.mixins.toolbar,
-        drawerPaper: {
-          width: drawerWidth,
+  toolbar: theme.mixins.toolbar,
+  drawerPaper: {
+    width: drawerWidth,
   },
-        content: {
-          flexGrow: 1,
-        padding: theme.spacing(3)
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3)
   },
-        link: {
-          textDecoration: 'none'
+  link: {
+    textDecoration: 'none'
   }
 }));
 
 
-        export default App;
+export default App;

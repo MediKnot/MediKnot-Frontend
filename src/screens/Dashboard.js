@@ -15,11 +15,12 @@ import Loader from '../components/Loader';
 import LineChart from '../components/LineChart';
 
 
-function Dashboard() {
+function Dashboard({patientref}) {
     const [consultations, setConsultations] = useState([]);
     const [user, setUser] = useState({});
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem("user"))
+        var user = JSON.parse(localStorage.getItem("user"))
+        if(patientref) user = patientref
         getConsultations(user.id);
         getUser(user.id);
     }, [])
