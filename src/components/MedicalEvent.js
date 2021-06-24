@@ -37,8 +37,8 @@ function MedicalEvent() {
 
     return (
         <div >
-            <Button variant="contained" color="primary" onClick={handleOpen} style={{position:'fixed',right:10,top:80}}>
-                    Add Medical Event
+            <Button variant="contained" color="primary" onClick={handleOpen} style={{position:'fixed',right:10,bottom:30}}>
+                  + Add Medical Event
             </Button>
             <Modal
                 open={open}
