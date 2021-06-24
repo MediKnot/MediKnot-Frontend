@@ -41,8 +41,6 @@ function AddTreatment({details}) {
     const [mess, setMess] = useState("");
     const [error, setError] = useState(false);
     const classes = useStyles();
-    const [mess, setMess] = useState("");
-    const [error, setError] = useState(false);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
