@@ -5,6 +5,7 @@ import axios from '../utils/BaseUrl';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/styles';
 import { DataGrid, getThemePaletteMode } from '@material-ui/data-grid';
+import Popup from './Popup';
 
 const defaultTheme = createMuiTheme();
 const useStyles = makeStyles(
@@ -37,6 +38,8 @@ function AddTreatment({details}) {
     const [startTime,setStartTime]=useState('')
     const [description,setDescription]=useState('')
     const [treatmentName,setTreatmentName]=useState('')
+    const [mess, setMess] = useState("");
+    const [error, setError] = useState(false);
     const classes = useStyles();
 
     const handleSubmit = async (event) => {
@@ -52,10 +55,13 @@ function AddTreatment({details}) {
             .then(res => {
                 if (res.status === 200) {
                     console.log('Treatment added')
+                    setMess("Treatment added successfully !!");
                 }
             })
             .catch(e => {
                 console.log(e)
+                setError(true);
+                setMess("Something went wrong. Try again !!");
             })
     }
 
@@ -87,6 +93,7 @@ function AddTreatment({details}) {
                     getRowId={(row)=>row.description+row.startTime}
                 />
             </div>
+            {mess.length !== 0 ? error ? <Popup error message={mess} /> : <Popup message={mess} /> : null}
         </div>
     )
 }
