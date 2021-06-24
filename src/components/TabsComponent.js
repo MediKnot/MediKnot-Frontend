@@ -78,7 +78,6 @@ export default function TabsComponent({ details }) {
           <Tab label="Consultation" icon={<PhoneIcon />} {...a11yProps(0)} />
           <Tab label="Prescription" icon={<FavoriteIcon />} {...a11yProps(1)} disabled={!details} />
           <Tab label="Treatment" icon={<PersonPinIcon />} {...a11yProps(2)} disabled={!details} />
-
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
