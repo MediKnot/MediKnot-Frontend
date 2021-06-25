@@ -39,6 +39,7 @@ import ReferPatient from './screens/ReferPatient';
 import DoctorProfile from './screens/DoctorProfile';
 import Loader from './components/Loader';
 import Popup from './components/Popup'
+import Event from './screens/Event';
 
 
 const drawerWidth = 240;
@@ -243,6 +244,9 @@ function App(props) {
               </Route> */}
           <Route path="/home">
             <Dashboard patientref={patientref} />
+          </Route>
+          <Route path="/events/:eventId">
+            <Event/>
           </Route>
           <Route path="/events">
             <AddReport />
