@@ -104,7 +104,7 @@ function MedicalEventCard({details,setId,setShow,show,setDetails}) {
                     </div>)}
                 </CardContent>
             </div>
-            <Link to={{pathname: `/events/${details.id}`}} className="btn btn-primary">
+            <Link to={{pathname: `/events/${details.id}`}} className="btn btn-primary" style={{textDecoration: 'none'}}>
                 <Button variant="contained" color="primary" style={{ marginTop: 10,height:50,width:100 }} details={details}>
                     See all details
                 </Button>
