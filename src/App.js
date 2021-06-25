@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import {
   AppBar,
@@ -39,6 +39,8 @@ import ReferPatient from './screens/ReferPatient';
 import DoctorProfile from './screens/DoctorProfile';
 import Loader from './components/Loader';
 import Popup from './components/Popup'
+import ChatBox from './components/chatbot/ChatBox';
+import AndroidIcon from '@material-ui/icons/Android';
 
 
 const drawerWidth = 240;
@@ -49,7 +51,8 @@ function App(props) {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [flow, setFlow] = useState();
-  const [showSearch, setShowSearch] = useState("");
+  const [showSearch, setShowSearch] = useState(false);
+  const [showBot, setShowBot] = useState(false);
   const [isDoc, setIsDoc] = useState(false);
   const [patientref, setPatientref] = useState('');
   const [icons, setIcons] = useState([]);
@@ -87,7 +90,7 @@ function App(props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
+  
   const logout = () => {
     <Popup message="Successfully logged out!!" />
     localStorage.removeItem("user");
@@ -154,9 +157,14 @@ function App(props) {
               <Typography variant="h6" noWrap>
                 Mediknot
               </Typography>
-              <Fab color="secondary" aria-label="add" className={classes.margin} size="small" onClick={() => setShowSearch(true)}>
-                <SearchIcon />
-              </Fab>
+              <div>
+                <Fab color="secondary" aria-label="add" style={{marginRight: 30}} className={`${classes.margin}`} size="small" onClick={() => setShowBot(true)}>
+                  <AndroidIcon />
+                </Fab>
+                <Fab color="secondary" aria-label="add" className={classes.margin} size="small" onClick={() => setShowSearch(true)}>
+                  <SearchIcon />
+                </Fab>
+              </div>
             </div>
           </Toolbar>
           <SearchResults show={showSearch} setShow={setShowSearch} />
@@ -225,7 +233,7 @@ function App(props) {
   }
   else if (flow === 2) {
     return (
-      <ReferPatient setFlow={setFlow} setPatientref={setPatientref} logout={logout} setIsDoc={setIsDoc}/>
+      <ReferPatient setFlow={setFlow} setPatientref={setPatientref} logout={logout} setIsDoc={setIsDoc} />
     );
   }
   else return (
@@ -242,7 +250,14 @@ function App(props) {
                 <FindDoctor />
               </Route> */}
           <Route path="/home">
-            <Dashboard patientref={patientref} />
+            <div>
+              <div style={{ position: 'absolute' }}>
+                <Dashboard patientref={patientref} />
+              </div>
+              {showBot ? <div style={{ position: 'fixed', top: '57%', right: 0 }} className="shadow">
+                <ChatBox setShowBot={setShowBot} />
+              </div> : null} 
+            </div>
           </Route>
           <Route path="/events">
             <AddReport />
