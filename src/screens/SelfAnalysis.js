@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import '../App.css'
-import axios from '../utils/BaseUrl';
+import '../App.css';
 import Video from '../components/Video';
+import Chatbot from '../components/Chatbot';
 
 function SelfAnalysis() {
 
@@ -33,6 +33,7 @@ function SelfAnalysis() {
                 <div className="column" style={{ maxWidth: '50%' }}>
                     <Video started={started} data={data} setData={setData} setEmotions={setEmotions}/>
                 </div>
+                <Chatbot/>
             </div>
         </div>
     )
