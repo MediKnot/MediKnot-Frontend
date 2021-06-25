@@ -7,45 +7,46 @@ class JitsiMeet extends Component {
     api = {};
 
     getUser = async (id) => {
-        await axios.get(`/doctor/${id}`)
+        await axios.get(`/patient/${id}`)
             .then(res => {
                 if (res.status === 200) {
-                    return res.data
+                    this.setState({
+                        user: res.data,
+                    });
                 }
             })
             .catch(e => console.log(e))
+            alert(this.state.room);
     }
 
     constructor(props) {
         super(props);
-        
-        // var user_data = JSON.parse(localStorage.getItem("user"));
-        // var name = this.getUser(user_data.id).then(data => {
-        //     return data.name;
-        // });
-        var name = 'Ajinkya';
+        const user_data = JSON.parse(localStorage.getItem('user'));
         this.state = {
-            room: name + ' Consultation',
-            user: {
-                name: name
-            },
+            room: user_data.name+'Consultation',
+            user: {},
             isAudioMuted: true,
-            isVideoMuted: true
+            isVideoMuted: true,
+            admin: user_data
         }
+    }
+
+    componentDidMount(){
+        this.getUser();
     }
     
     startMeet = () => {
         const options = {
             roomName: this.state.room,
             width: '100%',
-            height: 500,
+            height:  700,
             configOverwrite: { prejoinPageEnabled: false },
             interfaceConfigOverwrite: {
                 // overwrite interface properties
             },
             parentNode: document.querySelector('#jitsi-iframe'),
             userInfo: {
-                displayName: this.state.user.name
+                displayName: this.state.admin.name
             }
         }
         this.api = new window.JitsiMeetExternalAPI(this.domain, options);

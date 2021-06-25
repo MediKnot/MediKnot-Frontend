@@ -253,7 +253,7 @@ function App(props) {
               </Route> */}
           <Route path="/home">
             <div>
-              <div style={{ position: 'absolute' }}>
+              <div style={{ position: 'absolute', backgroundColor: '#e4ecfc'}}>
                 <Dashboard patientref={patientref} />
               </div>
               {showBot ? <div style={{ position: 'fixed', top: '57%', right: 0 }} className="shadow">
