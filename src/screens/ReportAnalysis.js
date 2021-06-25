@@ -31,18 +31,19 @@ function ReportAnalysis({patientref}) {
     else
     return (
         <div style={{ backgroundColor: '#e4ecfc',bottom:0 }}>
+            <h1 className="heading-small">Report Analysis</h1>
             <div className="row">
-                <div style={{ height: '50%', width: '50%' }} className="mv mt-2">
-                    <LineChart data={user.heartRate} label="Heart Rate Measure (in bpm)"/>
+                <div style={{ height: '50%', width: '50%' }} className="mv">
+                    <LineChart data={user.heartRate} label="Heart Rate Measure (in bpm)" i={0}/>
                 </div>
-                <div style={{ height: '50%', width: '50%' }} className="mv mt-2">
-                    <LineChart data={user.bloodPressure} label="Blood Pressure Measure (in mmhg)"/>
+                <div style={{ height: '50%', width: '50%' }} className="mv">
+                    <LineChart data={user.bloodPressure} label="Blood Pressure Measure (in mmhg)" i={1}/>
                 </div>
-                <div style={{ height: '50%', width: '50%' }} className="mv mt-2">
-                    <LineChart data={user.sugarLevel} label="Sugar Level Measure (in mg/dL)"/>
+                <div style={{ height: '50%', width: '50%' }} className="mv">
+                    <LineChart data={user.sugarLevel} label="Sugar Level Measure (in mg/dL)" i={2}/>
                 </div>
-                <div style={{ height: '50%', width: '50%' }} className="mv mt-2">
-                    <LineChart data={user.haemoglobin} label="Haemoglobin Measure (in g/dl)"/>
+                <div style={{ height: '50%', width: '50%' }} className="mv">
+                    <LineChart data={user.haemoglobin} label="Haemoglobin Measure (in g/dl)" i={3}/>
                 </div>
             </div>
         </div>

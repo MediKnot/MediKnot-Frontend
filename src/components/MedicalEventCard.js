@@ -9,6 +9,8 @@ import Folder from '@material-ui/icons/Folder';
 import SupervisedUserCircle from '@material-ui/icons/SupervisedUserCircle';
 import '../App.css'
 import axios from '../utils/BaseUrl';
+import { Button } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,16 +25,6 @@ const useStyles = makeStyles((theme) => ({
   },
   cover: {
     width: 151,
-  },
-  controls: {
-    display: 'flex',
-    alignItems: 'center',
-    paddingLeft: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-  },
-  playIcon: {
-    height: 38,
-    width: 38,
   },
 }));
 
@@ -106,16 +98,17 @@ function MedicalEventCard({details,setId,setShow,show,setDetails}) {
                     </div>
                 </CardContent>
                 <CardContent className={classes.content}>
-                    {/* {reports.map((val)=><div className='row ai-c mv'>
-                        <AlarmOn />
-                        <div className='ml'>{val.name}</div>
-                    </div>)} */}
                     {details.consultationList.map((val)=><div className='row ai-c mv'>
                         <AlarmOn />
-                        <button className='ml' onClick={()=>{setId(val.id); setShow(!show);getConsultation(val.id);}}>{val.doctorName}</button>
+                        <div className='ml' onClick={()=>{setId(val.id); setShow(!show);getConsultation(val.id);}}>{val.doctor.name}</div>
                     </div>)}
                 </CardContent>
             </div>
+            <Link to={{pathname: `/events/${details.id}`}} className="btn btn-primary" style={{textDecoration: 'none'}}>
+                <Button variant="contained" color="primary" style={{ marginTop: 10,height:50,width:100 }} details={details}>
+                    See all details
+                </Button>
+            </Link>
         </div>
       </Card>
   );
