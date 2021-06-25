@@ -4,6 +4,7 @@ import Modal from '@material-ui/core/Modal';
 import { Button } from '@material-ui/core';
 import '../App.css'
 import axios from '../utils/BaseUrl';
+import Popup from './Popup';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -11,6 +12,7 @@ const useStyles = makeStyles((theme) => ({
         width: '80%',
         height: '40%',
         maxWidth: 500,
+            
         backgroundColor: theme.palette.background.paper,
         border: '2px solid #000',
         boxShadow: theme.shadows[5],
@@ -30,6 +32,8 @@ function MedicalEvent({ open, setOpen }) {
     const [date, setDate] = useState('');
     const [name, setName] = useState('');
     const [userid, setUserid] = useState('');
+    const [mess, setMess] = useState("");
+    const [error, setError] = useState(false);
 
     const handleClose = () => {
         setOpen(false);
@@ -41,14 +45,37 @@ function MedicalEvent({ open, setOpen }) {
 
     const uploadFile = async () => {
         var formData = new FormData();
-        formData.append(name, file, file.name);
-        await axios.get(`/file/upload/${userid}`, formData)
+        formData.append("file", file, file.name);
+        await axios.post(`/file/upload/${userid}`, formData)
             .then(res => {
-                console.log(res.data);
+                if(res.status === 200) addReport("http://20.198.81.29:5002"+res.data.path.slice(8))
             })
             .catch(e => {
                 console.log(e);
+                setError(true);
+                setMess("Something went wrong. Try again !!");
             });
+    }
+
+    const addReport = async (reportUrl) => {
+        await axios.put(`/patient/add/reports/${userid}`, [{name, reportUrl, date}])
+            .then(res => {
+                if(res.status===200){
+                    setError(false);
+                    setMess("Report added successfully !!");
+                }else{
+                    setError(true);
+                    setMess("Adding report failed !!");
+                }
+            })
+            .catch(e => {
+                console.log(e);
+                setError(true);
+                setMess("Something went wrong. Try again !!");
+            })
+            setName("");
+            setDate("");
+            setFile('');
     }
 
     return (
@@ -72,6 +99,7 @@ function MedicalEvent({ open, setOpen }) {
 
                 </div>
             </Modal>
+            {mess.length !== 0 ? error ? <Popup error message={mess} /> : <Popup message={mess} /> : null}
         </div>
     )
 }

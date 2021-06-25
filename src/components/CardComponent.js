@@ -11,36 +11,43 @@ import '../App.css';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 300,
+    maxWidth: 500,
+    minWidth: 300
   },
   media: {
     height: 140,
   },
 });
 
-export default function CardComponent() {
+export default function CardComponent({ data }) {
   const classes = useStyles();
+
+
+  const handleClick = () => {
+    window.open(data.reportUrl);
+  }
 
   return (
     <Card className={`${classes.root} mh mv`}>
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image="https://cdn1.poz.com/6598_Chem-Screen-Test.png_8a8e10d9-46bd-41c7-b230-37d851203941.png"
-          title="Contemplative Reptile"
+          image={data.reportUrl}
+          title={data.name}
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            Blood Test
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-          Blood tests help doctors check for certain diseases and conditions. 
-          They also help check the function of your organs and show how well treatments are working. 
-          </Typography>
+          <div className="row ai-c jc-sb">
+            <Typography gutterBottom variant="h5" component="h2">
+              {data.name}
+            </Typography>
+            <Typography variant="body2" color="textSecondary">
+              {data.date}
+            </Typography>
+          </div>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" onClick={handleClick}>
           View Report
         </Button>
       </CardActions>
