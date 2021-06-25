@@ -22,6 +22,7 @@ function FindDoctor() {
   const [map, setMap] = useState({});
   const [keyword, setKeyword] = useState("");
   const [data, setData] = useState([]);
+  const [doctors, setDoctors] = useState([]);
 
   const handleSearch = async (e) => {
     e.preventDefault();
@@ -54,7 +55,7 @@ function FindDoctor() {
     map.setZoom(mapZoom);
   };
 
-  useEffect(() => {
+  const getCurrentLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         var pos = {
@@ -66,6 +67,29 @@ function FindDoctor() {
         setMapLongitude(pos.lng);
      })
     }
+  };
+
+  const fetchNearbyDoctors = async () => {
+    await axios.get(`http://20.198.81.29:8080/doctor/nearby?lat=${mapLatitude}&lon=${mapLongitude}&radius=5000`)
+    .then(res => {
+      if(res.status === 200) 
+        setDoctors(res.data);
+    })
+    .catch(e => console.log(e));
+  };
+
+  const setMarkers = () => {
+    console.log(doctors);
+    for (var i=0; i < doctors.length; i++) {
+      var marker = new tt.Marker({draggable:false})
+          .setLngLat([doctors[i].address.longitude, doctors[i].address.latitude])
+          .addTo(map);
+      console.log(marker);
+    }
+  };
+
+  
+  useEffect(() => {
     let map = tt.map({
       key: "D9T3HvijBqZXoLVYE3ClkLlWw7WGuF1k",
       container: "map",
@@ -73,6 +97,9 @@ function FindDoctor() {
       zoom: mapZoom
     });
     setMap(map);
+    getCurrentLocation();
+    fetchNearbyDoctors();
+    setMarkers();
     return () => map.remove();
   }, []);
 
