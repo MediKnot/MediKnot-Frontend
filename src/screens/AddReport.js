@@ -12,6 +12,7 @@ function AddReport() {
     const [consultations, setConsultations] = useState(null);
     const [timeline, setTimeline] = useState([]);
     const [show, setShow] = useState(false);
+    const [details, setDetails] = useState(null);
     const [i, setI] = useState(-1);
     const [id, setId] = useState(-1);
 
@@ -39,6 +40,7 @@ function AddReport() {
             .catch(e => console.error(e));
     }
 
+
     if (!consultations || !timeline) return <h1>No events yet</h1>
     else
         return (
@@ -48,28 +50,14 @@ function AddReport() {
                 </Button> */}
                 <h1 className="heading-small">Medical Events</h1>
                 <MedicalEvent/>
-                {timeline?.map((val)=><MedicalEventCard details={val} setId={setId} />)}
-                {/* {consultations.map((con, i) => (
-                    <div key={con.id} onClick={() => {setI(i); setShow(true)}}>
-                        <Prescription
-                            date={con.consultationDate}
-                            doctordetails={con.doctor}
-                            notes={con.notes}
-                        />
-                    </div>
-                ))}{console.log(i)} */}
-                {i === -1 ?
-                    <ConsultationModel
+                {timeline?.map((val)=><MedicalEventCard details={val} setId={setId} setShow={setShow} show={show} setDetails={setDetails} />)}
+                <ConsultationModel
+                        showevent
                         setShow={setShow}
                         show={show}
-                        setI={setI}
-                    />
-                    : <ConsultationModel
-                        setShow={setShow}
-                        show={show}
-                        details={consultations[i]}
-                        setI={setI}
-                    />}
+                        details={details}
+                        setI={setI}/>
+                
             </div>
         )
 }

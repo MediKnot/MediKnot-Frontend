@@ -6,12 +6,14 @@ import Loader from './Loader'
 import axios from '../utils/BaseUrl';
 import Popup from './Popup';
 
-function EditConsultation({ details }) {
+function EditConsultation({ details,showevent }) {
     const [value, setValue] = useState("");
     const [value2, setValue2] = useState("");
     const [patient, setPatient] = useState(null);
     const [doctor, setDoctor] = useState([]);
     const [diseases, setDiseases] = useState([]);
+    const [events, setEvents] = useState([]);
+    const [event, setEvent] = useState("");
     const [notes, setNotes] = useState("");
     const [date, setDate] = useState("");
     const [mess, setMess] = useState("");
@@ -21,6 +23,8 @@ function EditConsultation({ details }) {
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("user"));
         setPatient(user);
+        getEvents(user);
+        // console.log(details.id)
     }, [])
 
     const handleDelete = (id) => {
@@ -62,8 +66,20 @@ function EditConsultation({ details }) {
         await axios.put(`/consultation/add/notes/${details.id}`, [notes])
             .then(res => {
                 if (res.status === 200) {
-                    setError(false);
-                    setMess("Consultation updated successfully !!");
+                    axios.put(`/consultation/add-to-event/${event}/${details.id}`)
+                    .then(res => {
+                        if (res.status === 200) {
+                            setError(false);
+                            setMess("Consultation updated successfully !!");
+                        } else {
+                            setError(true);
+                            setMess("Updating consultation failed !!");
+                        }
+                    })
+                    .catch(e => {
+                        setError(true);
+                        setMess("Something went wrong. Try again !!");
+                    })
                 } else {
                     setError(true);
                     setMess("Updating consultation failed !!");
@@ -75,6 +91,18 @@ function EditConsultation({ details }) {
             })
     }
 
+    const getEvents = async (user) => {
+        await axios.get(`/medicalEvent/all/${user.id}`)
+            .then(res => {
+                if (res.status === 200) {
+                    setEvents(res.data.content)
+                    console.log(res.data)
+                } 
+            })
+            .catch(e => {
+                
+            })
+    }
 
     if (patient)
         return (
@@ -131,6 +159,12 @@ function EditConsultation({ details }) {
                                 </div>
                             </div>
                             : null}
+                           {details && !showevent?<div className='row ai-c mv-2'>
+                            <div className='label mr'>Medical Event:</div>
+                            <select id="event" value={event} onChange={(e) => setEvent(e.target.value)} className="input-profile-small shadow" style={{ paddingLeft: 10 }} placeholder="Medical Event" >
+                                {events?.map((val)=>(<option value={val.id}>{val.id}</option>))}
+                            </select>
+                        </div>:null}
                     </div>
                 </div>
                 <div>
