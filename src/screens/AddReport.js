@@ -52,12 +52,12 @@ function AddReport() {
                 <MedicalEvent/>
                 {timeline?.map((val)=><MedicalEventCard details={val} setId={setId} setShow={setShow} show={show} setDetails={setDetails} />)}
                 <ConsultationModel
-                        showevent
-                        setShow={setShow}
-                        show={show}
-                        details={details}
-                        setI={setI}/>
-                
+                    showevent
+                    setShow={setShow}
+                    show={show}
+                    details={details}
+                    setI={setI}
+                />
             </div>
         )
 }

@@ -40,9 +40,11 @@ import JitsiMeet from './screens/JitsiMeet';
 import DoctorProfile from './screens/DoctorProfile';
 import Loader from './components/Loader';
 import Popup from './components/Popup'
+import Event from './screens/Event';
 import ChatBox from './components/chatbot/ChatBox';
 import AndroidIcon from '@material-ui/icons/Android';
 import { VideoCall } from '@material-ui/icons';
+
 
 
 const drawerWidth = 240;
@@ -81,11 +83,11 @@ function App(props) {
     if (isDoc) {
       setIcons([<DashboardIcon />, <FileCopyIcon />, <TimelineIcon />, <VideoCall />,<AccountCircleIcon />]);
       setRoutes(["/", "/reports", "analysis", "/call", "/"]);
-      setLabels(["Patient\'s Dashboard", "Reports", "Report Analysis", "Connect With Patient", "Refer Other Patient", ]);
+      setLabels(["Patient\'s Dashboard", "General Reports", "Report Analysis", "Connect With Patient", "Refer Other Patient", ]);
     } else {
       setIcons([<DashboardIcon />, <FileCopyIcon />, <TimelineIcon />, <SearchIcon />, <AccountCircleIcon />, <AddBoxIcon />, <ExitToAppIcon />]);
       setRoutes(["/", "/reports", "/analysis", "/find", "/profile", "/events", "/login"]);
-      setLabels(['Dashboard', 'Reports', 'Report Analysis', 'Find Doctor', 'Profile', 'Medical Events', 'Logout']);
+      setLabels(['Dashboard', 'General Reports', 'Report Analysis', 'Find Doctor', 'Profile', 'Medical Events', 'Logout']);
     }
   }, [flow])
 
@@ -260,6 +262,9 @@ function App(props) {
                 <ChatBox setShowBot={setShowBot} />
               </div> : null} 
             </div>
+          </Route>
+          <Route path="/events/:eventId">
+            <Event/>
           </Route>
           <Route path="/events">
             <AddReport />

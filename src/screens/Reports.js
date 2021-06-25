@@ -8,7 +8,7 @@ import { Button } from '@material-ui/core';
 import UploadReport from '../components/UploadReport';
 import Loader from '../components/Loader';
 
-function Reports() {
+function Reports({eventId,showevent}) {
     const [consultations, setConsultations] = useState();
     const [show, setShow] = useState(false);
     const [i, setI] = useState(-1);
@@ -17,8 +17,8 @@ function Reports() {
 
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("user"))
-        getConsultations(user.id);
-        getReports(user.id);
+        if(!eventId){getConsultations(user.id);getReports(user.id);}
+        else getConsultationsForEvent(); 
     }, [])
 
     const getReports = async (userid) => {
@@ -38,6 +38,15 @@ function Reports() {
             })
             .catch(e => console.error(e));
     }
+
+    const getConsultationsForEvent = async () => {
+        await axios.get(`/medicalEvent/${eventId}`)
+            .then(res => {
+                if (res.status === 200) setConsultations(res.data.consultationList);
+            })
+            .catch(e => console.error(e));
+    }
+
     if (!consultations) return (
         <div style={{height: '100vh', overflow: 'hidden'}} className="row ai-c jc-c">
             <Loader/>
@@ -70,6 +79,7 @@ function Reports() {
                                 show={show}
                                 details={consultations[i]}
                                 setI={setI}
+                                showevent={showevent}
                             />}
                     </div>
                 </div>

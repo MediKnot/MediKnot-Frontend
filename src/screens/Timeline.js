@@ -13,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import getDate from '../utils/dateConvert';
 import HealingIcon from '@material-ui/icons/Healing';
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -45,12 +46,14 @@ export default function CustomizedTimeline({ data }) {
               {i !== data.length - 1 ? <TimelineConnector className={classes.secondaryTail} /> : null}
             </TimelineSeparator>
             <TimelineContent>
+            <Link to={{pathname: `/events/${content.id}`}} style={{textDecoration: 'none'}}>
               <Paper elevation={3} className={classes.paper}>
                 <Typography variant="h6" component="h1">
                   {content.critical}
                 </Typography>
                 <Typography>{content.description}</Typography>
               </Paper>
+              </Link>
             </TimelineContent>
           </TimelineItem>
         )
