@@ -36,9 +36,11 @@ import SearchResults from './components/SearchResults';
 import AddReport from './screens/AddReport';
 import ReportAnalysis from './screens/ReportAnalysis';
 import ReferPatient from './screens/ReferPatient';
+import JitsiMeet from './screens/JitsiMeet';
 import DoctorProfile from './screens/DoctorProfile';
 import Loader from './components/Loader';
 import Popup from './components/Popup'
+import { VideoCall } from '@material-ui/icons';
 
 
 const drawerWidth = 240;
@@ -74,9 +76,9 @@ function App(props) {
   useEffect(() => {
     console.log(isDoc);
     if (isDoc) {
-      setIcons([<DashboardIcon />, <FileCopyIcon />, <TimelineIcon />, <AccountCircleIcon />]);
-      setRoutes(["/", "/reports", "analysis", "/"]);
-      setLabels(["Patient\'s Dashboard", "Reports", "Report Analysis", "Refer Other Patient"]);
+      setIcons([<DashboardIcon />, <FileCopyIcon />, <TimelineIcon />, <VideoCall />,<AccountCircleIcon />]);
+      setRoutes(["/", "/reports", "analysis", "/call", "/"]);
+      setLabels(["Patient\'s Dashboard", "Reports", "Report Analysis", "Connect With Patient", "Refer Other Patient", ]);
     } else {
       setIcons([<DashboardIcon />, <FileCopyIcon />, <TimelineIcon />, <SearchIcon />, <AccountCircleIcon />, <AddBoxIcon />, <ExitToAppIcon />]);
       setRoutes(["/", "/reports", "/analysis", "/find", "/profile", "/events", "/login"]);
@@ -246,6 +248,9 @@ function App(props) {
           </Route>
           <Route path="/events">
             <AddReport />
+          </Route>
+          <Route path="/call">
+            <JitsiMeet />
           </Route>
           <Route path="/analysis">
             <ReportAnalysis patientref={patientref} />
