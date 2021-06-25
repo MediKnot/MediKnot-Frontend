@@ -64,25 +64,25 @@ function MedicalEventModal() {
         <>
             <div className="column ai-c mt">
                 <AutoComplete large
-                                    endpoint="/disease/search?name="
-                                    value={value}
-                                    setValue={setValue}
-                                    suggest={["name"]}
-                                    placeholder="Search Diseases"
-                                    list={diseases}
-                                    setList={setdiseases}
-                                />
-                                <div className='font-s mv'>
-                                    {diseases.map((disease, i) => (
-                                        <Chip
-                                            key={disease.id}
-                                            label={disease.name}
-                                            onDelete={() => handleDelete(disease.id)}
-                                            color="secondary"
-                                            style={{ marginRight: 10,marginTop:10 }}
-                                        />
-                                    ))}
-                                </div>
+                    endpoint="/disease/search?name="
+                    value={value}
+                    setValue={setValue}
+                    suggest={["name"]}
+                    placeholder="Search Diseases"
+                    list={diseases}
+                    setList={setdiseases}
+                />
+                <div className='font-s mv'>
+                    {diseases.map((disease, i) => (
+                        <Chip
+                            key={disease.id}
+                            label={disease.name}
+                            onDelete={() => handleDelete(disease.id)}
+                            color="secondary"
+                            style={{ marginRight: 10,marginTop:10 }}
+                    />
+                    ))}
+                </div>
                 <input type="text" value={description} onChange={(e) => setdescription(e.target.value)} placeholder="Description" className="input-large shadow mh mv" style={{ backgroundColor: 'white', height: 55, width: 300 }} />
                 <div className="row-no-wrap">
                   <div className="mv mh mr font-s" style={{ width: 140 }}>Type</div>

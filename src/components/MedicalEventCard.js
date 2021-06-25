@@ -8,6 +8,7 @@ import Attachment from '@material-ui/icons/Attachment';
 import Folder from '@material-ui/icons/Folder';
 import SupervisedUserCircle from '@material-ui/icons/SupervisedUserCircle';
 import '../App.css'
+import axios from '../utils/BaseUrl';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,10 +36,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function MedicalEventCard({details}) {
+function MedicalEventCard({details,setId,setShow,show,setDetails}) {
     const classes = useStyles();
     // console.log(details)
 
+    const getConsultation = async (id) => {
+        await axios.get(`/consultation/${id}`)
+            .then(res => {
+                if (res.status === 200) {
+                    setDetails(res.data);
+                }
+            })
+            .catch(e => console.error(e));
+    }
   return (
     <Card className="mv-2">
         <div className="row jc-sb mh-2">
@@ -96,14 +106,14 @@ function MedicalEventCard({details}) {
                     </div>
                 </CardContent>
                 <CardContent className={classes.content}>
-                    {reports.map((val)=><div className='row ai-c mv'>
+                    {/* {reports.map((val)=><div className='row ai-c mv'>
                         <AlarmOn />
                         <div className='ml'>{val.name}</div>
-                    </div>)}
-                    {/* {details.consultationList.map((val)=><div className='row ai-c mv'>
-                        <AlarmOn />
-                        <div className='ml'>{val.doctorName}</div>
                     </div>)} */}
+                    {details.consultationList.map((val)=><div className='row ai-c mv'>
+                        <AlarmOn />
+                        <button className='ml' onClick={()=>{setId(val.id); setShow(!show);getConsultation(val.id);}}>{val.doctorName}</button>
+                    </div>)}
                 </CardContent>
             </div>
         </div>
