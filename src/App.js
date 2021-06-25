@@ -77,11 +77,11 @@ function App(props) {
     if (isDoc) {
       setIcons([<DashboardIcon />, <FileCopyIcon />, <TimelineIcon />, <AccountCircleIcon />]);
       setRoutes(["/", "/reports", "analysis", "/"]);
-      setLabels(["Patient\'s Dashboard", "Reports", "Report Analysis", "Refer Other Patient"]);
+      setLabels(["Patient\'s Dashboard", "General Reports", "Report Analysis", "Refer Other Patient"]);
     } else {
       setIcons([<DashboardIcon />, <FileCopyIcon />, <TimelineIcon />, <SearchIcon />, <AccountCircleIcon />, <AddBoxIcon />, <ExitToAppIcon />]);
       setRoutes(["/", "/reports", "/analysis", "/find", "/profile", "/events", "/login"]);
-      setLabels(['Dashboard', 'Reports', 'Report Analysis', 'Find Doctor', 'Profile', 'Medical Events', 'Logout']);
+      setLabels(['Dashboard', 'General Reports', 'Report Analysis', 'Find Doctor', 'Profile', 'Medical Events', 'Logout']);
     }
   }, [flow])
 
