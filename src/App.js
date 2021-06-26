@@ -44,7 +44,7 @@ import Event from './screens/Event';
 import ChatBox from './components/chatbot/ChatBox';
 import AndroidIcon from '@material-ui/icons/Android';
 import { VideoCall } from '@material-ui/icons';
-
+import { useRouteMatch } from 'react-router-dom'
 
 
 const drawerWidth = 240;
@@ -62,39 +62,42 @@ function App(props) {
   const [icons, setIcons] = useState([]);
   const [routes, setRoutes] = useState([]);
   const [labels, setLabels] = useState([]);
+  const [meeturl, setMeetUrl] = useState('');
 
   useEffect(() => {
     try {
       const user = JSON.parse(localStorage.getItem("user"));
       const user_type = localStorage.getItem("user_type")
-
+    
       if (user && user_type) {
         if (user_type === "doctor") {
           setFlow(2);
           setIsDoc(true);
         }
-        else setFlow(1);
+        else {
+          setFlow(1);
+          setMeetUrl(user.meetingLink);
+          alert(meeturl)
+        }
       } else setFlow(0);
     } catch (e) { console.log(e); }
   }, [])
 
   useEffect(() => {
-    console.log(isDoc);
     if (isDoc) {
       setIcons([<DashboardIcon />, <FileCopyIcon />, <TimelineIcon />, <VideoCall />,<AccountCircleIcon />]);
       setRoutes(["/", "/reports", "analysis", "/call", "/"]);
       setLabels(["Patient\'s Dashboard", "General Reports", "Report Analysis", "Connect With Patient", "Refer Other Patient", ]);
     } else {
-      setIcons([<DashboardIcon />, <FileCopyIcon />, <TimelineIcon />, <SearchIcon />, <AccountCircleIcon />, <AddBoxIcon />, <ExitToAppIcon />]);
-      setRoutes(["/", "/reports", "/analysis", "/find", "/profile", "/events", "/login"]);
-      setLabels(['Dashboard', 'General Reports', 'Report Analysis', 'Find Doctor', 'Profile', 'Medical Events', 'Logout']);
+      setIcons([<DashboardIcon />, <FileCopyIcon />, <TimelineIcon />, <SearchIcon />, <AccountCircleIcon />, <AddBoxIcon />, <VideoCall />, <ExitToAppIcon />]);
+      setRoutes(["/", "/reports", "/analysis", "/find", "/profile", "/events", "/call", "/login"]);
+      setLabels(['Dashboard', 'General Reports', 'Report Analysis', 'Find Doctor', 'Profile', 'Medical Events', 'Connect with Doctor', 'Logout']);
     }
   }, [flow])
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-  
   const logout = () => {
     <Popup message="Successfully logged out!!" />
     localStorage.removeItem("user");
@@ -162,9 +165,9 @@ function App(props) {
                 Mediknot
               </Typography>
               <div>
-                <Fab color="secondary" aria-label="add" style={{marginRight: 30}} className={`${classes.margin}`} size="small" onClick={() => setShowBot(true)}>
+                {useRouteMatch("/home")?.isExact ? <Fab color="secondary" aria-label="add" style={{marginRight: 30}} className={`${classes.margin}`} size="small" onClick={() => setShowBot(true)}>
                   <AndroidIcon />
-                </Fab>
+                </Fab> : null}
                 <Fab color="secondary" aria-label="add" className={classes.margin} size="small" onClick={() => setShowSearch(true)}>
                   <SearchIcon />
                 </Fab>
@@ -270,7 +273,7 @@ function App(props) {
             <AddReport />
           </Route>
           <Route path="/call">
-            <JitsiMeet />
+            <JitsiMeet patientref={patientref} isDoc={isDoc} meetingUrl={meeturl} />
           </Route>
           <Route path="/analysis">
             <ReportAnalysis patientref={patientref} />

@@ -1,45 +1,43 @@
 import React, { Component, setState } from 'react';
 import axios from '../utils/BaseUrl';
+import Loader from '../components/Loader';
 
 class JitsiMeet extends Component {
 
     domain = 'meet.jit.si';
     api = {};
 
-    getUser = async (id) => {
+    sendMeetingLink = async (id) => {
+        await axios.put(`/patient/${id}`, { meetingLink: `${this.state.room}` })
+            .then(res => console.log(res.data))
+            .catch(e => console.log(e));
+    }
+
+    getMeetingLink = async (id) => {
         await axios.get(`/patient/${id}`)
             .then(res => {
-                if (res.status === 200) {
-                    this.setState({
-                        user: res.data,
-                    });
-                }
+                this.setState({ room: res.data.meetingLink })
             })
-            .catch(e => console.log(e))
-            alert(this.state.room);
+            .catch(e => console.log(e));
     }
 
     constructor(props) {
         super(props);
         const user_data = JSON.parse(localStorage.getItem('user'));
         this.state = {
-            room: user_data.name+'Consultation',
-            user: {},
+            room: props.isDoc ? user_data.name + 'Consultation' : this.props.meetingUrl,
+            user: props.patientRef || user_data,
             isAudioMuted: true,
             isVideoMuted: true,
             admin: user_data
         }
     }
 
-    componentDidMount(){
-        this.getUser();
-    }
-    
     startMeet = () => {
         const options = {
             roomName: this.state.room,
             width: '100%',
-            height:  700,
+            height: 700,
             configOverwrite: { prejoinPageEnabled: false },
             interfaceConfigOverwrite: {
                 // overwrite interface properties
@@ -102,23 +100,27 @@ class JitsiMeet extends Component {
         });
     }
 
-
     componentDidMount() {
+        if (this.props.isDoc) this.sendMeetingLink(this.state.user.id);
+        else this.getMeetingLink(this.state.user.id);
+
         if (window.JitsiMeetExternalAPI) {
             this.startMeet();
         } else {
             alert('JitsiMeetExternalAPI not loaded');
         }
+        console.log(this.state.room);
     }
 
     render() {
         const { isAudioMuted, isVideoMuted } = this.state;
+        
         return (
             <>
-            <header className="nav-bar">
-                <p className="item-left heading">Connect with Patient</p>
-            </header>
-            <div id="jitsi-iframe"></div>
+                <header className="nav-bar">
+                    <p className="item-left heading">Connect with Patient</p>
+                </header>
+                <div id="jitsi-iframe"></div>
             </>
         );
     }
