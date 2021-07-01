@@ -77,7 +77,6 @@ function App(props) {
         else {
           setFlow(1);
           setMeetUrl(user.meetingLink);
-          alert(meeturl)
         }
       } else setFlow(0);
     } catch (e) { console.log(e); }
