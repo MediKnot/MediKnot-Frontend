@@ -18,7 +18,7 @@ const MAX_ZOOM = 17;
 function FindDoctor() {
   const [mapLatitude, setMapLatitude] = useState(22.78);
   const [mapLongitude, setMapLongitude] = useState(77.75);
-  const [mapZoom, setMapZoom] = useState(13);
+  const [mapZoom, setMapZoom] = useState(6);
   const [map, setMap] = useState({});
   const [keyword, setKeyword] = useState("");
   const [data, setData] = useState([]);
@@ -51,7 +51,7 @@ function FindDoctor() {
   };
 
   const updateMap = () => {
-    map.setCenter([parseFloat(mapLongitude), parseFloat(mapLatitude)]);
+    map.setCenter([parseFloat(mapLongitude) || 22, parseFloat(mapLatitude) || 73.2]);
     map.setZoom(mapZoom);
   };
 
@@ -62,7 +62,7 @@ function FindDoctor() {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         }; 
-        map.setCenter([parseFloat(pos.lng), parseFloat(pos.lat)]);
+        map.setCenter([parseFloat(pos.lng) || 22, parseFloat(pos.lat) || 73.2]);
         setMapLatitude(pos.lat);
         setMapLongitude(pos.lng);
      })
@@ -73,18 +73,20 @@ function FindDoctor() {
     await axios.get(`http://20.198.81.29:8080/doctor/nearby?lat=${mapLatitude}&lon=${mapLongitude}&radius=5000`)
     .then(res => {
       if(res.status === 200) 
-        setDoctors(res.data);
+        setDoctors(res.data.content);
+        setMarkers();
     })
     .catch(e => console.log(e));
   };
 
   const setMarkers = () => {
-    console.log(doctors);
     for (var i=0; i < doctors.length; i++) {
-      var marker = new tt.Marker({draggable:false})
+      var markerElement = window.document.createElement('div')
+      markerElement.className = 'marker'
+      markerElement.style.backgroundImage = 'url(https://upload.wikimedia.org/wikipedia/commons/f/f2/678111-map-marker-512.png)'
+      new tt.Marker({element: markerElement, draggable:false})
           .setLngLat([doctors[i].address.longitude, doctors[i].address.latitude])
           .addTo(map);
-      console.log(marker);
     }
   };
 
@@ -97,9 +99,8 @@ function FindDoctor() {
       zoom: mapZoom
     });
     setMap(map);
-    getCurrentLocation();
+    // getCurrentLocation();
     fetchNearbyDoctors();
-    setMarkers();
     return () => map.remove();
   }, []);
 
@@ -157,8 +158,8 @@ function FindDoctor() {
               </div>
             </div>
           </div>
-          
-          <Container id="map" className="mapDiv"></Container>
+          <Container id="map" className="mapDiv">
+          </Container>
         </div>
       </Container>
     </div>

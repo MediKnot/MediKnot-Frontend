@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import {
   AppBar,
@@ -117,7 +117,6 @@ function App(props) {
     }
   }
 
-
   const drawer = (
     <div>
       <div className={classes.toolbar} />
@@ -126,7 +125,7 @@ function App(props) {
         {labels.map((text, index) => {
           return (
             <Link to={routes[index]} style={{ textDecoration: 'none', color: 'inherit' }} onClick={() => actionSelector(text)}>
-              {text === 'Logout' ? <Divider /> : null}
+              {text === 'Logout' ? <Divider /> : null}        
               <ListItem button key={text}>
                 <ListItemIcon>{icons[index]}</ListItemIcon>
                 <p style={{ fontSize: 15, fontWeight: 'bold' }}>{text}</p>
@@ -257,12 +256,8 @@ function App(props) {
           </Route>
           <Route path="/home">
             <div>
-              <div style={{ position: 'absolute', backgroundColor: '#e4ecfc'}}>
-                <Dashboard patientref={patientref} />
-              </div>
-              {showBot ? <div style={{ position: 'fixed', top: '57%', right: 0 }} className="shadow">
-                <ChatBox setShowBot={setShowBot} />
-              </div> : null} 
+              <Dashboard patientref={patientref} />
+              <ChatBox setShow={setShowBot} show={showBot}/>
             </div>
           </Route>
           <Route path="/events/:eventId">

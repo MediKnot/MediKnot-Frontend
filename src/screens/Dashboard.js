@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, memo } from 'react'
 // import Prescription from '../components/Prescription'
 import Precautions from '../components/Precautions'
 import Vulnerabilities from '../components/Vulnerabilities'
@@ -86,4 +86,4 @@ function Dashboard({patientref}) {
         )
 }
 
-export default Dashboard
+export default memo(Dashboard)
