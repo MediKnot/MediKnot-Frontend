@@ -6,7 +6,7 @@ import Loader from './Loader'
 import axios from '../utils/BaseUrl';
 import Popup from './Popup';
 
-function EditConsultation({ details,showevent }) {
+function EditConsultation({ details,showevent, setConsultations, consultations}) {
     const [value, setValue] = useState("");
     const [value2, setValue2] = useState("");
     const [patient, setPatient] = useState(null);
@@ -40,6 +40,7 @@ function EditConsultation({ details,showevent }) {
         obj['notes'] = [notes];
         obj['consultationDate'] = date;
         obj['concerns'] = concerns;
+        
         axios.post(`/consultation/${pt_id}/${dr_id}`, obj)
             .then(res => {
                 if (res.status === 200) {
@@ -162,7 +163,7 @@ function EditConsultation({ details,showevent }) {
                            {details && !showevent?<div className='row ai-c mv-2'>
                             <div className='label mr'>Medical Event:</div>
                             <select id="event" value={event} onChange={(e) => setEvent(e.target.value)} className="input-profile-small shadow" style={{ paddingLeft: 10 }} placeholder="Medical Event" >
-                                {events?.map((val)=>(<option value={val.id}>{val.id}</option>))}
+                                {events?.map((val)=>(<option value={val.id}>{val.eventName || val.id}</option>))}
                             </select>
                         </div>:null}
                     </div>

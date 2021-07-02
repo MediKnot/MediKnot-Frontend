@@ -3,8 +3,10 @@ import '../App.css';
 import LOGO from '../assets/images/logo.png';
 import { Button } from '@material-ui/core'
 import axios from '../utils/BaseUrl';
+import { Link } from "react-router-dom";
 
-function ReferPatient({ setFlow, setPatientref, logout, setIsDoc}) {
+
+function ReferPatient({ setFlow, setPatientref, logout, setIsDoc }) {
     const [phone, setPhone] = useState('');
 
     useEffect(() => {
@@ -29,9 +31,11 @@ function ReferPatient({ setFlow, setPatientref, logout, setIsDoc}) {
     return (
         <div>
             <div className="row" style={{ backgroundColor: '#D0EFFE', justifyContent: 'flex-end' }} >
-                <Button variant="contained" color="primary" style={{ marginTop: 10, marginRight: 10 }} >
-                    Profile
-                </Button>
+                {/* <Link to="/profile">
+                    <Button variant="contained" color="primary" style={{ marginTop: 10, marginRight: 10 }}>
+                        Profile
+                    </Button>
+                </Link> */}
                 <Button variant="contained" color="primary" style={{ marginTop: 10, marginRight: 10 }} onClick={logout}>
                     Logout
                 </Button>

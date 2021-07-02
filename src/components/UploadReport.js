@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function MedicalEvent({ open, setOpen }) {
+function MedicalEvent({ open, setOpen, reports, setReports}) {
     const classes = useStyles();
     const [file, setFile] = useState();
     const [date, setDate] = useState('');
@@ -58,6 +58,7 @@ function MedicalEvent({ open, setOpen }) {
     }
 
     const addReport = async (reportUrl) => {
+        setReports([...reports, {name, reportUrl, date}]);
         await axios.put(`/patient/add/reports/${userid}`, [{name, reportUrl, date}])
             .then(res => {
                 if(res.status===200){

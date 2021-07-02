@@ -47,7 +47,7 @@ function MedicalEvent() {
                 aria-describedby="simple-modal-description"
             >
                 <div className={classes.paper}>
-                    <h2 id="simple-modal-title" className='label mv-2 ai-c'>Medical Event</h2>
+                    <h2 id="simple-modal-title" className='label mv-2 ai-c'>Create Medical Event</h2>
                     <div id="simple-modal-description">
                     <MedicalEventModal />
                     </div>

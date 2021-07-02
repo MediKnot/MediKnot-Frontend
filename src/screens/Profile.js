@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import '../App.css'
-import ProfileImage from "../assets/images/profile.jpeg";
+import ProfileImage from "../assets/images/profile.png";
 import { Button, Chip } from '@material-ui/core';
 import axios from '../utils/BaseUrl';
 import Popup from '../components/Popup';
@@ -125,7 +125,7 @@ function Profile() {
     )
     else 
     return (
-        <div>
+        <div style={{height: '100vh'}}>
             <h1 className="heading-small" style={{ textAlign: 'center' }}>Profile</h1>
             <img src={ProfileImage} alt="Profile" class='profile_image' style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto' }} />
             <div className="row jc-sb">

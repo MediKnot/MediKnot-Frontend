@@ -68,7 +68,7 @@ function App(props) {
     try {
       const user = JSON.parse(localStorage.getItem("user"));
       const user_type = localStorage.getItem("user_type")
-    
+
       if (user && user_type) {
         if (user_type === "doctor") {
           setFlow(2);
@@ -84,9 +84,9 @@ function App(props) {
 
   useEffect(() => {
     if (isDoc) {
-      setIcons([<DashboardIcon />, <FileCopyIcon />, <TimelineIcon />, <VideoCall />,<AccountCircleIcon />]);
+      setIcons([<DashboardIcon />, <FileCopyIcon />, <TimelineIcon />, <VideoCall />, <AccountCircleIcon />]);
       setRoutes(["/", "/reports", "analysis", "/call", "/"]);
-      setLabels(["Patient\'s Dashboard", "General Reports", "Report Analysis", "Connect With Patient", "Refer Other Patient", ]);
+      setLabels(["Patient\'s Dashboard", "General Reports", "Report Analysis", "Connect With Patient", "Refer Other Patient",]);
     } else {
       setIcons([<DashboardIcon />, <FileCopyIcon />, <TimelineIcon />, <SearchIcon />, <AccountCircleIcon />, <AddBoxIcon />, <VideoCall />, <ExitToAppIcon />]);
       setRoutes(["/", "/reports", "/analysis", "/find", "/profile", "/events", "/call", "/login"]);
@@ -125,7 +125,7 @@ function App(props) {
         {labels.map((text, index) => {
           return (
             <Link to={routes[index]} style={{ textDecoration: 'none', color: 'inherit' }} onClick={() => actionSelector(text)}>
-              {text === 'Logout' ? <Divider /> : null}        
+              {text === 'Logout' ? <Divider /> : null}
               <ListItem button key={text}>
                 <ListItemIcon>{icons[index]}</ListItemIcon>
                 <p style={{ fontSize: 15, fontWeight: 'bold' }}>{text}</p>
@@ -163,7 +163,7 @@ function App(props) {
                 Mediknot
               </Typography>
               <div>
-                {useRouteMatch("/home")?.isExact ? <Fab color="secondary" aria-label="add" style={{marginRight: 30}} className={`${classes.margin}`} size="small" onClick={() => setShowBot(true)}>
+                {useRouteMatch("/home")?.isExact ? <Fab color="secondary" aria-label="add" style={{ marginRight: 30 }} className={`${classes.margin}`} size="small" onClick={() => setShowBot(true)}>
                   <AndroidIcon />
                 </Fab> : null}
                 <Fab color="secondary" aria-label="add" className={classes.margin} size="small" onClick={() => setShowSearch(true)}>
@@ -204,7 +204,7 @@ function App(props) {
             </Drawer>
           </Hidden>
         </nav>
-        <main className={classes.content} style={{ backgroundColor: '#e4ecfc' }}>
+        <main className={classes.content} style={{ backgroundColor: '#e4ecfc', backgroundRepeat: 'repeat' }}>
           <div className={classes.toolbar} />
           {children}
         </main>
@@ -238,7 +238,16 @@ function App(props) {
   }
   else if (flow === 2) {
     return (
-      <ReferPatient setFlow={setFlow} setPatientref={setPatientref} logout={logout} setIsDoc={setIsDoc} />
+      <Router>
+        <Switch>
+          {/* <Route path='/profile'>
+            <DoctorProfile />
+          </Route> */}
+          <Route path="/">
+            <ReferPatient setFlow={setFlow} setPatientref={setPatientref} logout={logout} setIsDoc={setIsDoc} />
+          </Route>
+        </Switch>
+      </Router>
     );
   }
   else return (
@@ -249,7 +258,7 @@ function App(props) {
             <Reports />
           </Route>
           <Route path="/profile">
-            <Profile />
+            <Profile/>
           </Route>
           <Route path="/find">
             <FindDoctor />
@@ -257,11 +266,11 @@ function App(props) {
           <Route path="/home">
             <div>
               <Dashboard patientref={patientref} />
-              <ChatBox setShow={setShowBot} show={showBot}/>
+              <ChatBox setShow={setShowBot} show={showBot} />
             </div>
           </Route>
           <Route path="/events/:eventId">
-            <Event/>
+            <Event />
           </Route>
           <Route path="/events">
             <AddReport />

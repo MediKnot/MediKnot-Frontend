@@ -41,6 +41,7 @@ function AddPrescription({ details }) {
     const [date, setDate] = useState("");
     const [mess, setMess] = useState("");
     const [error, setError] = useState(false);
+    const [data, setData] = useState(details?.prescriptionList || []);
     const classes = useStyles();
 
     useEffect(() => {
@@ -70,13 +71,12 @@ function AddPrescription({ details }) {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const consultationId = details.id;
-        const data = {
+        const obj = {
             date,
             dosageList:dosage
         }
-        console.log(data, consultationId);
-
-        await axios.post(`/prescription/${consultationId}`, data)
+        setData([...data, obj])
+        await axios.post(`/prescription/${consultationId}`, obj)
             .then(res => {
                 if (res.status === 200) {
                     console.log('Prescription added')
@@ -136,7 +136,7 @@ function AddPrescription({ details }) {
                 </form>
             </div> : null}
             <div className="row">
-              {details.prescriptionList.map(p => (
+              {data.map(p => (
                   <Prescription doctordetails={details.doctor} dosageList={p.dosageList} date={p.date} notes={details.notes} disease={details.concerns}/>
               ))}
             </div>
