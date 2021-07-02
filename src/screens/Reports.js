@@ -10,6 +10,7 @@ import Loader from '../components/Loader';
 
 function Reports({eventId,showevent}) {
     const [consultations, setConsultations] = useState();
+    const [consult, setConsult] = useState();
     const [show, setShow] = useState(false);
     const [i, setI] = useState(-1);
     const [open, setOpen] = useState(false);
@@ -47,6 +48,19 @@ function Reports({eventId,showevent}) {
             .catch(e => console.error(e));
     }
 
+    const getOneConsult = async (id) => {
+        console.log(id)
+        if(id===-1)return;
+        await axios.get(`/consultation/${id}`)
+            .then(res => {
+                if (res.status === 200) {
+                    setConsult(res.data);
+                    console.log(res.data.content)
+                }
+            })
+            .catch(e => console.error(e));
+    }
+
     if (!consultations) return (
         <div style={{height: '100vh', overflow: 'hidden'}} className="row ai-c jc-c">
             <Loader/>
@@ -64,7 +78,7 @@ function Reports({eventId,showevent}) {
                     </div>
                     <div className="row">
                         {consultations.map((val, i) => (
-                            <div key={val.id} onClick={() => { setI(i); setShow(true) }}>
+                            <div key={val.id} onClick={() => { setI(val.id); getOneConsult(val.id);setShow(true) }}>
                                 <ConsultationCard details={val} />
                             </div>
                         ))}
@@ -77,7 +91,7 @@ function Reports({eventId,showevent}) {
                             : <ConsultationModel
                                 setShow={setShow}
                                 show={show}
-                                details={consultations[i]}
+                                details={consult}
                                 setI={setI}
                                 showevent={showevent}
                             />}

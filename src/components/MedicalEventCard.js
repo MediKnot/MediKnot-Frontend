@@ -32,15 +32,16 @@ function MedicalEventCard({details,setId,setShow,show,setDetails}) {
     const classes = useStyles();
     // console.log(details)
 
-    const getConsultation = async (id) => {
-        await axios.get(`/consultation/${id}`)
-            .then(res => {
-                if (res.status === 200) {
-                    setDetails(res.data);
-                }
-            })
-            .catch(e => console.error(e));
-    }
+    // const getConsultation = async (id) => {
+    //     await axios.get(`/consultation/${id}`)
+    //         .then(res => {
+    //             if (res.status === 200) {
+    //                 setDetails(res.data);
+    //                 console.log(details+'hi')
+    //             }
+    //         })
+    //         .catch(e => console.error(e));
+    // }
   return (
     <Card className="mv-2">
         <div className="row jc-sb mh-2">
@@ -100,7 +101,7 @@ function MedicalEventCard({details,setId,setShow,show,setDetails}) {
                 <CardContent className={classes.content}>
                     {details.consultationList.map((val)=><div className='row ai-c mv'>
                         <AlarmOn />
-                        <div className='ml' onClick={()=>{setId(val.id); setShow(!show);getConsultation(val.id);}}>{val.doctor.name}</div>
+                        <div className='ml'>{val.doctor.name}</div>
                     </div>)}
                 </CardContent>
             </div>
