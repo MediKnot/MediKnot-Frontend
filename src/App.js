@@ -45,6 +45,7 @@ import ChatBox from './components/chatbot/ChatBox';
 import AndroidIcon from '@material-ui/icons/Android';
 import { VideoCall } from '@material-ui/icons';
 import { useRouteMatch } from 'react-router-dom'
+import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 
 
 const drawerWidth = 240;
@@ -164,7 +165,7 @@ function App(props) {
               </Typography>
               <div>
                 {useRouteMatch("/home")?.isExact ? <Fab color="secondary" aria-label="add" style={{ marginRight: 30 }} className={`${classes.margin}`} size="small" onClick={() => setShowBot(true)}>
-                  <AndroidIcon />
+                  <QuestionAnswerIcon />
                 </Fab> : null}
                 <Fab color="secondary" aria-label="add" className={classes.margin} size="small" onClick={() => setShowSearch(true)}>
                   <SearchIcon />

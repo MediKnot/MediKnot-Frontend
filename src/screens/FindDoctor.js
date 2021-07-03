@@ -48,7 +48,7 @@ function FindDoctor() {
   };
 
   const fetchNearbyDoctors = async (lat, long) => {
-    await axios.get(`http://20.198.81.29:8080/doctor/nearby?lat=${lat}&lon=${long}&radius=1000`)
+    await axios.get(`http://20.198.81.29:8080/doctor/nearby?lat=${lat}&lon=${long}&radius=5000`)
       .then(res => {
         if (res.status === 200) {
           setDoctors(res.data.content);
