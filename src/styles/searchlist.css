@@ -1,0 +1,24 @@
+.list {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+}
+
+.child{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    height: 90px;
+}
+
+.child:hover{
+    background-color: lightgray;
+    cursor: grab;
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+}
