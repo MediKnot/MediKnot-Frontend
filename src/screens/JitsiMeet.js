@@ -118,7 +118,7 @@ class JitsiMeet extends Component {
         return (
             <>
                 <header className="nav-bar">
-                    <p className="item-left heading">Connect with Patient</p>
+                    <p className="item-left heading">Connect with {!this.props.isDoc ? 'Doctor' : 'Patient'}</p>
                 </header>
                 <div id="jitsi-iframe"></div>
             </>
