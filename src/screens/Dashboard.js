@@ -70,10 +70,10 @@ function Dashboard({patientref}) {
 
                     <div className="column f-1 mh-2">
                         <div className="row jc-se mv-2">
-                            <HeartBeatComponent heartbeat="72" />
-                            <BloodPressureComponent bp={'100'} />
-                            <SugarLevelComponent value='30' />
-                            <HaemoglobinComponent value='30' />
+                            <HeartBeatComponent heartbeat={user.heartRate.length===0? 'NA': user.heartRate[user.heartRate.length-1].healthField} />
+                            <BloodPressureComponent bp={user.bloodPressure.length===0? 'NA': user.bloodPressure[user.bloodPressure.length-1].healthField} />
+                            <SugarLevelComponent value={user.sugarLevel.length===0? 'NA': user.sugarLevel[user.sugarLevel.length-1].healthField} />
+                            <HaemoglobinComponent value={user.haemoglobin.length===0? 'NA': user.haemoglobin[user.haemoglobin.length-1].healthField} />
                         </div>
                         {consultations.length !== 0 ?
                             <div style={{ width: '80%', alignSelf: 'center' }}>

@@ -29,7 +29,7 @@ function LineChart({ data, label,i }) {
     //     return `rgba(${r}, ${g}, ${b}, ${opacity})`;
     // }
 
-    const color=['#FFCC80','#9FA8DA','#66BB6A','#F8BBD0','#F44336','black']
+    const color=['rgba(255, 204, 128, 0.8)','rgba(159, 168, 218, 0.8)','rgba(102, 187, 106, 0.8)','rgba(248, 187, 208, 0.8)','#F44336','black']
 
     return (
         <Line

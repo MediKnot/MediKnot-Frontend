@@ -11,7 +11,7 @@ function Otp({ setFlow, data, user, flow, login, setAppFlow }) {
 
     const signup = async (event) => {
         event.preventDefault();
-        if (otp.length === 4) {
+        if (otp.length === 6) {
             if (user === "patient") {
                 await axios.post("/patient", data)
                     .then(res => {
@@ -46,7 +46,7 @@ function Otp({ setFlow, data, user, flow, login, setAppFlow }) {
 
     const signin = async (event) => {
         event.preventDefault();
-        if (otp.length === 4) {
+        if (otp.length === 6) {
             if (user === 'patient') {
                 await axios.get(`/patient/phone/${data.mobile}`)
                     .then(res => {
