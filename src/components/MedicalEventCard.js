@@ -49,7 +49,7 @@ function MedicalEventCard({details,setId,setShow,show,setDetails}) {
             <div className={classes.details}>
                 <CardContent className={classes.content}>
                     <Typography component="h5" variant="h5">
-                        {details.diseases.length>0?details.diseases[0].name:"Cancer"}
+                        {details.eventName ?details.eventName:"Cancer"}
                     </Typography>
                     <Typography variant="subtitle1" color="textSecondary">
                         {details.startDate}

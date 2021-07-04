@@ -292,7 +292,7 @@ function App(props) {
           </Route>
           <Route path="/home">
             <div>
-              <Dashboard patientref={patientref} />
+              <Dashboard patientref={patientref} isDoc={isDoc}/>
               <ChatBox setShow={setShowBot} show={showBot} />
             </div>
           </Route>

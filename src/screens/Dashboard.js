@@ -16,7 +16,7 @@ import { useRouteMatch,useLocation } from 'react-router-dom'
 const queryString = require('query-string');
 
 
-function Dashboard({patientref,view}) {
+function Dashboard({patientref,view, isDoc}) {
     const location=useLocation();
     const parsed = queryString.parse(location.search);
     const id=parsed.patientId;
@@ -49,6 +49,7 @@ function Dashboard({patientref,view}) {
             .then(res => {
                 if (res.status === 200) {
                     setUser(res.data);
+                    if(!isDoc)
                     localStorage.setItem("user", JSON.stringify(res.data));
                 }
             })

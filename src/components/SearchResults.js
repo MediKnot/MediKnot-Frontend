@@ -49,10 +49,10 @@ export default function SearchResults({ setShow, show }) {
   }
   const body = (
     <div style={{ height: '80%', width: '80%', margin: 'auto', left: 0, right: 0, bottom: 0, top: 0, overflowY: 'scroll', backgroundColor: '#e3e3e3', borderWidth: 0, borderRadius: 15 }} className={`${classes.paper} mh`}>
-      <h2>Enter a symptom or disease or medicine</h2>
+      <h2>Enter a symptom or disease ..</h2>
       <form className="row ai-c">
         <h3>Search: </h3>
-        <input value={keyword} onChange={(e) => setKeyword(e.target.value)} type="text" className="input-large shadow mh" placeholder="Symptom or disease or medicine .." />
+        <input value={keyword} onChange={(e) => setKeyword(e.target.value)} type="text" className="input-large shadow mh" placeholder="Symptom or disease .." />
         <h3>Search by: </h3>
         <select value={searchby} onChange={(e) => setSearchby(e.target.value)} name="search_by" className="input-small shadow mh" style={{ backgroundColor: 'white', height: 60, width: 165 }} placeholder="search_by" >
           <option value="symptoms">Symptoms</option>

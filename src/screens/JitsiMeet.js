@@ -25,8 +25,8 @@ class JitsiMeet extends Component {
         super(props);
         const user_data = JSON.parse(localStorage.getItem('user'));
         this.state = {
-            room: props.isDoc ? user_data.name + 'Consultation' : this.props.meetingUrl,
-            user: props.patientRef || user_data,
+            room: props.isDoc ? user_data.name+'Consultation' : user_data.meetingLink,
+            user: user_data,
             isAudioMuted: true,
             isVideoMuted: true,
             admin: user_data
@@ -34,13 +34,13 @@ class JitsiMeet extends Component {
     }
 
     startMeet = () => {
-        const options = {
+        const options = {                                                   
             roomName: this.state.room,
             width: '100%',
             height: 700,
             configOverwrite: { prejoinPageEnabled: false },
             interfaceConfigOverwrite: {
-                // overwrite interface properties
+                // overwrite interface properties`
             },
             parentNode: document.querySelector('#jitsi-iframe'),
             userInfo: {
@@ -101,7 +101,8 @@ class JitsiMeet extends Component {
     }
 
     componentDidMount() {
-        if (this.props.isDoc) this.sendMeetingLink(this.state.user.id);
+        console.log(this.state.user);
+        if (this.props.isDoc) this.sendMeetingLink(this.props.patientref.id);
         else this.getMeetingLink(this.state.user.id);
 
         if (window.JitsiMeetExternalAPI) {
@@ -109,7 +110,6 @@ class JitsiMeet extends Component {
         } else {
             alert('JitsiMeetExternalAPI not loaded');
         }
-        console.log(this.state.room);
     }
 
     render() {

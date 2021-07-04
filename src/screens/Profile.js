@@ -30,10 +30,17 @@ function Profile() {
     const [edit, setEdit] = useState(false);
     
     const d = new Date();
+
+    const format = (str) => {
+        str = str.toString();
+        console.log(str, typeof str);
+        if(str.length === 1) return '0'+str;
+        return str;
+    } 
     const handleUpdate = async (e) => {
         e.preventDefault();
         var user_data = JSON.parse(localStorage.getItem("user"));
-        var date = `${d.getFullYear()}-0${d.getMonth()}-${d.getDate()}`;
+        var date = `${d.getFullYear()}-${format(d.getMonth())}-${format(d.getDate())}`;
         var obj = { allergies, height: parseFloat(height), weight: parseFloat(weight), name }
         obj['bloodGroup'] = bg;
         obj['emailId'] = email;
@@ -61,13 +68,13 @@ function Profile() {
                     setMess('Data Updated successfully !!');
                     setError(false);
                 } else {
-                    setError(false);
+                    setError(true);
                     setMess('Data updation failed !!')
                 }
             })
             .catch(e => {
                 console.log(e);
-                setError(false);
+                setError(true);
                 setMess('Data updation failed !!')
             })
             setBp('');
@@ -171,7 +178,7 @@ function Profile() {
                     </div>
                     <div className="df f-1 jc-sb row ai-c mv-2">
                         <div className="label">Blood Group: </div>
-                        <div className="row-no-wrap mh-2">{console.log(bg)}
+                        <div className="row-no-wrap mh-2">
                             {!edit ? <div className="input-profile-small shadow df f-1 ai-c" style={{ paddingLeft: 10 }}><div className="ml">{bg}</div></div> :
                                 <select id="blood-group" value={bg} onChange={(e) => setBg(e.target.value)} name="blood-group" className="input-profile-small shadow" style={{ paddingLeft: 10 }} placeholder="Blood Group" >
                                     <option value="A-">A-</option>

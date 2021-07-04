@@ -69,8 +69,8 @@ function Reports({eventId,showevent}) {
     )
     else
         return (
-            <div className="row">
-                <div className="column f-1">
+            <div className="row" style={{backgroundColor:'#E4ECFC', height: '100vh'}}>
+                <div className="column f-1" style={{width: '100%'}}>
                     <div className="row ai-c">
                         <h1 className="heading-small">Consultations</h1>
                         <Button variant="contained" color="primary" onClick={() => setShow(true)} style={{ width: 130, height: 55, marginLeft: '25%' }}>
@@ -106,9 +106,9 @@ function Reports({eventId,showevent}) {
                         <Button variant="contained" color="primary" onClick={() => setOpen(true)} style={{ width: 130, height: 55, marginLeft: '25%' }}>
                             Add Report
                         </Button>
-                        <UploadReport open={open} setOpen={setOpen} reports={reports} setReports={setReports}/>
                     </div>
-
+                    <UploadReport open={open} setOpen={setOpen} reports={reports} setReports={setReports}/>
+                    
                     <div className="row">
                         {reports.map(report => (
                             <div key={report.reportUrl}><CardComponent data={report} /></div>

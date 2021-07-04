@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Button } from '@material-ui/core';
 import axios from '../utils/BaseUrl';
 import Popup from '../components/Popup';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 function Otp({ setFlow, data, user, flow, login, setAppFlow }) {
     const [otp, setOtp] = useState("");
@@ -96,7 +96,7 @@ function Otp({ setFlow, data, user, flow, login, setAppFlow }) {
                     </Button>
                     {!login ?
                         <Button variant="contained" color="primary" type="submit" style={{ marginBottom: 10, width: '45%' }}>
-                            <Link to="/login"><span style={{textDecoration: 'none', color: 'white'}}>Signup</span></Link>
+                            Signup
                         </Button> :
                         <Button variant="contained" color="primary" type="submit" style={{ marginBottom: 10, width: '45%' }}>
                             Login

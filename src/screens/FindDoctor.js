@@ -16,7 +16,7 @@ const MAX_ZOOM = 17;
 
 function FindDoctor() {
   const [lati, setLati] = useState(22.7);
-  const [longi, setLongi] = useState(60.8);
+  const [longi, setLongi] = useState(77.5);
   const [mapZoom, setMapZoom] = useState(6);
   const [map, setMap] = useState({});
   const [keyword, setKeyword] = useState("");
@@ -42,13 +42,13 @@ function FindDoctor() {
         };
         setLati(pos.lat);
         setLongi(pos.lng);
-        fetchNearbyDoctors(lati, longi);
       })
     }
+    fetchNearbyDoctors(lati, longi);
   };
 
   const fetchNearbyDoctors = async (lat, long) => {
-    await axios.get(`http://20.198.81.29:8080/doctor/nearby?lat=${lat}&lon=${long}&radius=5000`)
+    await axios.get(`http://20.198.81.29:8080/doctor/nearby?lat=${lat}&lon=${long}&radius=500`)
       .then(res => {
         if (res.status === 200) {
           setDoctors(res.data.content);
