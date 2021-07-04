@@ -47,7 +47,6 @@ import AndroidIcon from '@material-ui/icons/Android';
 import { VideoCall } from '@material-ui/icons';
 import { useRouteMatch,useLocation } from 'react-router-dom'
 import ShareProfile from './components/ShareProfile';
-import { useRouteMatch } from 'react-router-dom'
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 
 
