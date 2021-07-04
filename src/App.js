@@ -48,6 +48,7 @@ import { VideoCall } from '@material-ui/icons';
 import { useRouteMatch,useLocation } from 'react-router-dom'
 import ShareProfile from './components/ShareProfile';
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
+import Logo from './assets/images/logo192.png'
 
 
 const drawerWidth = 240;
@@ -166,7 +167,8 @@ function App(props) {
             >
               <MenuIcon />
             </IconButton>
-            <div style={{ display: 'flex', flexGrow: 1, justifyContent: 'space-between', alignItems: 'center' }}>
+            <img src={Logo} height={30} width={30} />
+            <div style={{ display: 'flex', flexGrow: 1, justifyContent: 'space-between', alignItems: 'center',marginLeft:10 }}>
               <Typography variant="h6" noWrap>
                 Mediknot
               </Typography>
