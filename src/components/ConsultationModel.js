@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ConsultationModel({ setShow, show, details, setI,showevent }) {
+export default function ConsultationModel({ setShow, show, details, setI,showevent, setConsultations, consultations}) {
   const classes = useStyles();
   const handleClose = () => {
     setShow(false);
@@ -25,7 +25,7 @@ export default function ConsultationModel({ setShow, show, details, setI,showeve
 
   const body = (
   <div style={{ height: '80%', width: '80%', margin: 'auto', left: 0, right: 0, bottom: 0, top: 0, overflowY: 'scroll', backgroundColor: '#e3e3e3', borderWidth: 0, borderRadius: 15}} className={`${classes.paper} mh`}>
-      <TabsComponent details={details} showevent={showevent}/>
+      <TabsComponent details={details} showevent={showevent} setConsultations={setConsultations} consultations={consultations}/>
     </div>
   );
 

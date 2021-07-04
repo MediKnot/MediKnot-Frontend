@@ -40,17 +40,20 @@ function AddTreatment({details}) {
     const [treatmentName,setTreatmentName]=useState('')
     const [mess, setMess] = useState("");
     const [error, setError] = useState(false);
+    const [data, setData] = useState(details?.treatmentList || []);
     const classes = useStyles();
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const data={
+        const obj={
             description,
             treatmentName,
             endTime,
             startTime,
         }
-        const list=[...details.treatmentList,data];
+        setData([...data, obj]);
+        const list=[...details.treatmentList,obj];
         await axios.put(`/consultation/add/treatment/${details.id}`, list)
             .then(res => {
                 if (res.status === 200) {
@@ -96,7 +99,7 @@ function AddTreatment({details}) {
             <div style={{ height: 400, width: '100%'}} className="mv">
                 <DataGrid
                     className={classes.root}
-                    rows={details?.treatmentList}
+                    rows={data}
                     columns={columns}
                     getRowId={(row)=>row.description+row.startTime}
                 />

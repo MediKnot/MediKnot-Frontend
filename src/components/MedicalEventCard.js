@@ -11,6 +11,7 @@ import '../App.css'
 import axios from '../utils/BaseUrl';
 import { Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
+import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -56,6 +57,10 @@ function MedicalEventCard({details,setId,setShow,show,setDetails}) {
                 </CardContent>
                 <div className={classes.content}>
                     <div className="row ai-c">
+                        <div className="label">Name: </div>
+                        <div className="mh font-s">{details.eventName}</div>
+                    </div>
+                    <div className="row ai-c">
                         <div className="label">Condition: </div>
                         <div className="mh font-s">{details.critical}</div>
                     </div>
@@ -73,7 +78,7 @@ function MedicalEventCard({details,setId,setShow,show,setDetails}) {
                     </div>
                 </div>
             </div>
-            <div className={classes.details}>
+            {/* <div className={classes.details}>
                 <CardContent className={classes.content}>
                     <div className='row ai-c'>
                         <Folder/>
@@ -88,7 +93,7 @@ function MedicalEventCard({details,setId,setShow,show,setDetails}) {
                         <div className='ml'>{val.name}</div>
                     </div>)}
                 </CardContent>
-            </div>
+            </div> */}
             <div className={classes.details}>
                 <CardContent className={classes.content}>
                     <div className='row ai-c'>
@@ -99,10 +104,11 @@ function MedicalEventCard({details,setId,setShow,show,setDetails}) {
                     </div>
                 </CardContent>
                 <CardContent className={classes.content}>
-                    {details.consultationList.map((val)=><div className='row ai-c mv'>
-                        <AlarmOn />
+                    {details.consultationList.map((val)=><div className='row mv'>
+                        <DescriptionOutlinedIcon />
                         <div className='ml'>{val.doctor.name}</div>
                     </div>)}
+                    {details.consultationList.length === 0 ? <h2 className="label" style={{color: 'red'}}>No consultations</h2>: null}
                 </CardContent>
             </div>
             <Link to={{pathname: `/events/${details.id}`}} className="btn btn-primary" style={{textDecoration: 'none'}}>

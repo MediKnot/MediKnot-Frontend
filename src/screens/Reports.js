@@ -9,7 +9,7 @@ import UploadReport from '../components/UploadReport';
 import Loader from '../components/Loader';
 
 function Reports({eventId,showevent}) {
-    const [consultations, setConsultations] = useState();
+    const [consultations, setConsultations] = useState([]);
     const [consult, setConsult] = useState();
     const [show, setShow] = useState(false);
     const [i, setI] = useState(-1);
@@ -18,8 +18,9 @@ function Reports({eventId,showevent}) {
 
     useEffect(() => {
         const user = JSON.parse(localStorage.getItem("user"))
-        if(!eventId){getConsultations(user.id);getReports(user.id);}
+        if(!eventId){getConsultations(user.id);}
         else getConsultationsForEvent(); 
+        getReports(user.id);
     }, [])
 
     const getReports = async (userid) => {
@@ -61,7 +62,7 @@ function Reports({eventId,showevent}) {
             .catch(e => console.error(e));
     }
 
-    if (!consultations) return (
+    if (!consultations || !reports) return (
         <div style={{height: '100vh', overflow: 'hidden'}} className="row ai-c jc-c">
             <Loader/>
         </div>
@@ -87,6 +88,8 @@ function Reports({eventId,showevent}) {
                                 setShow={setShow}
                                 show={show}
                                 setI={setI}
+                                setConsultations={setConsultations}
+                                consultations={consultations}
                             />
                             : <ConsultationModel
                                 setShow={setShow}
@@ -103,7 +106,7 @@ function Reports({eventId,showevent}) {
                         <Button variant="contained" color="primary" onClick={() => setOpen(true)} style={{ width: 130, height: 55, marginLeft: '25%' }}>
                             Add Report
                         </Button>
-                        <UploadReport open={open} setOpen={setOpen} />
+                        <UploadReport open={open} setOpen={setOpen} reports={reports} setReports={setReports}/>
                     </div>
 
                     <div className="row">

@@ -1,169 +1,127 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import {
-  Container,
-  Button,
-  FormGroup,
-  Input
-} from "@material-ui/core";
-
+import { Container, Button, FormGroup, Input } from "@material-ui/core";
 import '../styles/finddoctor.css'
-import "../../node_modules/@tomtom-international/web-sdk-maps/dist/maps.css";
-import * as tt from "@tomtom-international/web-sdk-maps";
 import axios from 'axios';
-import LocationCard from '../components/LocationCard';
+import { MapContainer, TileLayer, Marker, Popup, useMapEvent, useMap } from 'react-leaflet'
+import SearchList from "../components/SearchList";
+import Loader from '../components/Loader'
+import L from 'leaflet'
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import '../App.css';
+
 
 const MAX_ZOOM = 17;
 
 function FindDoctor() {
-  const [mapLatitude, setMapLatitude] = useState(22.78);
-  const [mapLongitude, setMapLongitude] = useState(77.75);
+  const [lati, setLati] = useState(22.7);
+  const [longi, setLongi] = useState(60.8);
   const [mapZoom, setMapZoom] = useState(6);
   const [map, setMap] = useState({});
   const [keyword, setKeyword] = useState("");
   const [data, setData] = useState([]);
   const [doctors, setDoctors] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [zoom, setZoom] = useState(8);
 
-  const handleSearch = async (e) => {
-    e.preventDefault();
-    setKeyword(e.target.value);
-    if (e.target.value.length >= 3){
-      await axios.get(`https://api.tomtom.com/search/2/search/${encodeURIComponent(e.target.value)}.JSON?key=D9T3HvijBqZXoLVYE3ClkLlWw7WGuF1k&typeahead=true&limit=5&lat=${mapLatitude}&lon=${mapLongitude}&countrySet=IN`)
-        .then(res => {
-          if(res.status === 200) 
-          console.log(res.data)
-            setData(res.data.results);
-        })
-        .catch(e => console.log(e));
-    }
-  }
+  let DefaultIcon = L.icon({
+    iconUrl: icon,
+    shadowUrl: iconShadow
+  });
 
-  const increaseZoom = () => {
-    if (mapZoom < MAX_ZOOM) {
-      setMapZoom(mapZoom + 1);
-    }
-  };
+  L.Marker.prototype.options.icon = DefaultIcon;
 
-  const decreaseZoom = () => {
-    if (mapZoom > 1) {
-      setMapZoom(mapZoom - 1);
-    }
-  };
-
-  const updateMap = () => {
-    map.setCenter([parseFloat(mapLongitude) || 22, parseFloat(mapLatitude) || 73.2]);
-    map.setZoom(mapZoom);
-  };
-
-  const getCurrentLocation = () => {
+  const getCurrentLocation = async () => {
+    setLoading(true);
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
+      await navigator.geolocation.getCurrentPosition(function (position) {
         var pos = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
-        }; 
-        map.setCenter([parseFloat(pos.lng) || 22, parseFloat(pos.lat) || 73.2]);
-        setMapLatitude(pos.lat);
-        setMapLongitude(pos.lng);
-     })
+        };
+        setLati(pos.lat);
+        setLongi(pos.lng);
+        fetchNearbyDoctors(lati, longi);
+      })
     }
   };
 
-  const fetchNearbyDoctors = async () => {
-    await axios.get(`http://20.198.81.29:8080/doctor/nearby?lat=${mapLatitude}&lon=${mapLongitude}&radius=5000`)
-    .then(res => {
-      if(res.status === 200) 
-        setDoctors(res.data.content);
-        setMarkers();
-    })
-    .catch(e => console.log(e));
+  const fetchNearbyDoctors = async (lat, long) => {
+    await axios.get(`http://20.198.81.29:8080/doctor/nearby?lat=${lat}&lon=${long}&radius=5000`)
+      .then(res => {
+        if (res.status === 200) {
+          setDoctors(res.data.content);
+          console.log(res.data.content);
+          setLoading(false);
+        }
+      })
+      .catch(e => console.log(e));
   };
 
-  const setMarkers = () => {
-    for (var i=0; i < doctors.length; i++) {
-      var markerElement = window.document.createElement('div')
-      markerElement.className = 'marker'
-      markerElement.style.backgroundImage = 'url(https://upload.wikimedia.org/wikipedia/commons/f/f2/678111-map-marker-512.png)'
-      new tt.Marker({element: markerElement, draggable:false})
-          .setLngLat([doctors[i].address.longitude, doctors[i].address.latitude])
-          .addTo(map);
-    }
-  };
-
-  
   useEffect(() => {
-    let map = tt.map({
-      key: "D9T3HvijBqZXoLVYE3ClkLlWw7WGuF1k",
-      container: "map",
-      center: [mapLongitude, mapLatitude],
-      zoom: mapZoom
-    });
-    setMap(map);
-    // getCurrentLocation();
-    fetchNearbyDoctors();
-    return () => map.remove();
+    getCurrentLocation();
   }, []);
 
-  return (
-    <div>
-      <Container className="mapContainer">
-        <div className="row">
-          <div className="col">
-          <h2>Enter a Place</h2>
-            <form className="row ai-c">
-              <h3>Search Place: </h3>
-              <input value={keyword} onChange={handleSearch} type="text" className="input-large shadow mh" placeholder="Search a place"/>
-            </form>
-            <div>
-              {data !== null && data.length !== 0 ? data.map((place, i) => (
-                <div key={i}><LocationCard data={place}/></div>
-              )) : null}
-            </div>
-            <h4>Map Controls</h4>
-            <FormGroup>
-              <p for="latitude">Latitude</p>
-              <Input
-                type="text"
-                name="latitude"
-                value={mapLatitude}
-                onChange={(e) => setMapLatitude(e.target.value)}
-              />
-            </FormGroup>
-            <FormGroup>
-              <p for="longitude">Longitude</p>
-              <Input
-                type="text"
-                name="longitude"
-                value={mapLongitude}
-                onChange={(e) => setMapLongitude(e.target.value)}
-              />
-            </FormGroup>
-            <div className="col" >
-              <div className="row">Zoom</div>
-              <div className="row">
-                <Button outline color="primary" onClick={decreaseZoom}>
-                  -
-                </Button>
-                <div className="mapZoomDisplay">{mapZoom}</div>
-                <Button outline color="primary" onClick={increaseZoom}>
-                  +
-                </Button>
-              </div>
-            </div>
-            <div className="col" >
-              <div className="row" className="updateButton">
-                <Button color="primary" onClick={updateMap}>
-                  Update Map
-                </Button>
-              </div>
-            </div>
-          </div>
-          <Container id="map" className="mapDiv">
-          </Container>
-        </div>
-      </Container>
-    </div>
-  );
-}
+  function ChangeView({ center, zoom }) {
+    const map = useMap();
+    map.setView(center, zoom);
+    return null;
+  }
 
+
+  function LocationMarker({ doc }) {
+    return (
+      <Marker
+        position={[doc.address.latitude, doc.address.longitude]}
+        key={doc.id}
+        eventHandlers = {{
+          click: () => {
+            setLati(doc.address.latitude);
+            setLongi(doc.address.longitude);
+            setZoom(15);
+          }
+        }}
+      >
+        <Popup>
+          <div className="row ai-c jc-sb">
+            <h2>{doc.name} ({doc.specialization.toString()})</h2>
+            <b style={{ fontSize: 15 }}>{`+${doc.yearOfExperience} years experience`}</b>
+          </div>
+          <b>Email:</b>
+          {doc.emailId}<br />
+          <b>Phone:</b>
+          {doc.phoneNumber}
+        </Popup>
+      </Marker>
+    )
+  }
+
+  if (loading) {
+    return (
+      <div style={{ height: '100vh', overflow: 'hidden' }} className="row ai-c jc-c">
+        <Loader />
+      </div>
+    )
+  }
+  else
+    return (
+      <>
+        <MapContainer center={[lati, longi]} zoom={zoom} style={{ height: '100vh', width: '100%', position: 'relative' }}>
+          <ChangeView center={[lati, longi]} zoom={zoom} />
+          <TileLayer
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          {console.log(lati, longi, zoom)}
+          {doctors?.map((doc, index) => (
+            <LocationMarker doc={doc} />
+          )
+          )}
+        </MapContainer>
+        <SearchList result={doctors} keyword={keyword} setKeyword={setKeyword} setLati={setLati} setLongi={setLongi} setZoom={setZoom}/>
+        {/* {oldage ? <MyModal oldageId={oldage.oldage_id} show={showmodal} setShow={setShowmodal} /> : null} */}
+      </>
+    );
+}
 export default FindDoctor;

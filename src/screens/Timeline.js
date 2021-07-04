@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Timeline from '@material-ui/lab/Timeline';
 import TimelineItem from '@material-ui/lab/TimelineItem';
@@ -26,10 +26,20 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CustomizedTimeline({ data }) {
   const classes = useStyles();
+  const [timeline, setTimeline] = useState(data);
+
+  useEffect(() => {
+    var temp = data;
+    temp.sort((a, b) => {
+      var d1 = new Date(a.startDate).getMilliseconds(), d2 = new Date(b.startDate).getMilliseconds();
+      return d2 - d1;
+    })
+    setTimeline(temp);
+  }, [])
 
   return (
     <Timeline align="alternate">
-      {data.map((content, i) => {
+      {timeline.map((content, i) => {
         return (
           <TimelineItem>
             <TimelineOppositeContent>
@@ -46,13 +56,13 @@ export default function CustomizedTimeline({ data }) {
               {i !== data.length - 1 ? <TimelineConnector className={classes.secondaryTail} /> : null}
             </TimelineSeparator>
             <TimelineContent>
-            <Link to={{pathname: `/events/${content.id}`}} style={{textDecoration: 'none'}}>
-              <Paper elevation={3} className={classes.paper}>
-                <Typography variant="h6" component="h1">
-                  {content.critical}
-                </Typography>
-                <Typography>{content.description}</Typography>
-              </Paper>
+              <Link to={{ pathname: `/events/${content.id}` }} style={{ textDecoration: 'none' }}>
+                <Paper elevation={3} className={classes.paper}>
+                  <Typography variant="h6" component="h1">
+                    {content.eventName || content.critical}
+                  </Typography>
+                  <Typography>{content.description}</Typography>
+                </Paper>
               </Link>
             </TimelineContent>
           </TimelineItem>

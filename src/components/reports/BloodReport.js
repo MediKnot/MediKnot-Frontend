@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/styles';
 import { DataGrid, getThemePaletteMode } from '@material-ui/data-grid';
@@ -19,57 +19,41 @@ const useStyles = makeStyles(
           backgroundColor: `rgb(126,10,15, ${isDark ? 0 : 0.1})`,
           color: isDark ? '#ff4343' : '#750f0f',
         },
+        backgroundColor: '#DBF5DC',
+        '& .MuiDataGrid-columnHeader': {
+          backgroundColor: '#9BBB59'
+        }
       },
     };
   },
   { defaultTheme },
 );
 
-export default function BloodReport() {
+export default function BloodReport({data}) {
   const classes = useStyles();
+  const [rows, setRows] = useState([]);
 
+  useEffect(() => {
+    var row = []
+    data.map((x) => {
+      row.push({bloodtest: x['COMPLETE BLOOD COUNT (CBC)'], result: x['Unnamed: 0'] ? x['Unnamed: 0'] : 'NA', id: x['COMPLETE BLOOD COUNT (CBC)']});
+    })
+    setRows(row);
+  }, [])
 
   return (
-    <div style={{ height: 350, width: '100%', maxWidth: 550 }}  className="mh mv">
+    <div style={{ height: 350, width: '100%', maxWidth: 500 }}  className="mh mv">
       <DataGrid
         className={classes.root}
         rows={rows}
         columns={columns}
+        rowsPerPageOptions={[20]}
       />
     </div>
   );
 }
 
 const columns = [
-  { field: 'bloodtest', headerName: 'Blood Test', width: 180 },
-  { field: 'result', headerName: 'Result', width: 180 },
-  { field: 'normalvalue', headerName: 'Normal Value', width: 180 }
-];
-
-const rows = [
-  {
-    id: 1,
-    bloodtest: 'WBCs (billion/L)',
-    result: 8.00,
-    normalvalue: '3.5 to 10.5'
-  },
-  {
-    id: 2,
-    bloodtest: 'Neutrophils (%)',
-    result: 62,
-    normalvalue: '40 to 70'
-  },
-  {
-    id: 3,
-    bloodtest: 'Lumphocytes (%)',
-    result: 28,
-    normalvalue: '25 to 45'
-  },
-  {
-    id: 4,
-    bloodtest: 'Monocytes (%)',
-    result: 10,
-    normalvalue: '2 to 8'
-  },
-  
+  { field: 'bloodtest', headerName: 'Blood Test', width: 320 },
+  { field: 'result', headerName: 'Result', width: 180 }
 ];
