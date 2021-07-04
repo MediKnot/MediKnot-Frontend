@@ -21,6 +21,7 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import FileCopyIcon from '@material-ui/icons/FileCopy';
 import TimelineIcon from '@material-ui/icons/Timeline';
 import SearchIcon from '@material-ui/icons/Search';
+import ShareIcon from '@material-ui/icons/Share';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import AddBoxIcon from '@material-ui/icons/AddBox';
@@ -44,6 +45,8 @@ import Event from './screens/Event';
 import ChatBox from './components/chatbot/ChatBox';
 import AndroidIcon from '@material-ui/icons/Android';
 import { VideoCall } from '@material-ui/icons';
+import { useRouteMatch,useLocation } from 'react-router-dom'
+import ShareProfile from './components/ShareProfile';
 import { useRouteMatch } from 'react-router-dom'
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 
@@ -57,6 +60,7 @@ function App(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [flow, setFlow] = useState();
   const [showSearch, setShowSearch] = useState(false);
+  const [showShare, setShowShare] = useState(false);
   const [showBot, setShowBot] = useState(false);
   const [isDoc, setIsDoc] = useState(false);
   const [patientref, setPatientref] = useState('');
@@ -117,6 +121,10 @@ function App(props) {
         return null;
     }
   }
+  const usePathname = () => {
+    const location = useLocation();
+    return location.href;
+  }
 
   const drawer = (
     <div>
@@ -167,12 +175,16 @@ function App(props) {
                 {useRouteMatch("/home")?.isExact ? <Fab color="secondary" aria-label="add" style={{ marginRight: 30 }} className={`${classes.margin}`} size="small" onClick={() => setShowBot(true)}>
                   <QuestionAnswerIcon />
                 </Fab> : null}
+                <Fab color="secondary" aria-label="add" className={classes.margin} size="small" onClick={() => setShowShare(true)} style={{marginRight:30}}>
+                  <ShareIcon />
+                </Fab>
                 <Fab color="secondary" aria-label="add" className={classes.margin} size="small" onClick={() => setShowSearch(true)}>
                   <SearchIcon />
                 </Fab>
               </div>
             </div>
           </Toolbar>
+          <ShareProfile show={showShare} setShow={setShowShare} />
           <SearchResults show={showSearch} setShow={setShowSearch} />
         </AppBar>
         <nav className={classes.drawer} aria-label="mailbox folders">
@@ -215,6 +227,10 @@ function App(props) {
 
   const container = window !== undefined ? () => window().document.body : undefined;
 
+  // const urlSearchParams = new URLSearchParams(location.search);
+  // const params = Object.fromEntries(urlSearchParams.entries());
+
+
   if (flow === undefined) {
     return (
       <div style={{ height: '100vh', overflow: 'hidden' }} className="row ai-c jc-c">
@@ -223,9 +239,13 @@ function App(props) {
     )
   }
   else if (flow === 0) {
+    
     return (
       <Router>
         <Switch>
+          <Route path="/view-profile">
+            <Dashboard />
+          </Route>
           <Route path="/signup">
             <SignUp />
           </Route>
@@ -251,10 +271,15 @@ function App(props) {
       </Router>
     );
   }
-  else return (
+  else {
+  // const params = new URLSearchParams(props.location);
+  return (
     <Router>
       <RespDrawer>
         <Switch>
+        <Route path="/view-profile">
+            <Dashboard />
+          </Route>
           <Route path="/reports">
             <Reports />
           </Route>
@@ -287,7 +312,7 @@ function App(props) {
       </RespDrawer>
     </Router>
   );
-
+  }
 }
 
 App.propTypes = {
