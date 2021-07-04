@@ -18,7 +18,7 @@ export default function SearchList({ result, setKeyword, keyword, setLati, setLo
         <div style={{overflowY: 'scroll'}}>
           {result.length === 0 ? <h2>No doctors nearby</h2>: null}
           {result.map((data, i) => {
-            if (data.name.toLowerCase().includes(keyword.toLowerCase()))
+            if (data.name.toLowerCase().includes(keyword.toLowerCase()) || data.specialization.toString().toLowerCase().includes(keyword.toLowerCase()))
               return (
                 <div className="child row ai-c" key={i} onClick={() => { setLati(data.address.latitude); setLongi(data.address.longitude); setZoom(13) }} >
                   <Avatar style={{ marginRight: 10 }}>{data.name?.charAt(0)}</Avatar>
