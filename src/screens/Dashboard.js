@@ -12,14 +12,24 @@ import BloodPressureComponent from '../components/BloodPressureComponent';
 import SugarLevelComponent from '../components/SugarLevelComponent';
 import HaemoglobinComponent from '../components/HaemoglobinComponent';
 import Loader from '../components/Loader';
+import { useRouteMatch,useLocation } from 'react-router-dom'
+const queryString = require('query-string');
 
 
-function Dashboard({patientref}) {
+function Dashboard({patientref,view}) {
+    const location=useLocation();
+    const parsed = queryString.parse(location.search);
+    const id=parsed.patientId;
+
     const [consultations, setConsultations] = useState([]);
     const [user, setUser] = useState({});
+
     useEffect(() => {
         var user = JSON.parse(localStorage.getItem("user"))
         if(patientref) user = patientref
+        else {
+            if(id)user={id}
+        }
         getConsultations(user.id);
         getUser(user.id);
     }, [])
@@ -45,6 +55,12 @@ function Dashboard({patientref}) {
             .catch(e => console.log(e))
     }
 
+    const Header =()=>(
+        <div style={{backgroundColor:'#3F51B5',height:60,width:'100%'}} className='row ai-c shadow mb'>
+            <div style={{fontSize:30,color:'white',fontWeight:500}} className='ml'>{user.name}</div>
+        </div>
+    )
+
     if (!user.id) return (
         <div style={{ height: '100vh', overflow: 'hidden' }} className="row ai-c jc-c">
             <Loader />
@@ -52,8 +68,12 @@ function Dashboard({patientref}) {
     )
     else
         return (
-            <div>
-                <div className="row jc-sb">
+            <div style={{backgroundColor:'#e4ecfc'}}>
+                {id?
+                <Header/>
+                :null}
+                <div className="row jc-sb" style={{marginLeft:id?25:0}}>
+
                     <div className="column" style={{ maxWidth: '40%' }}>
                         {/* <Prescription active /> */}
                         {consultations.length !== 0 ?
@@ -84,6 +104,8 @@ function Dashboard({patientref}) {
                 <MyTimeline data={user.timeline} />
             </div>
         )
+
+        
 }
 
 export default memo(Dashboard)
