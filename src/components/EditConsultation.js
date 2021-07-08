@@ -6,7 +6,7 @@ import Loader from './Loader'
 import axios from '../utils/BaseUrl';
 import Popup from './Popup';
 
-function EditConsultation({ details,showevent, setConsultations, consultations}) {
+function EditConsultation({ details,showevent, setConsultations, consultations, patientref}) {
     const [value, setValue] = useState("");
     const [value2, setValue2] = useState("");
     const [patient, setPatient] = useState(null);
@@ -21,7 +21,8 @@ function EditConsultation({ details,showevent, setConsultations, consultations})
 
     var d = new Date();
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem("user"));
+        var user = JSON.parse(localStorage.getItem("user"));
+        if(patientref) user =patientref;
         setPatient(user);
         getEvents(user);
         // console.log(details.id)

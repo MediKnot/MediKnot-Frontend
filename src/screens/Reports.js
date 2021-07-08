@@ -8,7 +8,7 @@ import { Button } from '@material-ui/core';
 import UploadReport from '../components/UploadReport';
 import Loader from '../components/Loader';
 
-function Reports({eventId,showevent}) {
+function Reports({eventId,showevent, patientref}) {
     const [consultations, setConsultations] = useState([]);
     const [consult, setConsult] = useState();
     const [show, setShow] = useState(false);
@@ -17,7 +17,8 @@ function Reports({eventId,showevent}) {
     const [reports, setReports] = useState([]);
 
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem("user"))
+        var user = JSON.parse(localStorage.getItem("user"))
+        if(patientref) user = patientref;
         if(!eventId){getConsultations(user.id);}
         else getConsultationsForEvent(); 
         getReports(user.id);
@@ -90,6 +91,7 @@ function Reports({eventId,showevent}) {
                                 setI={setI}
                                 setConsultations={setConsultations}
                                 consultations={consultations}
+                                patientref={patientref}
                             />
                             : <ConsultationModel
                                 setShow={setShow}
@@ -97,6 +99,7 @@ function Reports({eventId,showevent}) {
                                 details={consult}
                                 setI={setI}
                                 showevent={showevent}
+                                patientref={patientref}
                             />}
                     </div>
                 </div>

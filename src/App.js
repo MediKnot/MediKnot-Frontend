@@ -282,7 +282,7 @@ function App(props) {
             <Dashboard />
           </Route>
           <Route path="/reports">
-            <Reports />
+            <Reports patientref={patientref} />
           </Route>
           <Route path="/profile">
             <Profile/>

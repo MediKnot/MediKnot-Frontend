@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TabsComponent({ details,showevent, setConsultations, consultations}) {
+export default function TabsComponent({ details,showevent, setConsultations, consultations, patientref}) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -81,13 +81,13 @@ export default function TabsComponent({ details,showevent, setConsultations, con
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <EditConsultation details={details} showevent={showevent} setConsultations={setConsultations} consultations={consultations}/>
+        <EditConsultation details={details} showevent={showevent} setConsultations={setConsultations} consultations={consultations} patientref={patientref}/>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <AddPrescription details={details} />
+        <AddPrescription details={details} patientref={patientref} />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <AddTreatment details={details} />
+        <AddTreatment details={details} patientref={patientref} />
       </TabPanel>
     </div>
   );
